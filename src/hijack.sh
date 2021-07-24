@@ -71,7 +71,19 @@ cp files/busybox /arnix/bin
 cp files/init /arnix/bin
 cp files/arnixctl /arnix/bin
 cp files/arnix.conf /arnix/etc
+
+ln -sr /arnix/bin/busybox /arnix/bin/'['
+ln -sr /arnix/bin/busybox /arnix/bin/'[['
+ln -sr /arnix/bin/busybox /arnix/bin/mount
+ln -sr /arnix/bin/busybox /arnix/bin/sh
+ln -sr /arnix/bin/busybox /arnix/bin/echo
+ln -sr /arnix/bin/busybox /arnix/bin/egrep
+ln -sr /arnix/bin/busybox /arnix/bin/cat
+ln -sr /arnix/bin/busybox /arnix/bin/readlink
+ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
+
 chmod 755 -R /arnix/bin
+chmod 755 /usr/bin/arnixctl
 
 log "Pivoting to ${tempsystempath}"
 mount --make-rprivate /
@@ -91,12 +103,7 @@ IFS=$_ifs
 unset _ifs
 
 log "Installing Arnix (2/2)"
-mkdir -p /oldroot/usr/bin
-ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/sh
-ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/echo
-ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/mount
-ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/readlink
-ln -sr /oldroot/arnix/bin/init    /oldroot/usr/bin/init
+ln -sr /oldroot/arnix/bin /oldroot/usr/bin
 
 log "Activating generation 1"
 for i in ${_dirs}; do
