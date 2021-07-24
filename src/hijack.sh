@@ -18,6 +18,12 @@ if [ ! -d /var/lib/systemd ]; then
     error "As of now only systemd is supported"
     exit 1
 fi
+# TODO: Fix issue with systemd (It worked when only /usr was affected...)
+egrep 'HOOKS=(.*systemd.*)' /etc/mkinitcpio.conf >/dev/null
+if [ $? -eq 0 ]; then
+    error "Systemd as your initramfs init is currently unsupported"
+    exit 1
+fi
 if [ -d /arnix ]; then
     error "Arnix is already installed, use 'arnixctl update' instead"
     exit 1

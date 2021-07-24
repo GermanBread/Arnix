@@ -56,12 +56,12 @@ unset _ifs _dirs
     _echo ':: Errors occured, freezing execution for 15 seconds' && \
         sleep 15s
 
-_echo ':: Handing control off to systemd'
+_echo ':: Handing off control to systemd'
 if [ ! -e /sbin/init ]; then
     _emergency '/sbin/init not found'
 else
     if [[ $(readlink /sbin/init) = /arnix* ]]; then
-        _emergency '/sbin/init is not systemd (resolves to this script, did /usr get mounted?)'
+        _emergency '/sbin/init is not systemd (resolves to this script, did /usr not get mounted?)'
     else
         _echo '.. OK'
     fi
