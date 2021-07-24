@@ -91,6 +91,7 @@ IFS=$_ifs
 unset _ifs
 
 log "Installing Arnix (2/2)"
+mkdir -p /oldroot/usr/bin
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/sh
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/echo
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/mount
