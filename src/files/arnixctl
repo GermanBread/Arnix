@@ -1,0 +1,16 @@
+#!/bin/bash
+_help() {
+    echo 'arnixctl help      - quick help'
+    echo 'arnixctl update    - update files in /arnix'
+    echo 'arnixctl rollback  - switch to a previous generation'
+    echo 'arnixctl uninstall - revert hijack'
+}
+
+case $1 in
+    *)
+
+    ;;
+    help)
+        
+    ;;
+esac

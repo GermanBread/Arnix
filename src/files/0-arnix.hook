@@ -1,0 +1,2 @@
+# Whatever goes in here for pacman hooks
+# Should create a new generation on -Syu

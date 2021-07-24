@@ -1,0 +1,69 @@
+#!/bin/sh
+
+cat << splash
+          :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
+       :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
+     +:+   +:+  +:+    +:+ :+:+:+  +:+     +:+      +:+  +:+    
+   +#++:++#++: +#++:++#:  +#+ +:+ +#+     +#+       +#++:+      
+  +#+     +#+ +#+    +#+ +#+  +#+#+#     +#+      +#+  +#+      
+ #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
+###     ### ###    ### ###    #### ########### ###    ###       
+splash
+
+_echo() {
+    egrep -o "\Wquiet\W" /proc/cmdline >/dev/null
+    #[ $? -ne 0 ] && \
+        echo $*
+}
+_emergency() {
+    echo $*
+    echo 'You are in emergency mode. Bailing out, good luck.'
+    echo 'Files for Arnix are stored in /arnix/bin and /arnix/etc'
+    echo
+    PS1="RESCUE \w # " sh
+    echo
+    echo 'Logout'
+    #exit 1
+}
+
+_echo ':: Sourcing config'
+if [ ! -e /arnix/etc/arnix.conf ]; then
+    _emergency "Config file /arnix/etc/arnix.conf does not exist"
+else
+    source /arnix/etc/arnix.conf
+    _echo '.. OK'
+fi
+
+_ifs=$IFS
+IFS=' '
+_errored=0
+for i in ${_dirs}; do
+    _echo ":: Mounting $i"
+    if [ -d /arnix/generations/current/$i ]; then
+        mount --bind /arnix/generations/current/$i /$i
+        [ $? -ne 0 ] && \
+            _emergency 'Mount operation failed' || \
+                _echo '.. OK'
+    else
+        _echo '.. WARNING: Directory not found in /arnix/generations/current'
+        _errored=1
+    fi
+done
+IFS=$_ifs
+unset _ifs _dirs
+
+[ ${_errored} -ne 0 ] && \
+    _echo ':: Errors occured, freezing execution for 15 seconds' && \
+        sleep 15s
+
+_echo ':: Handing control off to systemd'
+if [ ! -e /sbin/init ]; then
+    _emergency '/sbin/init not found'
+else
+    if [[ $(readlink /sbin/init) = /arnix* ]]; then
+        _emergency '/sbin/init is not systemd (resolves to this script, did /usr get mounted?)'
+    else
+        _echo '.. OK'
+    fi
+fi
+exec /sbin/init
