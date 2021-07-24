@@ -12,7 +12,7 @@ splash
 
 _echo() {
     egrep -o "\Wquiet\W" /proc/cmdline >/dev/null
-    #[ $? -ne 0 ] && \
+    [ $? -ne 0 ] && \
         echo $*
 }
 _emergency() {

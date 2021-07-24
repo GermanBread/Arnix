@@ -18,7 +18,7 @@ if [ ! -d /var/lib/systemd ]; then
     error "As of now only systemd is supported"
     exit 1
 fi
-if [ ! -d /arnix ]; then
+if [ -d /arnix ]; then
     error "Arnix is already installed, use 'arnixctl update' instead"
     exit 1
 fi
@@ -29,14 +29,19 @@ fi
 
 tput setaf 1
 cat << END
-╭───────────────────────────────────────────╮
-│                ╶ WARNING ╴                │
-│                                           │
-│ THIS SCRIPT HIJACKS YOUR CURRENT INSTALL  │
-│                                           │
-│ THE OPERATIONS PERFORMED ARE NOT INTENDED │
-│  TO BE REVERSIBLE! RUN AT YOUR OWN RISK!  │
-╰───────────────────────────────────────────╯
+╭─────────────────────────────────────────────╮
+│                                             │
+│                 ╶ WARNING ╴                 │
+│                                             │
+│  THIS SCRIPT HIJACKS YOUR CURRENT INSTALL   │
+│                                             │
+│  THE OPERATIONS PERFORMED ARE NOT INTENDED  │
+│   TO BE REVERSIBLE! RUN AT YOUR OWN RISK!   │
+│                                             │
+│           ARNIX IS ALSO IN ALPHA,           │
+│      ONLY USE IT IN A VIRTUAL MACHINE       │
+│                                             │
+╰─────────────────────────────────────────────╯
 END
 tput setaf 15
 printf 'Type "I understand the risk" (all uppercase) to continue: '
@@ -77,20 +82,20 @@ log "Creating generation 1"
 mkdir -p /oldroot/arnix/generations/1
 ln -sr /oldroot/arnix/generations/1 /oldroot/arnix/generations/current
 _ifs=$IFS
-IFS=' ' # POSIX does not have arrays
+IFS=' ' # POSIX standard does not have arrays
 for i in ${_dirs}; do
     mkdir -p /oldroot/arnix/generations/1/$i
     mv /oldroot/$i/* /oldroot/arnix/generations/1/$i
 done
 IFS=$_ifs
-unser _ifs
+unset _ifs
 
 log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/sh
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/echo
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/mount
 ln -sr /oldroot/arnix/bin/busybox /oldroot/usr/bin/readlink
-ln -sr /oldroot/arnix/bin/init /oldroot/usr/bin/init
+ln -sr /oldroot/arnix/bin/init    /oldroot/usr/bin/init
 
 log "Activating generation 1"
 for i in ${_dirs}; do
