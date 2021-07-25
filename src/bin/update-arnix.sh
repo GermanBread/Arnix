@@ -25,7 +25,7 @@ gunzip bootstrap.tar.gz
 tar xf bootstrap.tar
 
 rm -rf /arnix/merge
-mkdir -p /arnix/merge
+mkdir -p /arnix/merge/etc
 cp -a bin/* /arnix/bin
 cp -a etc/os-release /arnix/etc
 cp -a etc/0-arnix.hook /arnix/etc
