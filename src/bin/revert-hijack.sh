@@ -1,5 +1,8 @@
 #!/bin/bash
+
 source /arnix/bin/shared.sh
+source /arnix/etc/arnix.conf
+
 check_for_action_requirements
 
 printf 'Are you sure? Type "uninstall Arnix" (all uppercase) to continue: '
@@ -30,8 +33,9 @@ mount -t tmpfs none ${tempsystempath}
 pacstrap ${tempsystempath} base 1>/dev/null
 
 log "Reverting changes (1/2)"
-mv /etc/os-release.arnixsave /etc/os-release
 rm /usr/bin/arnixctl
+rm /etc/pacman.d/hooks/0-arnix.hook
+mv /etc/os-release.arnixsave /etc/os-release
 
 log "Pivoting to ${tempsystempath}"
 mount --make-rprivate /
@@ -45,6 +49,7 @@ for i in ${_dirs}; do
 done
 
 log "Reverting changes (2/2)"
+rm /oldroot/usr/bin # remove symlink to arnix
 for i in ${_dirs}; do
     mv /oldroot/arnix/generations/${_generation}/$i/* /oldroot/$i
 done

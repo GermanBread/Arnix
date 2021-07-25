@@ -76,6 +76,8 @@ ln -sr /arnix/bin/busybox /arnix/bin/readlink
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
 mv /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
+mkdir -p /etc/pacman.d/hooks/
+ln -sr /arnix/etc/0-arnix.hook /etc/pacman.d/hooks/0-arnix.hook
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
 

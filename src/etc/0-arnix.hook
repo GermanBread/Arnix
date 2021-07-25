@@ -2,3 +2,14 @@
 # Should create a new generation on -Syu
 # Note: mount --bind <dir in current gen> <dir on rootfs> can overwrite previous mounts
 # Note 2: use cp -l <old gen> <new gen> for faster copy
+
+# Automatically create a new generation
+[Trigger]
+#Operation = Install
+Operation = Upgrade
+#Operation = Remove
+Type = Package
+Target = *
+[Action]
+When = PreTransaction
+Exec = /arnix/bin/create-generation.sh

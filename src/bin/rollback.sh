@@ -1,6 +1,8 @@
 #!/bin/bash
+
 source /arnix/bin/shared.sh
+source /arnix/etc/arnix.conf
+
 check_for_action_requirements
 
-error 'Not implemented yet!'
-exit 1
+error 'rollback not implemented yet!'
