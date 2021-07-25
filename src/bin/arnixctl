@@ -36,7 +36,7 @@ case $1 in
         echo 'Created by https://github.com/GermanBread'
         echo
         echo "Active generation: $(readlink /arnix/generations/current)"
-        echo -n "Arnix update source: ${_update_source} (${_branch_preset})"
+        echo "Arnix update source: ${_update_source} (${_branch_preset})"
         echo "Arnix version: ${_arnix_version}"
     ;;
     branch)

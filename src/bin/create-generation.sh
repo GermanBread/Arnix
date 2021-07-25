@@ -16,5 +16,6 @@ cp -al /arnix/generations/${_current_generation} /arnix/generations/${_next_gene
 log "Activating generation ${_next_generation}"
 ln -srfT /arnix/generations/${_next_generation} /arnix/generations/current
 for i in ${_dirs}; do
-    mount --bind /arnix/generations/${_next_generation}/$i /$i
+    /arnix/bin/busybox umount -l /$i
+    /arnix/bin/busybox mount --bind /arnix/generations/${_next_generation}/$i /$i
 done
