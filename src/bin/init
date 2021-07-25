@@ -24,7 +24,7 @@ else
     _echo '.. OK'
 fi
 
-[ _show_splash = "true" ] && \
+[ $_show_splash = "true" ] && \
 cat << splash
           :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
        :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
