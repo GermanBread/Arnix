@@ -1,10 +1,6 @@
 #!/bin/bash
-error() {
-    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
-}
-log() {
-    printf "$(tput setaf 5)[!] INFO:$(tput sgr0) $*\n"
-}
+source bin/shared.sh
+source etc/arnix.conf
 
 if [ $(id -u) -ne 0 ]; then
     error "This script needs to run as root"
@@ -22,7 +18,7 @@ if [ -d /arnix ]; then
     error "Arnix is already installed, use 'arnixctl update' instead"
     exit 1
 fi
-if [ ! -e files ]; then
+if [ ! -e etc ] && [ ! -e bin ]; then
     error "Setup files were not found ... (did you not cd into the script's directory?)"
     exit 1
 fi
@@ -35,11 +31,12 @@ cat << END
 │                                             │
 │  THIS SCRIPT HIJACKS YOUR CURRENT INSTALL   │
 │                                             │
-│  THE OPERATIONS PERFORMED ARE NOT INTENDED  │
-│   TO BE REVERSIBLE! RUN AT YOUR OWN RISK!   │
-│                                             │
 │           ARNIX IS ALSO IN ALPHA,           │
 │      ONLY USE IT IN A VIRTUAL MACHINE       │
+│                                             │
+│    EVEN THOUGH THE HIJACK IS REVERSIBLE,    │
+│    DO NOT RELY ON IT. MAKE A FULL SYSTEM-   │
+│   BACKUP IF YOU TRY THIS ON A REAL MACHINE  │
 │                                             │
 ╰─────────────────────────────────────────────╯
 END
@@ -52,10 +49,8 @@ if [ "${REPLY}" != "I UNDERSTAND THE RISK" ]; then
     exit 1
 fi
 
-source files/arnix.conf
-
 log "Installing dependencies"
-pacman -S --noconfirm --needed arch-install-scripts
+pacman -S --noconfirm --needed arch-install-scripts 1>/dev/null
 
 # Now we set up a simple system
 # Probably overengineered but worth it
@@ -63,15 +58,12 @@ tempsystempath="/tmp/temproot"
 log "Installing temporary system to ${tempsystempath}"
 mkdir -p ${tempsystempath}
 mount -t tmpfs none ${tempsystempath}
-pacstrap ${tempsystempath} base
+pacstrap ${tempsystempath} base 1>/dev/null
 
 log "Installing Arnix (1/2)"
-mkdir -p /arnix/{bin,etc}
-cp files/busybox /arnix/bin
-cp files/init /arnix/bin
-cp files/arnixctl /arnix/bin
-cp files/arnix.conf /arnix/etc
-cp files/os-release /arnix/etc
+mkdir -p /arnix
+cp -r bin /arnix
+cp -r etc /arnix
 
 ln -sr /arnix/bin/busybox /arnix/bin/'['
 ln -sr /arnix/bin/busybox /arnix/bin/'[['
@@ -82,7 +74,7 @@ ln -sr /arnix/bin/busybox /arnix/bin/egrep
 ln -sr /arnix/bin/busybox /arnix/bin/cat
 ln -sr /arnix/bin/busybox /arnix/bin/readlink
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
-rm /etc/os-release
+mv /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
@@ -106,7 +98,6 @@ unset _ifs
 
 log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin /oldroot/usr/bin
-mkdir -p /oldroot/var/{lib,run}
 # Just to get systemd working
 ln -sr /oldroot/arnix/etc/os-release /oldroot/etc/os-release
 

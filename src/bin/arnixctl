@@ -16,6 +16,7 @@ cat << splash
 splash
 tput sgr0
 
+
 _option() {
     tput setaf 5
     echo -n 'arnixctl '
@@ -28,20 +29,26 @@ _option() {
     tput sgr0
 }
 
+source /arnix/etc/arnix.conf
+
 case $1 in
     *)
         _option 'help' 'this menu'
         _option 'update' "update Arnix's files"
+        _option 'create' 'create a new generation'
         _option 'rollback' 'switch to a previous generation'
         _option 'uninstall' 'revert hijack'
     ;;
     update)
-        # Requirement: Reliable (has fallback)
+        /arnix/bin/update-arnix.sh
+    ;;
+    create)
+        /arnix/bin/create-generation.sh
     ;;
     rollback)
-        # Requirement: User can select generation
+        /arnix/bin/rollback.sh
     ;;
     uninstall)
-        # Requirement: User can select generation
+        /arnix/bin/revert-hijack.sh
     ;;
 esac
