@@ -54,7 +54,7 @@ Working on it
 If you see 'failed to mount /boot' after rolling back then switch back to the newest generation.
 This is caused because the kernel modules in /lib/modules aren't compatible with a newer kernel.
 I am looking for a fix. In the meanwhile you can either:
-- copy the modules manually `cp -al {/arnix/generations/latest,}/usr/lib/modules/$(uname -r)`
+- copy the modules manually `cp -a {/arnix/generations/latest,}/usr/lib/modules/$(uname -r)`
 
 In the future I want kernels to be restored too. For the time being this is an ugly workaround.
 
