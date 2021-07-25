@@ -33,7 +33,6 @@ _option() {
 
 case $1 in
     status)
-        echo ' -= Arnix Linux =-'
         echo 'Created by https://github.com/GermanBread'
         echo
         echo "Active generation: $(readlink /arnix/generations/current)"

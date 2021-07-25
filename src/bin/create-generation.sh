@@ -10,10 +10,10 @@ _current_generation=$(readlink /arnix/generations/current)
 _next_generation=$((${_current_generation} + 1))
 
 log "Cloning generation ${_current_generation}"
+rm -rf /arnix/generations/${_next_generation}
 cp -al /arnix/generations/${_current_generation} /arnix/generations/${_next_generation}
 
 log "Activating generation ${_next_generation}"
-rm -rf /arnix/generations/${_next_generation}
 ln -srfT /arnix/generations/${_next_generation} /arnix/generations/current
 for i in ${_dirs}; do
     mount --bind /arnix/generations/${_next_generation}/$i /$i

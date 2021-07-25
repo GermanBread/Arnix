@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 _echo() {
-    [ "${_show_output}" = "true" ] && \
+    [[ "$(cat /proc/cmdline)" != *'quiet'* ]] && \
         echo $*
 }
 _emergency() {
@@ -19,7 +19,7 @@ if [ ! -e /arnix/etc/arnix.conf ]; then
     _emergency "Config file /arnix/etc/arnix.conf does not exist"
 else
     source /arnix/etc/arnix.conf
-    _echo ':: Sourced cconfig'
+    _echo ':: Sourced config'
 fi
 
 echo -ne '[35m'
@@ -35,7 +35,7 @@ cat << splash
 splash
 echo -ne '(B[m'
 
-_echo "Booting generation $(readlink /arnix/generations/current)"
+_echo ":: Booting generation $(readlink /arnix/generations/current)"
 
 _ifs=$IFS
 IFS=' '
