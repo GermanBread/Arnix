@@ -43,3 +43,4 @@ rm -r /tmp/arnix-update
 warning 'Manual intervention is required - files need to be merged'
 warning '/arnix/merge/etc/arnix.conf -> /arnix/etc/arnix.conf'
 warning 'Delete /arnix/merge when you are done'
+exit
