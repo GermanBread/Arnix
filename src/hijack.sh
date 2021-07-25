@@ -63,7 +63,7 @@ tempsystempath="/tmp/temproot"
 log "Installing temporary system to ${tempsystempath}"
 mkdir -p ${tempsystempath}
 mount -t tmpfs none ${tempsystempath}
-pacstrap ${tempsystempath} base busybox
+pacstrap ${tempsystempath} base
 
 log "Installing Arnix (1/2)"
 mkdir -p /arnix/{bin,etc}
@@ -108,7 +108,6 @@ log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin /oldroot/usr/bin
 mkdir -p /oldroot/var/{lib,run}
 # Just to get systemd working
-ln -sr /oldroot/arnix/generations/current/var/lib/systemd /oldroot/var/lib/systemd
 ln -sr /oldroot/arnix/etc/os-release /oldroot/etc/os-release
 
 log "Activating generation 1"
@@ -122,4 +121,4 @@ pivot_root /oldroot /oldroot${tempsystempath}
 umount ${tempsystempath}
 rmdir ${tempsystempath}
 
-log 'Arnix was installed successfully. You may continue using your system'
+log 'Arnix was successfully installed. You may continue using your system'

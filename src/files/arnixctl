@@ -1,16 +1,47 @@
 #!/bin/bash
-_help() {
-    echo 'arnixctl help      - quick help'
-    echo 'arnixctl update    - update files in /arnix'
-    echo 'arnixctl rollback  - switch to a previous generation'
-    echo 'arnixctl uninstall - revert hijack'
+
+tput setaf 5
+cat << splash
+
+          :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
+       :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
+     +:+   +:+  +:+    +:+ :+:+:+  +:+     +:+      +:+  +:+    
+   +#++:++#++: +#++:++#:  +#+ +:+ +#+     +#+       +#++:+      
+  +#+     +#+ +#+    +#+ +#+  +#+#+#     +#+      +#+  +#+      
+ #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
+###     ### ###    ### ###    #### ########### ###    ###
+
+            Arch Linux with generations to come
+
+splash
+tput sgr0
+
+_option() {
+    tput setaf 5
+    echo -n 'arnixctl '
+    tput bold
+    echo -ne "$1"
+    tput sgr0
+    echo -n ' - '
+    tput bold
+    echo "$2"
+    tput sgr0
 }
 
 case $1 in
     *)
-
+        _option 'help' 'this menu'
+        _option 'update' "update Arnix's files"
+        _option 'rollback' 'switch to a previous generation'
+        _option 'uninstall' 'revert hijack'
     ;;
-    help)
-        
+    update)
+        # Requirement: Reliable (has fallback)
+    ;;
+    rollback)
+        # Requirement: User can select generation
+    ;;
+    uninstall)
+        # Requirement: User can select generation
     ;;
 esac
