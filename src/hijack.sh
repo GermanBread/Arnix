@@ -65,14 +65,6 @@ mkdir -p /arnix
 cp -r bin /arnix
 cp -r etc /arnix
 
-ln -sr /arnix/bin/busybox /arnix/bin/'['
-ln -sr /arnix/bin/busybox /arnix/bin/'[['
-ln -sr /arnix/bin/busybox /arnix/bin/mount
-ln -sr /arnix/bin/busybox /arnix/bin/sh
-ln -sr /arnix/bin/busybox /arnix/bin/echo
-ln -sr /arnix/bin/busybox /arnix/bin/egrep
-ln -sr /arnix/bin/busybox /arnix/bin/cat
-ln -sr /arnix/bin/busybox /arnix/bin/readlink
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
 mv /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release

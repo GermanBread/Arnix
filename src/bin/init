@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/arnix/bin/busybox sh
 
 _echo() {
-    [ ${_show_output} = "true" ] && \
+    [ "${_show_output}" = "true" ] && \
         echo $*
 }
 _emergency() {
@@ -15,15 +15,15 @@ _emergency() {
     #exit 1
 }
 
-_echo ':: Sourcing config'
 if [ ! -e /arnix/etc/arnix.conf ]; then
     _emergency "Config file /arnix/etc/arnix.conf does not exist"
 else
     source /arnix/etc/arnix.conf
-    _echo '.. OK'
+    _echo ':: Sourced cconfig'
 fi
 
-[ ${_show_splash} = "true" ] && \
+echo -ne '[35m'
+[ "${_show_splash}" = "true" ] && \
 cat << splash
           :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
        :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
@@ -33,6 +33,7 @@ cat << splash
  #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
 ###     ### ###    ### ###    #### ########### ###    ###
 splash
+echo -ne '(B[m'
 
 _echo "Booting generation $(readlink /arnix/generations/current)"
 
