@@ -68,7 +68,7 @@ _echo ':: Handing off control to systemd'
 if [ ! -e /sbin/init ]; then
     _emergency '/sbin/init not found'
 else
-    if [[ "$(readlink /sbin/init)" = '/arnix*' ]]; then
+    if [[ "$(readlink /sbin/init)" = '/arnix'* ]]; then
         _emergency '/sbin/init is not systemd (resolves to this script, did /usr not get mounted?)'
     else
         _echo '.. OK'
