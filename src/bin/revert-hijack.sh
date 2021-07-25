@@ -59,7 +59,7 @@ rm -rf /oldroot/arnix
 log "Pivoting back"
 mount --make-rprivate /
 pivot_root /oldroot /oldroot${tempsystempath}
-umount ${tempsystempath}
+umount -R ${tempsystempath}
 rmdir ${tempsystempath}
 
 log 'Arnix was successfully uninstalled. You may continue using your system'

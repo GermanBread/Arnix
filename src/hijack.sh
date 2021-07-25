@@ -104,7 +104,7 @@ done
 log "Pivoting back"
 mount --make-rprivate /
 pivot_root /oldroot /oldroot${tempsystempath}
-umount ${tempsystempath}
+umount -R ${tempsystempath}
 rmdir ${tempsystempath}
 
 log 'Arnix was successfully installed. You may continue using your system'
