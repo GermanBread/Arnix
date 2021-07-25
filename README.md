@@ -52,3 +52,7 @@ Working on it
 ### Reverting to a previous generation after an upgrade bricks my OS
 
 I only experienced /boot not mounting (vfat does not recognised as such). Looking for a fix.
+
+### I have another issue not mentioned in here
+
+Open a issue and fill out the fields
