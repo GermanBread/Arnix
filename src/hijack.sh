@@ -113,3 +113,4 @@ umount ${tempsystempath}
 rmdir ${tempsystempath}
 
 log 'Arnix was successfully installed. You may continue using your system'
+log "Arnix can now be managed with 'arnixctl'!"

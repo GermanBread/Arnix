@@ -40,16 +40,14 @@ pivot_root ${tempsystempath} ${tempsystempath}/oldroot
 
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
-    umount /oldroot/$i
-    rmdir /oldroot/$i
+    umount -l /oldroot/$i
 done
 
 log "Reverting changes (2/2)"
-rm -r /oldroot/usr
 for i in ${_dirs}; do
-    mv /oldroot/generations/${_generation}/$i /oldroot/$i
+    mv /oldroot/generations/${_generation}/$i/* /oldroot/$i
 done
-rm -r /oldroot/arnix
+rm -rf /oldroot/arnix
 
 log "Pivoting back"
 mount --make-rprivate /
