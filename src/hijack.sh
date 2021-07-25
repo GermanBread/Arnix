@@ -1,16 +1,14 @@
 #!/bin/bash
-source bin/shared.sh
-source etc/arnix.conf
 
 if [ $(id -u) -ne 0 ]; then
     error "This script needs to run as root"
     exit 1
 fi
-if [ -z $(command -v pacman) ]; then
+if [ -z "$(command -v pacman)" ]; then
     error "This script only runs on Arch Linux (or Arch-based as long as it has systemd)"
     exit 1
 fi
-if [ -z $(command -v systemctl) ]; then
+if [ -z "$(command -v systemctl)" ]; then
     error "As of now only systemd is supported"
     exit 1
 fi
@@ -19,9 +17,12 @@ if [ -d /arnix ]; then
     exit 1
 fi
 if [ ! -e etc ] && [ ! -e bin ]; then
-    error "Setup files were not found ... (did you not cd into the script's directory?)"
+    echo "$(tput setaf 1)[!] ERROR:$(tput sgr0) Setup files were not found ... (did you not cd into the script's directory?)"
     exit 1
 fi
+
+source bin/shared.sh
+source etc/arnix.conf
 
 tput setaf 1
 cat << END

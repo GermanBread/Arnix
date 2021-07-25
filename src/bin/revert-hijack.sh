@@ -24,7 +24,7 @@ if [ ! -d /arnix/generations/${_generation} ]; then
 fi
 
 log "Installing dependencies"
-[ -n $(command -v pacstrap) ] && \
+[ -n "$(command -v pacstrap)" ] && \
     pacman -S --noconfirm --needed --asdeps arch-install-scripts 1>/dev/null
 
 tempsystempath="/tmp/temproot"

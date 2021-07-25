@@ -6,9 +6,9 @@ source /arnix/etc/arnix.conf
 check_for_action_requirements
 
 log "Installing dependencies"
-[ -z $(command -v sed) ] && \
+[ -z "$(command -v sed)" ] && \
     pacman -S --noconfirm --needed --asdeps sed 1>/dev/null
-[ -z $(command -v wget) ] && \
+[ -z "$(command -v wget)" ] && \
     pacman -S --noconfirm --needed --asdeps wget 1>/dev/null
 
 echo 'Select branch:'

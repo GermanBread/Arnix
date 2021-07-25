@@ -12,11 +12,11 @@ if [ -d /arnix/merge ]; then
 fi
 
 log "Installing dependencies"
-[ -z $(command -v wget) ] && \
+[ -z "$(command -v wget)" ] && \
     pacman -S --noconfirm --needed --asdeps wget 1>/dev/null
-[ -z $(command -v gunzip) ] && \
+[ -z "$(command -v gunzip)" ] && \
     pacman -S --noconfirm --needed --asdeps gzip 1>/dev/null
-[ -z $(command -v tar) ] && \
+[ -z "$(command -v tar)" ] && \
     pacman -S --noconfirm --needed --asdeps tar 1>/dev/null
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source}'"
