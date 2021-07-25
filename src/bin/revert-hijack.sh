@@ -46,7 +46,7 @@ done
 
 log "Reverting changes (2/2)"
 for i in ${_dirs}; do
-    mv /oldroot/generations/${_generation}/$i/* /oldroot/$i
+    mv /oldroot/arnix/generations/${_generation}/$i/* /oldroot/$i
 done
 rm -rf /oldroot/arnix
 
