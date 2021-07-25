@@ -37,10 +37,11 @@ log "Pivoting to ${tempsystempath}"
 mount --make-rprivate /
 mkdir ${tempsystempath}/oldroot
 pivot_root ${tempsystempath} ${tempsystempath}/oldroot
+mount -t proc none /proc # required for umount to work
 
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
-    umount -l /oldroot/$i
+    umount -l /oldroot/$i # lazy unmount because A: this works B: we restore the directories anyways
 done
 
 log "Reverting changes (2/2)"
