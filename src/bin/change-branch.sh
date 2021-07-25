@@ -21,3 +21,22 @@ while ! [[ $_mode = [123] ]]; do
     tput rc
 done
 echo
+
+_escape() {
+    echo $* | sed 's/\//\\\//gm'
+}
+
+case ${_mode} in 
+    1)
+        sed -Ei "s/_update_source=.+/_update_source=$(_escape 'https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.tar.gz')/" /arnix/etc/arnix.conf
+        sed -Ei "s/_branch_preset=\w+/_branch_preset=stable/" /arnix/etc/arnix.conf
+    ;;
+    2)
+        sed -Ei "s/_update_source=.+/_update_source=$(_escape 'https://raw.githubusercontent.com/GermanBread/Arnix/master/src/arnix-bootstrap.tar.gz')/" /arnix/etc/arnix.conf
+        sed -Ei "s/_branch_preset=\w+/_branch_preset=unstable/" /arnix/etc/arnix.conf
+    ;;
+    3)
+        # TOOD Test the URL
+        sed -Ei "s/_branch_preset=\w+/_branch_preset=custom/" /arnix/etc/arnix.conf
+    ;;
+esac
