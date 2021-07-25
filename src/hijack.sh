@@ -106,6 +106,10 @@ unset _ifs
 
 log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin /oldroot/usr/bin
+mkdir -p /oldroot/var/{lib,run}
+# Just to get systemd working
+ln -sr /oldroot/arnix/generations/current/var/lib/systemd /oldroot/var/lib/systemd
+ln -sr /oldroot/arnix/etc/os-release /oldroot/etc/os-release
 
 log "Activating generation 1"
 for i in ${_dirs}; do
