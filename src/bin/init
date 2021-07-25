@@ -39,6 +39,7 @@ cat << splash
 splash
 echo -ne '(B[m'
 
+_echo ":: Starting Arnix version ${_arnix_version}"
 _echo ":: Booting generation $(readlink /arnix/generations/current)"
 
 _ifs=$IFS

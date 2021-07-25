@@ -5,6 +5,12 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
+if [ -d /arnix/merge ]; then
+    error 'There are unmerged files in /arnix/merge'
+    error 'Delete /arnix/merge when all files are merged / discarded'
+    exit 1
+fi
+
 log "Installing dependencies"
 [ -z $(command -v wget) ] && \
     pacman -S --noconfirm --needed --asdeps wget 1>/dev/null
@@ -36,3 +42,4 @@ rm -r /tmp/arnix-update
 
 warning 'Manual intervention is required - files need to be merged'
 warning '/arnix/merge/etc/arnix.conf -> /arnix/etc/arnix.conf'
+warning 'Delete /arnix/merge when you are done'
