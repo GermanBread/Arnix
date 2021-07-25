@@ -32,6 +32,8 @@ cat << splash
   +#+     +#+ +#+    +#+ +#+  +#+#+#     +#+      +#+  +#+      
  #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
 ###     ### ###    ### ###    #### ########### ###    ###
+
+            Arch Linux with generations to come
 splash
 echo -ne '(B[m'
 

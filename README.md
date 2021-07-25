@@ -2,8 +2,6 @@
 
 Arch Linux with generations - and a nice tool to mange those
 
-Note: This README is *really* incomplete
-
 ---
 
 ## Q/A
@@ -29,10 +27,6 @@ After you launch the script and got past the warning the script does the followi
 and
 - Uses `pivot_root` to revert the system back to a usable state
 
-### I get a `failed to unmount /var` message
-
-Probably something I have to fix myself
-
 ---
 
 ## Installing
@@ -46,4 +40,15 @@ Probably something I have to fix myself
 - Use `arnixctl` to manage Arnix!
 - Configure the behaviour of Arnix by editing `/arnix/etc/arnix.conf`
 - Add `quiet` to kernel parameters for quiet boot
-- Add `no-arnix-splash` to remove the logo
+
+---
+
+## Known issues
+
+### 'failed to unmount /var'
+
+Working on it
+
+### Reverting to a previous generation after an upgrade bricks my OS
+
+I only experienced /boot not mounting (vfat does not recognised as such). Looking for a fix.

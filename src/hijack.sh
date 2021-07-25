@@ -10,7 +10,7 @@ if [ -z $(command -v pacman) ]; then
     error "This script only runs on Arch Linux (or Arch-based as long as it has systemd)"
     exit 1
 fi
-if [ ! -d /var/lib/systemd ]; then
+if [ -z $(command -v systemctl) ]; then
     error "As of now only systemd is supported"
     exit 1
 fi
@@ -50,7 +50,8 @@ if [ "${REPLY}" != "I UNDERSTAND THE RISK" ]; then
 fi
 
 log "Installing dependencies"
-pacman -S --noconfirm --needed arch-install-scripts 1>/dev/null
+[ -n $(command -v pacstrap) ] && \
+    pacman -S --noconfirm --needed --asdeps arch-install-scripts 1>/dev/null
 
 # Now we set up a simple system
 # Probably overengineered but worth it

@@ -1,9 +1,12 @@
 #!/bin/sh
-error() {
-    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
-}
 log() {
     printf "$(tput setaf 5)[!] INFO:$(tput sgr0) $*\n"
+}
+warning() {
+    printf "$(tput setaf 3)[!] WARNING:$(tput sgr0) $*\n"
+}
+error() {
+    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
 }
 # Use $answer to retrieve the response
 question() {

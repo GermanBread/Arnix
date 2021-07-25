@@ -5,6 +5,8 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
+warning 'You should reboot at least once before continuing, else the revert will fail'
+
 printf 'Are you sure? Type "uninstall Arnix" (all uppercase) to continue: '
 tput sgr0
 read REPLY
@@ -24,7 +26,8 @@ if [ ! -d /arnix/generations/${_generation} ]; then
 fi
 
 log "Installing dependencies"
-pacman -S --noconfirm --needed arch-install-scripts 1>/dev/null
+[ -n $(command -v pacstrap) ] && \
+    pacman -S --noconfirm --needed --asdeps arch-install-scripts 1>/dev/null
 
 tempsystempath="/tmp/temproot"
 log "Installing temporary system to ${tempsystempath}"

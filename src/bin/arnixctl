@@ -36,7 +36,11 @@ case $1 in
         echo 'Created by https://github.com/GermanBread'
         echo
         echo "Active generation: $(readlink /arnix/generations/current)"
-        echo "Arnix version: TODO"
+        echo -n "Arnix update source: ${_update_source} (${_branch_preset})"
+        echo "Arnix version: ${_arnix_version}"
+    ;;
+    branch)
+        /arnix/bin/change-branch.sh
     ;;
     update)
         /arnix/bin/update-arnix.sh
@@ -53,6 +57,7 @@ case $1 in
     *)
         _option 'help' 'this menu'
         _option 'status' 'info about Arnix'
+        _option 'branch' 'select update branch'
         _option 'update' "update Arnix's files"
         _option 'create' 'create a new generation'
         _option 'rollback' 'switch to a previous generation'
