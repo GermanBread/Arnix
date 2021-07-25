@@ -13,7 +13,7 @@ if [ "${REPLY}" != "UNINSTALL ARNIX" ]; then
     exit 1
 fi
 
-ls /arnix/generations | sort | head -n -2
+ls /arnix/generations | sort
 question 'Which generation should be used?'
 _generation="$answer"
 [ -z "$answer" ] && \

@@ -5,7 +5,7 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
-ls /arnix/generations | sort | head -n -2
+ls /arnix/generations
 question 'Which generation should be used?'
 _generation="$answer"
 [ -z "$answer" ] && \

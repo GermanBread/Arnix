@@ -15,6 +15,11 @@ if [ ! -d /arnix/generations/${_generation} ]; then
     exit 1
 fi
 
+if [[ ${_generation} != [0123456789]* ]]; then
+    error 'Input must be an integer'
+    exit 1
+fi
+
 if [ $(readlink /arnix/generations/current) = ${_generation} ]; then
     error 'You cannot delete the active generation'
     exit 1

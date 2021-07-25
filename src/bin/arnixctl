@@ -50,8 +50,11 @@ case $1 in
     create)
         /arnix/bin/create-generation.sh
     ;;
-    rollback)
+    switch)
         /arnix/bin/rollback.sh
+    ;;
+    delete)
+        /arnix/bin/delete-generation.sh
     ;;
     uninstall)
         /arnix/bin/revert-hijack.sh
