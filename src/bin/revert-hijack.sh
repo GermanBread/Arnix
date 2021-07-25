@@ -11,7 +11,7 @@ if [ "${REPLY}" != "UNINSTALL ARNIX" ]; then
 fi
 
 ls /arnix/generations
-question 'Which generation should be used (none for current)?'
+question 'Which generation should be used (leave empty for current)?'
 _generation="$answer"
 [ -z "$answer" ] && \
     _generation="current"
@@ -46,10 +46,10 @@ done
 
 log "Reverting changes (2/2)"
 rm -r /oldroot/usr
-rm -r /oldroot/arnix
 for i in ${_dirs}; do
     mv /oldroot/generations/${_generation}/$i /oldroot/$i
 done
+rm -r /oldroot/arnix
 
 log "Pivoting back"
 mount --make-rprivate /
