@@ -5,11 +5,11 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
-ls /arnix/generations
-question 'Which generation should be used (leave empty for current)?'
+ls /arnix/generations | sort | head -n -2
+question 'Which generation should be used?'
 _generation="$answer"
 [ -z "$answer" ] && \
-    _generation="current"
+    exit 1
 if [ ! -d /arnix/generations/${_generation} ]; then
     error "Generation ${_generation} does not exist"
     exit 1

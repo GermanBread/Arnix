@@ -62,7 +62,8 @@ case $1 in
         _option 'branch' 'select update branch'
         _option 'update' "update Arnix's files"
         _option 'create' 'create a new generation'
-        _option 'rollback' 'switch to a previous generation'
+        _option 'switch' 'switch to any generation'
+        _option 'delete' 'delete a generation'
         _option 'uninstall' 'revert hijack'
     ;;
 esac
