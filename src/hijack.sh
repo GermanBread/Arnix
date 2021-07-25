@@ -82,6 +82,7 @@ pivot_root ${tempsystempath} ${tempsystempath}/oldroot
 log "Creating generation 1"
 mkdir -p /oldroot/arnix/generations/1
 ln -sr /oldroot/arnix/generations/1 /oldroot/arnix/generations/current
+ln -sr /oldroot/arnix/generations/1 /oldroot/arnix/generations/latest
 _ifs=$IFS
 IFS=' ' # POSIX standard does not have arrays
 for i in ${_dirs}; do

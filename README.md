@@ -49,9 +49,14 @@ and
 
 Working on it
 
-### Reverting to a previous generation after an upgrade bricks my OS
+### Reverting to a previous generation throws me into emergency mode
 
-I only experienced /boot not mounting (vfat does not recognised as such). Looking for a fix.
+If you see 'failed to mount /boot' after rolling back then switch back to the newest generation.
+This is caused because the kernel modules in /lib/modules aren't compatible with a newer kernel.
+I am looking for a fix. In the meanwhile you can either:
+- copy the modules manually `cp -al {/arnix/generations/latest,}/usr/lib/modules/$(uname -r)`
+
+In the future I want kernels to be restored too. For the time being this is an ugly workaround.
 
 ### I have another issue not mentioned in here
 
