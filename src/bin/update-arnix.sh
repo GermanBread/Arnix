@@ -27,10 +27,11 @@ tar xf bootstrap.tar
 rm -rf /arnix/merge
 mkdir -p /arnix/merge/etc
 cp -a bin/* /arnix/bin
-cp -a etc/os-release /arnix/etc
-cp -a etc/0-arnix.hook /arnix/etc
-cp -a etc/arnix.conf /arnix/merge/etc
+cp -a etc/os-release /arnix/etc/os-release
+cp -a etc/0-arnix.hook /arnix/etc/0-arnix.hook
+cp -a etc/arnix.conf /arnix/merge/etc/arnix.conf
 cd /arnix/
+cat /tmp/arnix-update/changelog.txt
 rm -r /tmp/arnix-update
 
 warning 'Manual intervention is required - files need to be merged'

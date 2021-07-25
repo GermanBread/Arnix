@@ -25,6 +25,7 @@ fi
 echo -ne '[35m'
 [ "${_show_splash}" = "true" ] && \
 cat << splash
+
           :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
        :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
      +:+   +:+  +:+    +:+ :+:+:+  +:+     +:+      +:+  +:+    
@@ -34,6 +35,7 @@ cat << splash
 ###     ### ###    ### ###    #### ########### ###    ###
 
             Arch Linux with generations to come
+
 splash
 echo -ne '(B[m'
 

@@ -5,8 +5,6 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
-warning 'You should reboot at least once before continuing, else the revert will fail'
-
 printf 'Are you sure? Type "uninstall Arnix" (all uppercase) to continue: '
 tput sgr0
 read REPLY
