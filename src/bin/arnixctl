@@ -32,6 +32,13 @@ _option() {
 }
 
 case $1 in
+    status)
+        echo ' -= Arnix Linux =-'
+        echo 'Created by https://github.com/GermanBread'
+        echo
+        echo "Active generation: $(readlink /arnix/generations/current)"
+        echo "Arnix version: TODO"
+    ;;
     update)
         /arnix/bin/update-arnix.sh
     ;;
@@ -46,6 +53,7 @@ case $1 in
     ;;
     *)
         _option 'help' 'this menu'
+        _option 'status' 'info about Arnix'
         _option 'update' "update Arnix's files"
         _option 'create' 'create a new generation'
         _option 'rollback' 'switch to a previous generation'

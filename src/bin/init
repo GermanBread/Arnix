@@ -1,8 +1,7 @@
 #!/bin/sh
 
 _echo() {
-    egrep -o "\Wquiet\W" /proc/cmdline >/dev/null
-    [ $? -ne 0 ] && \
+    [ ${_show_output} = "true" ] && \
         echo $*
 }
 _emergency() {
@@ -24,7 +23,7 @@ else
     _echo '.. OK'
 fi
 
-[ $_show_splash = "true" ] && \
+[ ${_show_splash} = "true" ] && \
 cat << splash
           :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
        :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
@@ -34,6 +33,8 @@ cat << splash
  #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
 ###     ### ###    ### ###    #### ########### ###    ###
 splash
+
+_echo "Booting generation $(readlink /arnix/generations/current)"
 
 _ifs=$IFS
 IFS=' '
