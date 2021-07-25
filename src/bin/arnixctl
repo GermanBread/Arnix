@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source /arnix/bin/shared.sh
+source /arnix/etc/arnix.conf
+
 tput setaf 5
 cat << splash
 
@@ -16,7 +19,6 @@ cat << splash
 splash
 tput sgr0
 
-
 _option() {
     tput setaf 5
     echo -n 'arnixctl '
@@ -29,16 +31,7 @@ _option() {
     tput sgr0
 }
 
-source /arnix/etc/arnix.conf
-
 case $1 in
-    *)
-        _option 'help' 'this menu'
-        _option 'update' "update Arnix's files"
-        _option 'create' 'create a new generation'
-        _option 'rollback' 'switch to a previous generation'
-        _option 'uninstall' 'revert hijack'
-    ;;
     update)
         /arnix/bin/update-arnix.sh
     ;;
@@ -50,5 +43,12 @@ case $1 in
     ;;
     uninstall)
         /arnix/bin/revert-hijack.sh
+    ;;
+    *)
+        _option 'help' 'this menu'
+        _option 'update' "update Arnix's files"
+        _option 'create' 'create a new generation'
+        _option 'rollback' 'switch to a previous generation'
+        _option 'uninstall' 'revert hijack'
     ;;
 esac

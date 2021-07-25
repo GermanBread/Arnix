@@ -11,7 +11,7 @@ if [ "${REPLY}" != "UNINSTALL ARNIX" ]; then
 fi
 
 ls /arnix/generations
-question 'Which generation should be used?'
+question 'Which generation should be used (none for current)?'
 _generation="$answer"
 [ -z "$answer" ] && \
     _generation="current"
@@ -31,6 +31,7 @@ pacstrap ${tempsystempath} base 1>/dev/null
 
 log "Reverting changes (1/2)"
 mv /etc/os-release.arnixsave /etc/os-release
+rm /usr/bin/arnixctl
 
 log "Pivoting to ${tempsystempath}"
 mount --make-rprivate /
@@ -40,15 +41,15 @@ pivot_root ${tempsystempath} ${tempsystempath}/oldroot
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
     umount /oldroot/$i
+    rmdir /oldroot/$i
 done
 
-rm /oldroot/usr/bin
-
 log "Reverting changes (2/2)"
+rm -r /oldroot/usr
+rm -r /oldroot/arnix
 for i in ${_dirs}; do
     mv /oldroot/generations/${_generation}/$i /oldroot/$i
 done
-rm -r /oldroot/arnix
 
 log "Pivoting back"
 mount --make-rprivate /
