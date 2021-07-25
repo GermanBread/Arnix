@@ -6,10 +6,10 @@ source /arnix/etc/arnix.conf
 check_for_action_requirements
 
 log "Installing dependencies"
-[ -z $(command -v tput) ] && \
-    pacman -S --noconfirm --needed --asdeps ncurses 1>/dev/null
 [ -z $(command -v sed) ] && \
     pacman -S --noconfirm --needed --asdeps sed 1>/dev/null
+[ -z $(command -v wget) ] && \
+    pacman -S --noconfirm --needed --asdeps wget 1>/dev/null
 
 echo 'Select branch:'
 echo '1 - stable'
