@@ -35,7 +35,7 @@ pacstrap ${tempsystempath} base 1>/dev/null
 
 log "Reverting changes (1/2)"
 rm /usr/bin/arnixctl
-rm /etc/pacman.d/hooks/0-arnix.hook
+rm /etc/pacman.d/hooks/0-arnix-create-generation.hook
 mv /etc/os-release.arnixsave /etc/os-release
 
 log "Pivoting to ${tempsystempath}"
@@ -48,12 +48,14 @@ log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
     umount -l /oldroot/$i # lazy unmount because A: this works B: we restore the directories anyways
 done
+rm -rf /oldroot/boot/*
 
 log "Reverting changes (2/2)"
 rm /oldroot/usr/bin # remove symlink to arnix
 for i in ${_dirs}; do
     mv /oldroot/arnix/generations/${_generation}/$i/* /oldroot/$i
 done
+mv /oldroot/arnix/generations/${_generation}/boot/* /oldroot/boot
 rm -rf /oldroot/arnix
 
 log "Pivoting back"

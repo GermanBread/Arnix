@@ -25,6 +25,8 @@ if [ $(readlink /arnix/generations/current) = ${_generation} ]; then
     exit 1
 fi
 
+ln -srfT /arnix/generations/$(ls /arnix/generations | sort -g | tail -n 1) /arnix/generations/latest
+
 rm -r /arnix/generations/${_generation}
 
 log "Generation ${_generation} deleted"

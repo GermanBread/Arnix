@@ -21,5 +21,7 @@ for i in ${_dirs}; do
     /arnix/bin/busybox umount -l /$i
     /arnix/bin/busybox mount --bind /arnix/generations/${_generation}/$i /$i
 done
+rm -rf /boot/*
+cp -a /arnix/generations/${_generation}/boot/* /boot
 
 log "Rollback to generation ${_generation} completed successfully"

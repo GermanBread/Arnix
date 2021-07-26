@@ -73,7 +73,7 @@ ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
 mv /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
 mkdir -p /etc/pacman.d/hooks/
-ln -sr /arnix/etc/0-arnix.hook /etc/pacman.d/hooks/0-arnix.hook
+ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
 
@@ -94,6 +94,7 @@ for i in ${_dirs}; do
 done
 IFS=$_ifs
 unset _ifs
+cp -a /oldroot/boot /oldroot/arnix/generations/1/boot
 
 log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin /oldroot/usr/bin
