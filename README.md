@@ -29,10 +29,12 @@ and
 
 ---
 
+*Note: there currently are no releases, you need to clone the repo and then cd to the script. After installing you should switch to the unstable branch immediately*
+
 ## Installing
 
-- Clone this repo `git clone https://github.com/GermanBread/Arnix`
-- `cd` into the directory for this script `cd /path/to/cloned/repo/src`
+- Download the newest release
+- `cd` into the directory of this script `cd /path/to/script`
 - Run `bash hijack.sh` as root (only bash is supported)
 
 ### Post install
@@ -45,18 +47,9 @@ and
 
 ## Known issues
 
-### 'failed to unmount /var'
-
-Working on it
-
 ### Reverting to a previous generation throws me into emergency mode
 
-If you see 'failed to mount /boot' after rolling back then switch back to the newest generation.
-This is caused because the kernel modules in /lib/modules aren't compatible with a newer kernel.
-I am looking for a fix. In the meanwhile you can either:
-- copy the modules manually `cp -a {/arnix/generations/latest,}/usr/lib/modules/$(uname -r)`
-
-In the future I want kernels to be restored too. For the time being this is an ugly workaround.
+-> Fixed in this commit https://github.com/GermanBread/Arnix/commit/c6ca60405176be485dc443be7f744b098e6f4303
 
 ### I have another issue not mentioned in here
 
