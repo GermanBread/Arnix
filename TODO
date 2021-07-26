@@ -1,3 +1,5 @@
 1. Automatic merge for arnix.conf
 2. Website for Arnix
 3. Create first release
+4. Use busybox instead of pacstrap for temporary system
+5. Become distro-agnostic
