@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# fake error
+error() {
+    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
+}
+
 if [ $(id -u) -ne 0 ]; then
     error "This script needs to run as root"
     exit 1
@@ -17,7 +22,7 @@ if [ -d /arnix ]; then
     exit 1
 fi
 if [ ! -e etc ] && [ ! -e bin ]; then
-    echo "$(tput setaf 1)[!] ERROR:$(tput sgr0) Setup files were not found ... (did you not cd into the script's directory?)"
+    error "Setup files were not found ... (did you not cd into the script's directory?)"
     exit 1
 fi
 
