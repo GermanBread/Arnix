@@ -51,7 +51,7 @@ done
 rm -rf /oldroot/boot/*
 
 log "Reverting changes (2/2)"
-rm /oldroot/usr/bin # remove symlink to arnix
+rm -r /oldroot/usr/* # revert symlinks in /usr
 for i in ${_dirs}; do
     mv /oldroot/arnix/generations/${_generation}/$i/* /oldroot/$i
 done

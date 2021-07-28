@@ -105,6 +105,11 @@ log "Installing Arnix (2/2)"
 ln -sr /oldroot/arnix/bin /oldroot/usr/bin
 # Just to get systemd working
 ln -sr /oldroot/arnix/etc/os-release /oldroot/etc/os-release
+# GRUB themes
+if [ -d /olroot/arnix/generations/current/usr/share/grub ]; then
+    mkdir -p /olroot/usr/share
+    ln -sr /olroot/arnix/generations/current/usr/share/grub /olroot/usr/share/grub
+fi
 
 log "Activating generation 1"
 for i in ${_dirs}; do
