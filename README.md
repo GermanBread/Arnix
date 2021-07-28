@@ -51,6 +51,11 @@ and
 
 -> Fixed in this commit https://github.com/GermanBread/Arnix/commit/c6ca60405176be485dc443be7f744b098e6f4303
 
+### My GRUB theme doesn't work!
+
+Working on it. The script should symlink /usr/share/grub from now on.
+Need to investigate if Btrfs subvolumes cause issues.
+
 ### I have another issue not mentioned in here
 
 Open a issue and fill out the fields

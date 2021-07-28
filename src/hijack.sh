@@ -108,7 +108,7 @@ ln -sr /oldroot/arnix/etc/os-release /oldroot/etc/os-release
 # GRUB themes
 if [ -d /olroot/arnix/generations/current/usr/share/grub ]; then
     mkdir -p /olroot/usr/share
-    ln -sr /olroot/arnix/generations/current/usr/share/grub /olroot/usr/share/grub
+    ln -srfT /olroot/arnix/generations/current/usr/share/grub /olroot/usr/share/grub
 fi
 
 log "Activating generation 1"
