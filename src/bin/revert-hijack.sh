@@ -32,6 +32,10 @@ log "Installing temporary system to ${tempsystempath}"
 mkdir -p ${tempsystempath}
 mount -t tmpfs none ${tempsystempath}
 pacstrap ${tempsystempath} base 1>/dev/null
+if [ $? -ne 0 ]; then
+    error 'pacstrap command errored, cannot continue safely'
+    exit 1
+fi
 
 log "Reverting changes (1/2)"
 rm /usr/bin/arnixctl
