@@ -1,0 +1,9 @@
+release candidate 1 (28.7.2021 - DD.MM.YYYY)
+
+new
+GRUB theme support
+
+fix
+the script should not drop you into a empty root
+---
+past releases see commit log (I a too lazy to add them here)
