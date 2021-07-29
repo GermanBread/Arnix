@@ -33,7 +33,7 @@ mkdir -p ${tempsystempath}
 mount -t tmpfs none ${tempsystempath}
 pacstrap ${tempsystempath} base 1>/dev/null
 if [ $? -ne 0 ]; then
-    error 'pacstrap command errored, cannot continue safely'
+    error "'pacstrap' command errored, cannot continue safely. Is your system up to date?"
     exit 1
 fi
 

@@ -1,4 +1,5 @@
 1. Automatic merge for arnix.conf (a.k.a. figure out updates)
+1.5. Do not automaticall overwrite the system files
 2. Website for Arnix
 3. Create first release
 4. Use busybox instead of pacstrap for temporary system
