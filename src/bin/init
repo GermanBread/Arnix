@@ -56,7 +56,7 @@ _errored=0
 for i in ${_dirs}; do
     _echo ":: Mounting $i"
     if [ -d /arnix/generations/current/$i ]; then
-        mount | grep /$i >/dev/null
+        mountpoint /$i >/dev/null
         [ $0 -ne 0 ] && \
             mount --bind /arnix/generations/current/$i /$i
         [ $? -ne 0 ] && \
