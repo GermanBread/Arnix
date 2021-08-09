@@ -16,6 +16,11 @@ all:
 	@echo =====================
 	@echo Compilation completed
 
+deploy: all
+	cp -r compiled ../docs/compiled
+	cp -r images ../docs/images
+	cp *.html ../docs/
+
 $(output_scss):
 	@echo Processing $@
 	sassc -t compressed $@.scss > compiled/$@.css

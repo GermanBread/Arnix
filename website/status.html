@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Arnix - Arch with generations</title>
+        <link rel="stylesheet" href="compiled/style.css">
+        <script src="compiled/status.js"></script>
+        <script src="compiled/script.js"></script>
+    </head>
+    <body onload="init(); replaceTemporaryFields()">
+        <pre id="logo">
+          :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
+       :+: :+:   :+:    :+: :+:+:   :+:     :+:     :+:    :+:  
+     +:+   +:+  +:+    +:+ :+:+:+  +:+     +:+      +:+  +:+    
+   +#++:++#++: +#++:++#:  +#+ +:+ +#+     +#+       +#++:+      
+  +#+     +#+ +#+    +#+ +#+  +#+#+#     +#+      +#+  +#+      
+ #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
+###     ### ###    ### ###    #### ########### ###    ###
+        </pre>
+        <div id="main-view">
+            <h1>Arnix – status</h1>
+            <a href="index.html">Take me back!</a>
+            <hr>
+            <h2>Current branches:</h2>
+            <span id="ticker">stable (%s), unstable (%g)</span>
+            <br>
+            <h2>Activity report</h2>
+            <span>Nothing major going on</span>
+            <br>
+            <h2>Compatibility</h2>
+            <span>Tested: Garuda, Manjaro and Arch</span><br>
+            <span>Others <i>might</i> work too</span>
+        </div>
+    </body>
+</html>

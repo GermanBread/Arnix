@@ -28,7 +28,7 @@ case ${_mode} in
         log "Branch changed to 'stable'"
     ;;
     2)
-        sed -Ei "s,_update_source=.+,_update_source=https://raw.githubusercontent.com/GermanBread/Arnix/master/src/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
+        sed -Ei "s,_update_source=.+,_update_source=https://raw.githubusercontent.com/GermanBread/Arnix/master/src/installer/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
         sed -Ei "s,_branch_preset=\w+,_branch_preset=unstable," /arnix/etc/arnix.conf
         log "Branch changed to 'unstable'"
     ;;
