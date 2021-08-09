@@ -30,7 +30,7 @@ case ${_mode} in
     3)
         question 'Please paste the link to the arnix-bootstrap.tar.gz file here:'
         log 'Testing link'
-        wget -qq "${answer}" -O /dev/null
+        curl -s "${answer}" >/dev/null
         if [ $? -ne 0 ]; then
             error 'Link errored, no changes were saved'
             exit 1

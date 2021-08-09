@@ -14,7 +14,7 @@ fi
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source}'"
 mkdir -p /tmp/arnix-update
 cd /tmp/arnix-update
-wget -qq "${_update_source}" -O bootstrap.tar.gz
+curl -s "${_update_source}" >bootstrap.tar.gz
 if [ $? -ne 0 ]; then
     error 'Unable to download update'
     exit 1

@@ -4,7 +4,7 @@ alias ln='bin/toybox ln'
 
 # will get overwritten by the one in shared.sh
 error() {
-    printf "\033[31m\[\!\] ERROR:\033(B\033[m $*\n"
+    printf "\033[31m[!] ERROR:\033(B\033[m $*\n"
 }
 
 if [ $(id -u) -ne 0 ]; then

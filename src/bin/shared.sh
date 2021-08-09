@@ -11,7 +11,7 @@ warning() {
     printf "\033[33m[=] WARNING:\033(B\033[m $*\n"
 }
 error() {
-    printf "\033[31m\[\!\] ERROR:\033(B\033[m $*\n"
+    printf "\033[31m[!] ERROR:\033(B\033[m $*\n"
 }
 # Use $answer to retrieve the response
 question() {
