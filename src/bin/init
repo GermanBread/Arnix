@@ -39,7 +39,7 @@ cat << splash
 splash
 echo -ne '(B[m'
 
-if [[ "$(cat /proc/cmdline)" != *'quiet'* ]]; then
+if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
     if [ ! -e /arnix/bin/rollback.sh ]; then
         _emergency "Rollback script /arnix/bin/helper.sh does not exist"
     else
@@ -56,7 +56,7 @@ _errored=0
 for i in ${_dirs}; do
     _echo ":: Mounting $i"
     if [ -d /arnix/generations/current/$i ]; then
-        findmnt /$i >/dev/null
+        mount | grep /$i >/dev/null
         [ $0 -ne 0 ] && \
             mount --bind /arnix/generations/current/$i /$i
         [ $? -ne 0 ] && \
