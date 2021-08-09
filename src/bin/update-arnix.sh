@@ -11,16 +11,6 @@ if [ -d /arnix/merge ]; then
     exit 1
 fi
 
-log "Installing dependencies"
-[ -z "$(command -v wget)" ] && \
-    pacman -S --noconfirm --needed --asdeps wget 1>/dev/null
-[ -z "$(command -v gunzip)" ] && \
-    pacman -S --noconfirm --needed --asdeps gzip 1>/dev/null
-[ -z "$(command -v tar)" ] && \
-    pacman -S --noconfirm --needed --asdeps tar 1>/dev/null
-[ -z "$(command -v less)" ] && \
-    pacman -S --noconfirm --needed --asdeps less 1>/dev/null
-
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source}'"
 mkdir -p /tmp/arnix-update
 cd /tmp/arnix-update
