@@ -1,7 +1,6 @@
 #!bin/busybox sh
 
 alias ln='bin/toybox ln'
-alias tput='bin/toybox tput'
 
 # will get overwritten by the one in shared.sh
 error() {
@@ -86,12 +85,11 @@ for i in ${_dirs}; do
     mv /$i/* /arnix/generations/1/$i
 done
 IFS=$_ifs
-unset _ifs
 cp -a /boot /arnix/generations/1/boot
 
 log "Installing Arnix (2/2)"
 ln -sr /arnix/bin /usr/bin
-# Just to get systemd working
+# Just to get systemd in initrd working
 ln -sr /arnix/etc/os-release /etc/os-release
 # GRUB themes
 mkdir -p /usr/share

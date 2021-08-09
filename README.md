@@ -2,6 +2,8 @@
 
 Arch Linux with generations - and a nice tool to mange those
 
+## WARNING: I am currently rewriting major parts of Arnix. Hijacking ABSOLUTELY WILL result in an unbootable system!
+
 ---
 
 ## Q/A
