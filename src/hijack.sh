@@ -1,6 +1,7 @@
 #!bin/busybox sh
 
 alias ln='bin/toybox ln'
+alias tput='bin/toybox tput'
 
 # will get overwritten by the one in shared.sh
 error() {

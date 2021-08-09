@@ -1,3 +1,11 @@
+if [ -d /arnix ]; then
+    alias ln='/arnix/bin/toybox ln'
+    alias tput='/arnix/bin/toybox tput'
+else
+    alias ln='bin/toybox ln'
+    alias tput='bin/toybox tput'
+fi
+
 log() {
     printf "$(tput setaf 5)[-] INFO:$(tput sgr0) $*\n"
 }
