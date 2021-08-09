@@ -2,7 +2,7 @@
 
 Arch Linux with generations - and a nice tool to mange those
 
-Current status: **NOT VERY STABLE** (ongoing rewrite)
+Current status: **CORE FEATURES STABLE - UTILITIES TO BE TESTED** (ongoing rewrite)
 
 ---
 
@@ -44,6 +44,7 @@ and
 - Use `arnixctl` to manage Arnix!
 - Configure the behaviour of Arnix by editing `/arnix/etc/arnix.conf`
 - Add `quiet` to kernel parameters for quiet boot
+- Add `rollback` to kernel parameters to revert to a generation from within init
 
 ---
 

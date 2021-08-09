@@ -1,9 +1,9 @@
 #!/arnix/bin/busybox sh
 
-source /arnix/bin/shared.sh
-source /arnix/etc/arnix.conf
+#source /arnix/bin/shared.sh
+#source /arnix/etc/arnix.conf
 
-tput setaf 5
+echo -ne '\033[35m'
 cat << splash
 
           :::     :::::::::  ::::    ::: ::::::::::: :::    ::: 
@@ -17,18 +17,10 @@ cat << splash
             Arch Linux with generations to come
 
 splash
-tput sgr0
+echo -ne '\033(B\033[m'
 
 _option() {
-    tput setaf 5
-    echo -n 'arnixctl '
-    tput bold
-    echo -ne "$1"
-    tput sgr0
-    echo -n ' - '
-    tput bold
-    echo "$2"
-    tput sgr0
+    echo -e "\033[35marnixctl $1\033(B\033[m - \033[1m$2\033(B\033[m"
 }
 
 case $1 in
@@ -60,13 +52,13 @@ case $1 in
         /arnix/bin/revert-hijack.sh
     ;;
     *)
-        _option 'help' 'this menu'
-        _option 'status' 'info about Arnix'
-        _option 'branch' 'select update branch'
-        _option 'update' "update Arnix's files"
-        _option 'create' 'create a new generation'
-        _option 'switch' 'switch to any generation'
-        _option 'delete' 'delete a generation'
-        _option 'uninstall' 'revert hijack'
+        _option 'help     ' ' this menu'
+        _option 'status   ' ' info about Arnix'
+        _option 'branch   ' ' select update branch'
+        _option 'update   ' " update Arnix's files"
+        _option 'create   ' ' create a new generation'
+        _option 'switch   ' ' switch to any generation'
+        _option 'delete   ' ' delete a generation'
+        _option 'uninstall' ' revert hijack'
     ;;
 esac

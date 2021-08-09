@@ -4,7 +4,7 @@ alias ln='bin/toybox ln'
 
 # will get overwritten by the one in shared.sh
 error() {
-    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
+    printf "\033[31m\[\!\] ERROR:\033(B\033[m $*\n"
 }
 
 if [ $(id -u) -ne 0 ]; then
@@ -35,7 +35,7 @@ fi
 source bin/shared.sh
 source etc/arnix.conf
 
-tput setaf 1
+echo -e '\033[31m'
 cat << END
 ╭─────────────────────────────────────────────╮
 │                                             │
@@ -52,9 +52,9 @@ cat << END
 │                                             │
 ╰─────────────────────────────────────────────╯
 END
-tput setaf 15
+echo -e '\033[97m'
 printf 'Type "I understand the risk" (all uppercase) to continue: '
-tput sgr0
+echo -ne '\033(B\033[m'
 read REPLY
 if [ "${REPLY}" != "I UNDERSTAND THE RISK" ]; then
     error "Input did not match"

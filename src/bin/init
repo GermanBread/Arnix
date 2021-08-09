@@ -22,7 +22,7 @@ else
     _echo ':: Sourced config'
 fi
 
-echo -ne '[35m'
+echo -ne '\033[35m'
 [ "${_show_splash}" = "true" ] && \
 cat << splash
 
@@ -37,7 +37,7 @@ cat << splash
             Arch Linux with generations to come
 
 splash
-echo -ne '(B[m'
+echo -ne '\033(B\033[m'
 
 if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
     if [ ! -e /arnix/bin/rollback.sh ]; then

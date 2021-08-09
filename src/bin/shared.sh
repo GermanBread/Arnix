@@ -5,17 +5,17 @@ else
 fi
 
 log() {
-    printf "$(tput setaf 5)[-] INFO:$(tput sgr0) $*\n"
+    printf "\033[35m[-] INFO:\033(B\033[m $*\n"
 }
 warning() {
-    printf "$(tput setaf 3)[=] WARNING:$(tput sgr0) $*\n"
+    printf "\033[33m[=] WARNING:\033(B\033[m $*\n"
 }
 error() {
-    printf "$(tput setaf 1)[!] ERROR:$(tput sgr0) $*\n"
+    printf "\033[31m\[\!\] ERROR:\033(B\033[m $*\n"
 }
 # Use $answer to retrieve the response
 question() {
-    printf "$(tput setaf 6)[?] QUESTION:$(tput sgr0) $* "
+    printf "\033[36m[?] QUESTION:\033(B\033[m $* "
     read answer
 }
 # Checks if the requirements for the scripts are statisfied, if else exists

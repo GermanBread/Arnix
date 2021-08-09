@@ -18,7 +18,7 @@ fi
 log "Activating generation ${_generation}"
 ln -srfT /arnix/generations/${_generation} /arnix/generations/current
 for i in ${_dirs}; do
-    umount -l /$i
+    umount -l /$i 2>/dev/null
     mount --bind /arnix/generations/${_generation}/$i /$i
 done
 rm -rf /boot/*

@@ -6,7 +6,7 @@ source /arnix/etc/arnix.conf
 check_for_action_requirements
 
 printf 'Are you sure? Type "uninstall Arnix" (all uppercase) to continue: '
-tput sgr0
+echo -ne '\033(B\033[m'
 read REPLY
 if [ "${REPLY}" != "UNINSTALL ARNIX" ]; then
     error "Input did not match"

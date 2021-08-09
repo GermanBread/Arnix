@@ -9,26 +9,22 @@ echo 'Select branch:'
 echo '1 - stable'
 echo '2 - unstable'
 echo '3 - custom'
-while ! [[ $_mode = '[123]' ]] 2>/dev/null; do
-    tput sc
+while ! [[ $_mode = [123] ]] 2>/dev/null; do
+    printf '\0337'
     read -n 1 _mode
-    tput rc
+    printf '\0338'
 done
 echo
 
-_escape() {
-    echo $* | sed 's/\//\\\//gm'
-}
-
 case ${_mode} in 
     1)
-        sed -Ei "s/_update_source=.+/_update_source=$(_escape 'https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.tar.gz')/" /arnix/etc/arnix.conf
-        sed -Ei "s/_branch_preset=\w+/_branch_preset=stable/" /arnix/etc/arnix.conf
+        sed -Ei "s,_update_source=.+,_update_source=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
+        sed -Ei "s,_branch_preset=\w+,_branch_preset=stable," /arnix/etc/arnix.conf
         log "Branch changed to 'stable'"
     ;;
     2)
-        sed -Ei "s/_update_source=.+/_update_source=$(_escape 'https://raw.githubusercontent.com/GermanBread/Arnix/master/src/arnix-bootstrap.tar.gz')/" /arnix/etc/arnix.conf
-        sed -Ei "s/_branch_preset=\w+/_branch_preset=unstable/" /arnix/etc/arnix.conf
+        sed -Ei "s,_update_source=.+,_update_source=https://raw.githubusercontent.com/GermanBread/Arnix/master/src/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
+        sed -Ei "s,_branch_preset=\w+,_branch_preset=unstable," /arnix/etc/arnix.conf
         log "Branch changed to 'unstable'"
     ;;
     3)
@@ -39,8 +35,8 @@ case ${_mode} in
             error 'Link errored, no changes were saved'
             exit 1
         fi
-        sed -Ei "s/_update_source=.+/_update_source=$(_escape "${answer}")/" /arnix/etc/arnix.conf
-        sed -Ei "s/_branch_preset=\w+/_branch_preset=custom/" /arnix/etc/arnix.conf
+        sed -Ei "s,_update_source=.+,_update_source=${answer}," /arnix/etc/arnix.conf
+        sed -Ei "s,_branch_preset=\w+,_branch_preset=custom," /arnix/etc/arnix.conf
         log "Branch changed to 'custom'"
     ;;
 esac
