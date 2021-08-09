@@ -8,8 +8,8 @@ Current status: **STABLE**
 
 ## Installing
 
-- Download the newest release
-- `cd` into the directory of this script `cd /path/to/script`
+- Download the newest release and extract it somewhere
+- `cd` into the extracted archive `cd extracted/src/`
 - Run `./hijack.sh` as root
 
 ### Post install
@@ -18,6 +18,10 @@ Current status: **STABLE**
 - Configure the behaviour of Arnix by editing `/arnix/etc/arnix.conf`
 - Add `quiet` to kernel parameters for quiet boot
 - Add `rollback` to kernel parameters to revert to a generation from within init
+
+### Uninstalling
+
+- Run `arnixctl uninstall` as root
 
 ---
 
