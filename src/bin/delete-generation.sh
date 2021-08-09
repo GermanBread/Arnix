@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/arnix/bin/busybox sh
+
+alias ln='bin/toybox ln'
 
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf

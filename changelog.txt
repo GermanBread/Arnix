@@ -1,9 +1,7 @@
-release candidate 1 (28.7.2021 - DD.MM.YYYY)
+release candidate 2 (28.7.2021 - DD.MM.YYYY)
 
-new
-GRUB theme support
+- Independance from pacstrap ... wooo!
+- Arnix is now 100% POSIX compliant
 
-fix
-the script should not drop you into a empty root
 ---
 past releases see commit log (I a too lazy to add them here)

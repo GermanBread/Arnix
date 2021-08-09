@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf
@@ -23,49 +23,23 @@ if [ ! -d /arnix/generations/${_generation} ]; then
     exit 1
 fi
 
-log "Installing dependencies"
-[ -n "$(command -v pacstrap)" ] && \
-    pacman -S --noconfirm --needed --asdeps arch-install-scripts 1>/dev/null
-
-tempsystempath="/tmp/temproot"
-log "Installing temporary system to ${tempsystempath}"
-mkdir -p ${tempsystempath}
-mount -t tmpfs none ${tempsystempath}
-pacstrap ${tempsystempath} base 1>/dev/null
-if [ $? -ne 0 ]; then
-    error "'pacstrap' command errored, cannot continue safely. Is your system up to date?"
-    exit 1
-fi
-
 log "Reverting changes (1/2)"
 rm /usr/bin/arnixctl
 rm /etc/pacman.d/hooks/0-arnix-create-generation.hook
 mv /etc/os-release.arnixsave /etc/os-release
 
-log "Pivoting to ${tempsystempath}"
-mount --make-rprivate /
-mkdir ${tempsystempath}/oldroot
-pivot_root ${tempsystempath} ${tempsystempath}/oldroot
-mount -t proc none /proc # required for umount to work
-
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
-    umount -l /oldroot/$i # lazy unmount because A: this works B: we restore the directories anyways
+    umount -l /$i # lazy unmount because A: this works B: we restore the directories anyways
 done
-rm -rf /oldroot/boot/*
+rm -rf /boot/*
 
 log "Reverting changes (2/2)"
-rm -r /oldroot/usr/* # revert symlinks in /usr
+rm -r /usr/* # revert symlinks in /usr
 for i in ${_dirs}; do
-    mv /oldroot/arnix/generations/${_generation}/$i/* /oldroot/$i
+    mv /arnix/generations/${_generation}/$i/* /$i
 done
-mv /oldroot/arnix/generations/${_generation}/boot/* /oldroot/boot
-rm -rf /oldroot/arnix
-
-log "Pivoting back"
-mount --make-rprivate /
-pivot_root /oldroot /oldroot${tempsystempath}
-umount -R ${tempsystempath}
-rmdir ${tempsystempath}
+mv /arnix/generations/${_generation}/boot/* /boot
+rm -rf /arnix
 
 log 'Arnix was successfully uninstalled. You may continue using your system'

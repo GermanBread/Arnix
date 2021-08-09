@@ -1,6 +1,10 @@
-1. Automatic merge for arnix.conf (a.k.a. figure out updates)
-1.5. Do not automaticall overwrite the system files
-2. Website for Arnix
-3. Create first release
-4. Use busybox instead of pacstrap for temporary system
-5. Become distro-agnostic
+- Automatic merge for arnix.conf (a.k.a. figure out updates)
+- Do not automatically overwrite the system files
+- Do not change the symlinks before the upgrade completed
+- allow rollbacks from within init (rollback kernel parameter?)
+- drop-in init scripts
+- Website for Arnix
+- wiki explaining things (like recovering from a failed hijack)
+- Create first release
+- Use busybox instead of pacstrap for temporary system
+- Become distro-agnostic

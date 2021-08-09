@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/arnix/bin/busybox sh
+
+alias ln='bin/toybox ln'
 
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf
@@ -18,8 +20,8 @@ fi
 log "Activating generation ${_generation}"
 ln -srfT /arnix/generations/${_generation} /arnix/generations/current
 for i in ${_dirs}; do
-    /arnix/bin/busybox umount -l /$i
-    /arnix/bin/busybox mount --bind /arnix/generations/${_generation}/$i /$i
+    umount -l /$i
+    mount --bind /arnix/generations/${_generation}/$i /$i
 done
 rm -rf /boot/*
 cp -a /arnix/generations/${_generation}/boot/* /boot

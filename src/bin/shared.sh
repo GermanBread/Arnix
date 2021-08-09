@@ -1,4 +1,3 @@
-#!/bin/sh
 log() {
     printf "$(tput setaf 5)[-] INFO:$(tput sgr0) $*\n"
 }

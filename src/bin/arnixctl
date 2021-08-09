@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf
