@@ -27,6 +27,7 @@ rm -rf /arnix/merge
 mkdir -p /arnix/merge
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
+cp -a changelog.txt /arnix/changelog.txt
 rm -r /tmp/arnix-update
 
 warning "Manual intervention is required - files need to be merged. Because guess what, merging updates is harder than it sounds."

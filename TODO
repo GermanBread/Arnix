@@ -1,8 +1,6 @@
 - Automatic merge for arnix.conf (a.k.a. figure out updates)
 - Do not automatically overwrite the system files
-- Do not change the symlinks before the upgrade completed
-- drop-in init scripts
 - Website for Arnix
-- wiki explaining things (like recovering from a failed hijack, explain hooks)
 - Create first release
-- Become distro-agnostic
+- Become distro-agnostic (is already?)
+- Something something save kernels before pacman removes them
