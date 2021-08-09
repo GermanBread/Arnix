@@ -71,6 +71,7 @@ mv -f /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
 mkdir -p /etc/pacman.d/hooks/
 ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
+ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
 

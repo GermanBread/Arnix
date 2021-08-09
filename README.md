@@ -2,7 +2,7 @@
 
 Arch Linux with generations - and a nice tool to mange those
 
-Current status: **CORE FEATURES STABLE - UTILITIES TO BE TESTED** (ongoing rewrite)
+Current status: **BEWARE OF USING THE UNSTABLE BRANCH**
 
 ---
 

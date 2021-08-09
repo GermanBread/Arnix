@@ -48,6 +48,14 @@ if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
 fi
 
 _echo ":: Starting Arnix version ${_arnix_version}"
+_echo ":: Running pre-mount hooks"
+[ -n "$(ls /arnix/etc/init.hooks)" ] && \
+    for i in /arnix/etc/init.hooks/pre-*.hook; do
+        chmod +x $i
+        sh $i
+        [ $? -ne 0 ] && \
+            _emergency "Pre-mount hook $(basename $i) errored"
+    done
 _echo ":: Booting generation $(readlink /arnix/generations/current)"
 
 _ifs=$IFS
@@ -69,6 +77,15 @@ for i in ${_dirs}; do
 done
 IFS=$_ifs
 unset _ifs _dirs
+
+_echo ":: Running post-mount hooks"
+[ -n "$(ls /arnix/etc/init.hooks)" ] && \
+    for i in /arnix/etc/init.hooks/post-*.hook; do
+        chmod +x $i
+        sh $i
+        [ $? -ne 0 ] && \
+            _emergency "Post-mount hook $(basename $i) errored"
+    done
 
 [ ${_errored} -ne 0 ] && \
     _echo ':: Errors occured, freezing execution for 15 seconds' && \

@@ -1,10 +1,8 @@
 - Automatic merge for arnix.conf (a.k.a. figure out updates)
 - Do not automatically overwrite the system files
 - Do not change the symlinks before the upgrade completed
-- allow rollbacks from within init (rollback kernel parameter?)
 - drop-in init scripts
 - Website for Arnix
-- wiki explaining things (like recovering from a failed hijack)
+- wiki explaining things (like recovering from a failed hijack, explain hooks)
 - Create first release
-- Use busybox instead of pacstrap for temporary system
 - Become distro-agnostic

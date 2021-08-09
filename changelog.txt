@@ -1,7 +1,11 @@
 release candidate 2 (28.7.2021 - DD.MM.YYYY)
 
-- Independance from pacstrap ... wooo!
+- Independance from pacman ... wooo!
 - Arnix is now 100% POSIX compliant
 
+BREAKING CHANGE:
+You need to symlink the new pacman hook
+ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+
 ---
-past releases see commit log (I a too lazy to add them here)
+past releases see github

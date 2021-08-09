@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
-#source /arnix/bin/shared.sh
-#source /arnix/etc/arnix.conf
+source /arnix/bin/shared.sh
+source /arnix/etc/arnix.conf
 
 echo -ne '\033[35m'
 cat << splash

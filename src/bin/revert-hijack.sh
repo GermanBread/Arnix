@@ -26,6 +26,7 @@ fi
 log "Reverting changes (1/2)"
 rm /usr/bin/arnixctl
 rm /etc/pacman.d/hooks/0-arnix-create-generation.hook
+rm /etc/pacman.d/hooks/100-arnix-change-symlink.hook
 mv /etc/os-release.arnixsave /etc/os-release
 
 log "Deactivating generation ${generation}"

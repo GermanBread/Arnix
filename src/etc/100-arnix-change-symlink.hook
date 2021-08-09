@@ -6,5 +6,5 @@ Operation = Remove
 Type = Package
 Target = *
 [Action]
-When = PreTransaction
-Exec = /arnix/bin/create-generation.sh nosymlink
+When = PostTransaction
+Exec = /arnix/bin/create-generation.sh nocopy
