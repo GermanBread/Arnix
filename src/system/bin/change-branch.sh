@@ -5,6 +5,11 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
+if [ -z "$(command -v curl)" ]; then
+    error "This script requires curl"
+    exit 1
+fi
+
 echo 'Select branch:'
 echo '1 - stable'
 echo '2 - unstable'

@@ -8,9 +8,7 @@ Current status: **STABLE**
 
 ## Installing
 
-- Download the newest release and extract it somewhere
-- `cd` into the extracted archive `cd extracted/src/`
-- Run `./hijack.sh` as root
+Download the newest installer [from here](https://github.com/GermanBread/Arnix/releases/latest) and execute it as root
 
 ### Post install
 

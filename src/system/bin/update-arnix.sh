@@ -5,6 +5,11 @@ source /arnix/etc/arnix.conf
 
 check_for_action_requirements
 
+if [ -z "$(command -v curl)" ]; then
+    error "This script requires curl"
+    exit 1
+fi
+
 if [ -d /arnix/merge ]; then
     error 'There are unmerged files in /arnix/merge'
     error 'Delete /arnix/merge when all files are merged / discarded'
