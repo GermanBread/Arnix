@@ -5,6 +5,6 @@ function init() {
 }
 
 function handlescroll() {
-    var element = document.getElementById("logo")
+    var element = document.getElementById("logo") ?? document.body // Stop annoying me VSCode. This is to shut you up
     element.style.opacity = ((logoScroll - window.scrollY) / logoScroll).toString()
 }
