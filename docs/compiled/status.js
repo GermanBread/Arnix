@@ -1,5 +1,6 @@
 function replaceTemporaryFields() {
-    var ticker = document.getElementById("ticker");
+    var _a;
+    var ticker = (_a = document.getElementById("ticker")) !== null && _a !== void 0 ? _a : document.body; // see script.ts
     fetch('https://api.github.com/repos/GermanBread/Arnix/releases/latest')
         .then(function (res) {
         res.json().then(function (json) {
