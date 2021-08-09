@@ -65,6 +65,7 @@ log "Installing Arnix (1/2)"
 mkdir -p /arnix
 cp -r bin /arnix/bin
 cp -r etc /arnix/etc
+mkdir -p /arnix/etc/init-hooks
 
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
 mv -f /etc/os-release /etc/os-release.arnixsave
