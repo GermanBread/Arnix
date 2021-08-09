@@ -8,6 +8,8 @@ body {
     top: 1em;
     left: 1em;
 
+    font-size: clamp(5px, 2vw, 20px);
+
     color: #D6D;
     text-shadow: #C5C 0 0 .5em;
 

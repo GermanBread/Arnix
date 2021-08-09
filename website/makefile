@@ -17,6 +17,7 @@ all:
 	@echo Compilation completed
 
 deploy: all
+	rm -rf ../docs/*
 	cp -r compiled ../docs/compiled
 	cp -r images ../docs/images
 	cp *.html ../docs/
