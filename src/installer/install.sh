@@ -9,7 +9,6 @@ fi
 
 tarball=$(curl -s https://api.github.com/repos/GermanBread/Arnix/releases/latest | grep tarball | egrep -o 'https://.+\"' | head -c -2)
 temp=$(mktemp -d)
-mkdir -p $temp
 cd $temp
 curl -SL ${tarball} > latest.tar.gz
 [ $? -ne 0 ] && exit
