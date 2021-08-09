@@ -1,4 +1,4 @@
-release candidate 2 (28.7.2021 - DD.MM.YYYY)
+release candidate 3 (09.08.2021 - DD.MM.YYYY)
 
 - Independance from pacman ... wooo!
 - Arnix is now 100% POSIX compliant
