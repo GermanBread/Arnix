@@ -1,0 +1,44 @@
+body {
+    background-color: #212;
+    font-size: 1vw;
+}
+
+#logo {
+    position: sticky;
+    top: 1em;
+    left: 1em;
+
+    color: #D6D;
+    text-shadow: #C5C 0 0 .5em;
+
+    pointer-events: none;
+}
+
+#main-view {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #A4A;
+
+    margin: 2vw;
+    
+    p, pre, code, a {
+        text-align: left;
+    }
+
+    a {
+        color: #A4A;
+        text-shadow: #939 0 0 .25em;
+
+        &:hover {
+            color: #B5B;
+            text-shadow: #A4A 0 0 .25em;
+        }
+    }
+}
+
+hr {
+    border-color: #D6D;
+    box-shadow: #C5C 0 0 .5em;
+
+    margin-top: 2em;
+}

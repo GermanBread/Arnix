@@ -1,6 +1,3 @@
-- Automatic merge for arnix.conf (a.k.a. figure out updates)
-- Do not automatically overwrite the system files
-- Website for Arnix
-- Create first release
-- Become distro-agnostic (is already?)
+- Figure out updates
+- Become distro-agnostic (need hooks for other distros)
 - Something something save kernels before pacman removes them
