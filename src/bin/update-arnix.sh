@@ -12,20 +12,44 @@ fi
 
 if [ -d /arnix/merge ]; then
     error 'There are unmerged files in /arnix/merge'
-    error 'Delete /arnix/merge when all files are merged / discarded'
+    error "Delete /arnix/merge when you're done"
     exit 1
 fi
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source}'"
-mkdir -p /tmp/arnix-update
+rm -rf /tmp/arnix-update
+mkdir -m 700 -p /tmp/arnix-update
 cd /tmp/arnix-update
-curl -s "${_update_source}" >bootstrap.tar.gz
+curl -SsL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
 if [ $? -ne 0 ]; then
-    error 'Unable to download update'
+    error 'Unable to download update. There might be something relevant in the news though https://germanbread.github.io/Arnix/news.html'
     exit 1
 fi
-gunzip bootstrap.tar.gz
-tar xf bootstrap.tar
+if [ -n "${_update_source_checksum}" ]; then
+    curl -SsL "${_update_source_checksum}" >arnix-bootstrap.sha1sum.txt
+    if [ $? -ne 0 ]; then
+        warning 'Checksum URL was specified in arnix.conf but it could not be downloaded!'
+    fi
+fi
+
+if [ -e arnix-bootstrap.sha1sum.txt ]; then
+    sha1sum -c arnix-bootstrap.sha1sum.txt
+    if [ $? -ne 0 ]; then
+        warning 'Checksums did not match. Something nasty might be going on'
+        read
+    fi
+fi
+
+if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
+    sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt
+    if [ $? -eq 0 ]; then
+        log 'Arnix is already up to date, no updates required'
+        exit 0
+    fi
+fi
+
+gunzip arnix-bootstrap.tar.gz
+tar xf arnix-bootstrap.tar
 
 less changelog.txt
 rm -rf /arnix/merge
@@ -33,9 +57,10 @@ mkdir -p /arnix/merge
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
+cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 rm -r /tmp/arnix-update
 
-warning "Manual intervention is required - files need to be merged. Because guess what, merging updates is harder than it sounds."
-warning '/arnix/merge/ -> /arnix'
+warning 'Manual intervention is required - files need to be merged. Because guess what, merging updates is harder than it sounds.'
+warning '/arnix/merge -> /arnix'
 warning 'Delete /arnix/merge when you are done'
 exit

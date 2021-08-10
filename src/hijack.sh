@@ -6,14 +6,19 @@ alias ln='bin/toybox ln'
 error() {
     printf "\033[31m[!] ERROR:\033(B\033[m $*\n"
 }
+warning() {
+    printf "\033[33m[=] WARNING:\033(B\033[m $*\n"
+}
 
 if [ $(id -u) -ne 0 ]; then
     error "This script needs to run as root"
     exit 1
 fi
 if [ -z "$(command -v pacman)" ]; then
-    error "This script only runs on Arch Linux (or Arch-based as long as it has systemd)"
+    error "Only Arch and Arch-based are supported"
     exit 1
+    warning "Only Arch and some Arch-based distros are tested. The hijack might or might not brick your distro.\nYou also won't have automatic generations."
+    read
 fi
 if [ -d /etc/nixos ]; then
     error "You're already using a distro with a generations system"
@@ -37,26 +42,21 @@ source etc/arnix.conf
 
 echo -e '\033[31m'
 cat << END
-╭─────────────────────────────────────────────╮
-│                                             │
-│                 ╶ WARNING ╴                 │
-│                                             │
-│  THIS SCRIPT HIJACKS YOUR CURRENT INSTALL   │
-│                                             │
-│           ARNIX IS ALSO IN ALPHA,           │
-│      ONLY USE IT IN A VIRTUAL MACHINE       │
-│                                             │
-│    EVEN THOUGH THE HIJACK IS REVERSIBLE,    │
-│    DO NOT RELY ON IT. MAKE A FULL SYSTEM-   │
-│   BACKUP IF YOU TRY THIS ON A REAL MACHINE  │
-│                                             │
-╰─────────────────────────────────────────────╯
++                                                                                     +
+
+                                - WARNING -
+
+                    THIS SCRIPT HIJACKS YOUR CURRENT INSTALL!
+            EVEN THOUGH THE HIJACK IS REVERSIBLE, DO NOT RELY ON IT.
+          MAKE A FULL SYSTEM BACKUP IF YOU TRY THIS ON A REAL MACHINE
+
++                                                                                     +
 END
 echo -e '\033[97m'
-printf 'Type "I understand the risk" (all uppercase) to continue: '
+printf 'Type "install Arnix" (all uppercase) to continue: '
 echo -ne '\033(B\033[m'
 read REPLY
-if [ "${REPLY}" != "I UNDERSTAND THE RISK" ]; then
+if [ "${REPLY}" != "INSTALL ARNIX" ]; then
     error "Input did not match"
     exit 1
 fi
@@ -70,11 +70,16 @@ mkdir -p /arnix/etc/init-hooks
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
 mv -f /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
-mkdir -p /etc/pacman.d/hooks/
-ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
-ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
+
+# link package manager hooks here
+if [ -n "$(command -v pacman)" ]; then
+    mkdir -p /etc/pacman.d/hooks/
+    ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
+    ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+fi
 
 log "Creating generation 1"
 mkdir -p /arnix/generations/1
