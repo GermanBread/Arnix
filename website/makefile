@@ -18,7 +18,7 @@ all:
 
 deploy: all
 	rm -rf ../docs/*
-	cp -r compiled ../docs/compiled
+	mv compiled ../docs/compiled
 	cp -r images ../docs/images
 	cp *.html ../docs/
 
