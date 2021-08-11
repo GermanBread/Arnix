@@ -75,7 +75,7 @@ create_checksums /arnix/etc
 cp -a ../installer/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 mkdir -p /arnix/etc/init-hooks
 
-ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
+ln -sr /arnix/bin/arnixctl.sh /usr/bin/arnixctl
 mv -f /etc/os-release /etc/os-release.arnixsave
 ln -sr /arnix/etc/os-release /etc/os-release
 

@@ -11,9 +11,8 @@ if [ -z "$(command -v curl)" ]; then
 fi
 
 if [ -d /arnix/merge ]; then
-    error 'There are unmerged files in /arnix/merge'
-    error "Delete /arnix/merge when you're done"
-    exit 1
+    warning 'There are unmerged files in /arnix/merge'
+    warning 'Did the update get interrupted?'
 fi
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
@@ -46,7 +45,9 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     if [ $? -eq 0 ]; then
         log 'Arnix is already up to date, no updates required'
         rm -rf /tmp/arnix-update
-        exit 0
+        ([ $1 != 'force' ] && \
+            exit 0) || \
+                log 'Update forced by user'
     fi
 fi
 
@@ -54,7 +55,7 @@ sha1sum arnix-bootstrap.tar.gz >/arnix/arnix-bootstrap.sha1sum.txt
 gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
-less changelog.txt
+less -~N changelog.txt
 question 'Continue [y/N]?'
 ! [[ "${answer}" =~ [yY].* ]] && exit 1
 
@@ -82,15 +83,22 @@ for i in *; do
     [ -e /arnix/merge/etc/$i.sha1sum.txt ] && \
         cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
 done
+cd /arnix/merge/etc
+for i in *; do
+    [ ! -e /arnix/etc/$i ] && \
+        cp -rf /arnix/merge/etc/$i /arnix/etc/$i
+done
 
 cd /arnix/bin
 for i in *; do
     [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
-    
-    cp -rf /arnix/merge/bin/$i $i
-    [ -e /arnix/merge/bin/$i.sha1sum.txt ] && \
-        cp -rf /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
 done
+cp -rf /arnix/merge/bin/* .
+
+if [ -e /tmp/arnix-update/post-update.sh ]; then
+    log 'Running post-update script'
+    sh /tmp/arnix-update/post-update.sh
+fi
 
 rm -r /tmp/arnix-update
 rm -r /arnix/merge

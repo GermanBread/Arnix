@@ -1,0 +1,50 @@
+release 2 (not released yet)
+
+see changes below
+
+NOTE:
+
+if you're upgrading from v1, do the following steps:
+- make sure that /arnix/merge/bin has files in it
+- delete the contents of /arnix/bin
+- copy the contents of /arnix/merge/bin over to /arnix/bin
+- run: arnixctl update
+
+---
+
+release candidate 2 for v2 (11.08.2021)
+
+post-update scripts are now a thing (will take effect next upgrade)
+if there's something that can't be done automagically, we will tell you
+
+You now can view the changelog with 'arnixctl changelog'!
+
+AFTER THE UPDATE:
+run (in order):
+- arnixctl update force
+
+---
+
+release candidate 1 for v2 (11.08.2021)
+
+Arnix's files should also be merged automatically if they haven't been merged; otherwise you will have to merge .arnixnew files yourself
+
+the hijack process should create checksum files from now on
+
+MANUAL INTERVENTION NEEDED (if you're not updating from rc2 v2 or later):
+change the symlink /bin/arnixctl to point to /arnix/bin/arnixctl.sh
+
+----
+
+release candidate 3 (09.08.2021 - DD.MM.YYYY)
+
+- Independance from pacman ... wooo!
+- Arnix is now 100% POSIX compliant
+
+MANUAL INTERVENTION NEEDED (if you're not updating from rc2 v2 or later):
+You need to symlink the new pacman hook
+ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+
+---
+
+past releases see github

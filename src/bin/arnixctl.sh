@@ -32,6 +32,9 @@ case $1 in
         echo "Arnix update source (tarball): ${_update_source_tarball}"
         echo "Arnix update source (sha1sum): ${_update_source_checksum}"
     ;;
+    changelog)
+        less -~N /arnix/changelog.txt
+    ;;
     branch)
         /arnix/bin/change-branch.sh
     ;;
@@ -53,6 +56,7 @@ case $1 in
     *)
         _option 'help     ' ' this menu'
         _option 'status   ' ' info about Arnix'
+        _option 'changelog' ' view latest changelog'
         _option 'branch   ' ' select update branch'
         _option 'update   ' " update Arnix's files"
         _option 'create   ' ' create a new generation'
