@@ -1,15 +1,6 @@
 #!src/bin/busybox sh
 
-create_checksums() {
-    _prepwd=$PWD
-    cd $1
-    rm -f *.sha1sum.txt
-    for i in $(ls -1); do
-        [ -d $i ] && create_checksums "$i" && continue
-        sha1sum $i > $i.sha1sum.txt
-    done
-    cd ${_prepwd}
-}
+source ../src/bin/shared.sh
 
 cd src/
 chmod 755 -R bin
