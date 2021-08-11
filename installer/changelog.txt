@@ -21,7 +21,7 @@ You now can view the changelog with 'arnixctl changelog'!
 
 AFTER THE UPDATE:
 run (in order):
-- arnixctl update force
+- /arnix/bin/update-arnix.sh force
 
 ---
 

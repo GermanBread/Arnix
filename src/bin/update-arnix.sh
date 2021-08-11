@@ -44,7 +44,6 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt --status
     if [ $? -eq 0 ]; then
         log 'Arnix is already up to date, no updates required'
-        rm -rf /tmp/arnix-update
         ([ $1 != 'force' ] && \
             exit 0) || \
                 log 'Update forced by user'
