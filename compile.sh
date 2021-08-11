@@ -18,7 +18,7 @@ create_checksums bin
 create_checksums etc
 
 cd ..
-tar c bin etc ../changelog.txt > ../installer/arnix-bootstrap.tar
+fakeroot tar c bin etc ../changelog.txt > ../installer/arnix-bootstrap.tar
 cd ../installer/
 gzip -f arnix-bootstrap.tar
 sha1sum arnix-bootstrap.tar.gz > arnix-bootstrap.sha1sum.txt

@@ -1,8 +1,10 @@
 #!bin/busybox sh
 
+# will get overwritten by the definitions in shared.sh
 alias ln='bin/toybox ln'
-
-# will get overwritten by the one in shared.sh
+log() {
+    printf "\033[35m[-] INFO:\033(B\033[m $*\n"
+}
 error() {
     printf "\033[31m[!] ERROR:\033(B\033[m $*\n"
 }
@@ -81,6 +83,9 @@ if [ -n "$(command -v pacman)" ]; then
     ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
     ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
 fi
+
+# Workaround for Ubuntu
+mkdir -p /var/db
 
 log "Creating generation 1"
 mkdir -p /arnix/generations/1
