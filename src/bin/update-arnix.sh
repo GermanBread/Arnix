@@ -50,6 +50,7 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     fi
 fi
 
+sha1sum arnix-bootstrap.tar.gz >/arnix/arnix-bootstrap.sha1sum.txt
 gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
@@ -62,7 +63,6 @@ mkdir -p /arnix/merge
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
-cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 
 cd /arnix/etc
 for i in *; do

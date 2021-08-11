@@ -1,1 +1,1 @@
-ed98aeefed08d4bbcdfba85d596113a55a2a9341  arnix-bootstrap.tar.gz
+2672e7e946cc63607d8c7ca81fbaf968550a52fb  arnix-bootstrap.tar.gz
