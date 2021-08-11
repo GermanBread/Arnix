@@ -65,12 +65,11 @@ if [ "${REPLY}" != "INSTALL ARNIX" ]; then
 fi
 
 log "Installing Arnix (1/2)"
-create_checksums bin
-create_checksums etc
 mkdir -p /arnix
 cp -r bin /arnix/bin
 cp -r etc /arnix/etc
-rm src/**/*.sha1sum.txt
+create_checksums /arnix/bin
+create_checksums /arnix/etc
 mkdir -p /arnix/etc/init-hooks
 
 ln -sr /arnix/bin/arnixctl /usr/bin/arnixctl
