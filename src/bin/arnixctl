@@ -14,8 +14,6 @@ cat << splash
  #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
 ###     ### ###    ### ###    #### ########### ###    ###
 
-            Arch Linux with generations to come
-
 splash
 echo -ne '\033(B\033[m'
 
@@ -31,7 +29,8 @@ case $1 in
         echo
         echo "Arnix branch: ${_branch_preset}"
         echo "Arnix version: ${_arnix_version}"
-        echo "Arnix update source: ${_update_source}"
+        echo "Arnix update source (tarball): ${_update_source_tarball}"
+        echo "Arnix update source (sha1sum): ${_update_source_checksum}"
     ;;
     branch)
         /arnix/bin/change-branch.sh

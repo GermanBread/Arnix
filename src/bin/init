@@ -34,8 +34,6 @@ cat << splash
  #+#     #+# #+#    #+# #+#   #+#+#     #+#     #+#    #+#      
 ###     ### ###    ### ###    #### ########### ###    ###
 
-            Arch Linux with generations to come
-
 splash
 echo -ne '\033(B\033[m'
 
