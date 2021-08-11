@@ -66,14 +66,12 @@ cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 
 cd /arnix/etc
 for i in *; do
-    [[ "$i" = *'.arnixnew' ]] && rm -rf $i && continue
-    [[ "$i" = *'.sha1sum.txt' ]] && continue
-
     [ ! -e /arnix/merge/etc/$i ] && rm -f /arnix/etc/$i && continue
     
     # Check if the original checksum still matches
     [ -e $i.sha1sum.txt ] && \
-        sha1sum -c $i.sha1sum.txt
+        sha1sum -c $i.sha1sum.txt || \
+            [[ "$i" = *'.sha1sum.txt' ]] &>/dev/null
     
     # If it does we can overwrite it
     if [ $? -eq 0 ]; then
@@ -87,12 +85,11 @@ done
 
 cd /arnix/bin
 for i in *; do
-    [[ "$i" = *'.sha1sum.txt' ]] && continue
-    
     [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
     
     cp -rf /arnix/merge/bin/$i $i
-    cp -rf /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
+    [ -e /arnix/merge/bin/$i.sha1sum.txt ] && \
+        cp -rf /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
 done
 
 rm -r /tmp/arnix-update
