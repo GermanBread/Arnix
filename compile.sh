@@ -1,6 +1,7 @@
 #!src/bin/busybox sh
 
-source ../src/bin/shared.sh
+source src/bin/shared.sh
+alias sha1sum="$(pwd)/src/bin/toybox sha1sum"
 
 cd src/
 chmod 755 -R bin

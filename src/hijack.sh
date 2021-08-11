@@ -1,7 +1,6 @@
 #!bin/busybox sh
 
 # will get overwritten by the definitions in shared.sh
-alias ln='bin/toybox ln'
 log() {
     printf "\033[35m[-] INFO:\033(B\033[m $*\n"
 }
@@ -41,6 +40,9 @@ if [ ! -e etc ] && [ ! -e bin ]; then
 fi
 
 source bin/shared.sh
+alias ln="$(pwd)/bin/toybox ln"
+alias sha1sum="$(pwd)/bin/toybox sha1sum"
+
 source etc/arnix.conf
 
 echo -e '\033[31m'

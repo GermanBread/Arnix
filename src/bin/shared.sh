@@ -1,9 +1,6 @@
 if [ -d /arnix ]; then
     alias ln='/arnix/bin/toybox ln'
     alias sha1sum='/arnix/bin/toybox sha1sum'
-else
-    alias ln='bin/toybox ln'
-    alias sha1sum='bin/toybox sha1sum'
 fi
 
 log() {
@@ -37,6 +34,7 @@ create_checksums() {
     cd $1
     rm -f *.sha1sum.txt
     for i in $(ls -1); do
+        [ ! -e $i ] && continue
         [ -d $i ] && create_checksums "$i" && continue
         sha1sum $i > $i.sha1sum.txt
     done
