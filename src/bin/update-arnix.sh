@@ -33,7 +33,7 @@ if [ -n "${_update_source_checksum}" ]; then
 fi
 
 if [ -e arnix-bootstrap.sha1sum.txt ]; then
-    sha1sum -c arnix-bootstrap.sha1sum.txt
+    sha1sum -c arnix-bootstrap.sha1sum.txt --status
     if [ $? -ne 0 ]; then
         warning 'Checksums did not match. Something nasty might be going on'
         log 'Press enter to continue'
@@ -42,7 +42,7 @@ if [ -e arnix-bootstrap.sha1sum.txt ]; then
 fi
 
 if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
-    sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt
+    sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt --status
     if [ $? -eq 0 ]; then
         log 'Arnix is already up to date, no updates required'
         rm -rf /tmp/arnix-update
@@ -66,11 +66,11 @@ cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 
 cd /arnix/etc
 for i in *; do
-    [ ! -e /arnix/merge/etc/$i ] && rm -f /arnix/etc/$i && continue
+    [ ! -e /arnix/merge/etc/$i ] && rm -rf /arnix/etc/$i && continue
     
     # Check if the original checksum still matches
     ([ -e $i.sha1sum.txt ] && \
-        sha1sum -c $i.sha1sum.txt) || \
+        sha1sum -c $i.sha1sum.txt --status) || \
             [[ "$i" = '*.sha1sum.txt' ]] &>/dev/null
     
     # If it does we can overwrite it

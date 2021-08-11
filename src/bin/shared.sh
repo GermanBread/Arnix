@@ -1,7 +1,9 @@
 if [ -d /arnix ]; then
     alias ln='/arnix/bin/toybox ln'
+    alias ln='/arnix/bin/toybox sha1sum'
 else
     alias ln='bin/toybox ln'
+    alias ln='bin/toybox sha1sum'
 fi
 
 log() {
