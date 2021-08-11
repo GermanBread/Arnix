@@ -16,17 +16,17 @@ if [ -d /arnix/merge ]; then
     exit 1
 fi
 
-log "Downloading update for branch '${_branch_preset}', URL '${_update_source}'"
+log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 rm -rf /tmp/arnix-update
 mkdir -m 700 -p /tmp/arnix-update
 cd /tmp/arnix-update
-curl -SsL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
+curl -L "${_update_source_tarball}" >arnix-bootstrap.tar.gz
 if [ $? -ne 0 ]; then
     error 'Unable to download update. There might be something relevant in the news though https://germanbread.github.io/Arnix/news.html'
     exit 1
 fi
 if [ -n "${_update_source_checksum}" ]; then
-    curl -SsL "${_update_source_checksum}" >arnix-bootstrap.sha1sum.txt
+    curl -L "${_update_source_checksum}" >arnix-bootstrap.sha1sum.txt
     if [ $? -ne 0 ]; then
         warning 'Checksum URL was specified in arnix.conf but it could not be downloaded!'
     fi
@@ -36,6 +36,7 @@ if [ -e arnix-bootstrap.sha1sum.txt ]; then
     sha1sum -c arnix-bootstrap.sha1sum.txt
     if [ $? -ne 0 ]; then
         warning 'Checksums did not match. Something nasty might be going on'
+        log 'Press enter to continue'
         read
     fi
 fi

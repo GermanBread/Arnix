@@ -17,7 +17,8 @@ fi
 if [ -z "$(command -v pacman)" ]; then
     error "Only Arch and Arch-based are supported"
     exit 1
-    warning "Only Arch and some Arch-based distros are tested. The hijack might or might not brick your distro.\nYou also won't have automatic generations."
+    warning "Only Arch and some Arch-based distros are tested. The hijack might or might not brick your distro. You also won't have automatic generations."
+    log 'Press enter to continue'
     read
 fi
 if [ -d /etc/nixos ]; then
