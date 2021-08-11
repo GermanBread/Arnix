@@ -45,6 +45,7 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt
     if [ $? -eq 0 ]; then
         log 'Arnix is already up to date, no updates required'
+        rm -rf /tmp/arnix-update
         exit 0
     fi
 fi
@@ -65,17 +66,20 @@ cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 
 cd /arnix/etc
 for i in *; do
+    [[ $i = '*.arnixnew' ]] && rm -rf $i && continue
+    [[ $i = '*.sha1sum.txt' ]] && continue
+    
     # Check if the original checksum still matches
     [ -e $i.sha1sum.txt ] && \
         sha1sum -c $i.sha1sum.txt
     
     # If it does we can overwrite it
     if [ $? -eq 0 ]; then
-        mv /arnix/merge/etc/$i $i
-        mv -f /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
+        cp -rf /arnix/merge/etc/$i $i
+        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
     else
-        mv /arnix/merge/etc/$i $i.arnixnew
-        mv -f /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt.arnixnew
+        cp -rf /arnix/merge/etc/$i $i.arnixnew
+        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt.arnixnew
     fi
 done
 
@@ -83,8 +87,8 @@ cd /arnix/bin
 for i in *; do
     [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
     
-    mv -f /arnix/merge/bin/$i $i
-    mv -f /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
+    cp -rf /arnix/merge/bin/$i $i
+    cp -rf /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
 done
 
 rm -r /tmp/arnix-update
