@@ -37,7 +37,7 @@ case ${_mode} in
     3)
         question 'Please paste the link to the arnix-bootstrap.tar.gz file here:'
         tarball="${answer}"
-        question 'Please paste the link to the arnix-bootstrap.sha1sum.txt file here:'
+        question 'Please paste the link to the arnix-bootstrap.sha1sum.txt file here (press enter to skip):'
         checksum="${answer}"
         log 'Testing tarball link'
         curl -s "${tarball}" >/dev/null
@@ -45,11 +45,13 @@ case ${_mode} in
             error 'Link errored, no changes were saved'
             exit 1
         fi
-        log 'Testing checksum link'
-        curl -s "${checksum}" >/dev/null
-        if [ $? -ne 0 ]; then
-            error 'Link errored, no changes were saved'
-            exit 1
+        if [ -n "${checksum}" ]; then
+            log 'Testing checksum link'
+            curl -s "${checksum}" >/dev/null
+            if [ $? -ne 0 ]; then
+                error 'Link errored, no changes were saved'
+                exit 1
+            fi
         fi
         sed -Ei "s,_update_source_tarball=.+,_update_source_tarball=${tarball}," /arnix/etc/arnix.conf
         sed -Ei "s,_update_source_checksum=.+,_update_source_checksum=${checksum}," /arnix/etc/arnix.conf

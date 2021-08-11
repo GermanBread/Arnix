@@ -52,15 +52,43 @@ gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
 less changelog.txt
+question 'Continue [y/N]?'
+! [[ "${answer}" =~ [yY].* ]] && exit 1
+
 rm -rf /arnix/merge
 mkdir -p /arnix/merge
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
 cp -a arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
+
+cd /arnix/etc
+for i in *; do
+    # Check if the original checksum still matches
+    [ -e $i.sha1sum.txt ] && \
+        sha1sum -c $i.sha1sum.txt
+    
+    # If it does we can overwrite it
+    if [ $? -eq 0 ]; then
+        mv /arnix/merge/etc/$i $i
+        mv -f /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
+    else
+        mv /arnix/merge/etc/$i $i.arnixnew
+        mv -f /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt.arnixnew
+    fi
+done
+
+cd /arnix/bin
+for i in *; do
+    [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
+    
+    mv -f /arnix/merge/bin/$i $i
+    mv -f /arnix/merge/bin/$i.sha1sum.txt $i.sha1sum.txt
+done
+
 rm -r /tmp/arnix-update
+rm -r /arnix/merge
 
 warning 'Manual intervention is required - files need to be merged. Because guess what, merging updates is harder than it sounds.'
-warning '/arnix/merge -> /arnix'
-warning 'Delete /arnix/merge when you are done'
+warning '/arnix/etc/FILE.arnixnew -> /arnix/etc/FILE'
 exit
