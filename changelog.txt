@@ -4,7 +4,7 @@ DO NOT UPDATE - VERY EXPERIMENTAL changes
 
 I am currently trying to implement checksums.
 
-Arnix's files should also be merged automatically if they haven't been merged; otherwise you will have to merge .arnixnew files
+Arnix's files should also be merged automatically if they haven't been merged; otherwise you will have to merge .arnixnew files yourself
 
 ----
 

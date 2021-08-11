@@ -78,11 +78,11 @@ for i in *; do
     # If it does we can overwrite it
     if [ $? -eq 0 ]; then
         cp -rf /arnix/merge/etc/$i $i
-        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
     else
         cp -rf /arnix/merge/etc/$i $i.arnixnew
-        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt.arnixnew
     fi
+    [ -e /arnix/merge/etc/$i.sha1sum.txt ] && \
+        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
 done
 
 cd /arnix/bin
