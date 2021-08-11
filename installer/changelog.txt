@@ -20,8 +20,8 @@ if there's something that can't be done automagically, we will tell you
 You now can view the changelog with 'arnixctl changelog'!
 
 AFTER THE UPDATE:
-run (in order):
-- /arnix/bin/update-arnix.sh force
+run:
+ln -srfT /arnix/bin/arnixctl.sh /usr/bin/arnixctl
 
 ---
 
