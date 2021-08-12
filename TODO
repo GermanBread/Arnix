@@ -1,2 +1,2 @@
 - Become distro-agnostic (need hooks for other package managers)
-- Something something save kernels before pacman removes them
+- add testing branch?
