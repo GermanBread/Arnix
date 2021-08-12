@@ -73,6 +73,7 @@ cp -r etc /arnix/etc
 create_checksums /arnix/bin
 create_checksums /arnix/etc
 cp -a ../installer/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
+cp -a ../installer/changelog.txt /arnix/changelog.txt
 mkdir -p /arnix/etc/init-hooks
 
 ln -sr /arnix/bin/arnixctl.sh /usr/bin/arnixctl
