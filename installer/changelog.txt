@@ -1,4 +1,4 @@
-release 2 (not released yet)
+release 2 (12.08.2021)
 
 see changes below
 

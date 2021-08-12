@@ -22,13 +22,31 @@
             <h1>Arnix – news</h1>
             <a href="index.html">Take me back!</a>
             <hr>
-            <h2>First ever release of Arnix saw the light of day!</h2>
-            <p>After months of hard work I can announce the first stable release of Arnix!</p>
-            <p>There were a few breaking changes on the way (but that's to be expected)</p>
-            <br>
-            <p>If you don't know what Arnix does, <a href="https://github.com/GermanBread/Arnix/wiki">take a look at the wiki</a></p>
-            <br>
-            <p>Releases can be downloaded <a href="https://github.com/GermanBread/Arnix/releases/latest">here</a></p>
+            <div id="content-view">
+                <h2>v2 is out!</h2>
+                <i>I feel like I was on the verge of a burnout</i>
+                <p>Anyways, this release features automated update merging! (and a LOT of under-the-hood changes)</p>
+                <br>
+                <h3>Note</h3>
+                <p>Updating might fail because I misconfigured cURL in v1 (sorry).</p>
+                <p>But don't worry; I have a fix for you!</p>
+                <br>
+                <p>Run <code>sed -i 's,curl -s,curl -L,gm' /arnix/bin/update-arnix.sh</code> <b>as root</b></p>
+                <br>
+                <p>Now run <code>arnixctl update</code> again</p>
+                <br>
+                <p>Releases can be downloaded <a href="https://github.com/GermanBread/Arnix/releases/latest">here</a></p>
+            </div>
+            <hr>
+            <div id="content-view">
+                <h2>First ever release of Arnix saw the light of day!</h2>
+                <p>After months of hard work I can announce the first stable release of Arnix!</p>
+                <p>There were a few breaking changes on the way (but that's to be expected)</p>
+                <br>
+                <p>If you don't know what Arnix does, <a href="https://github.com/GermanBread/Arnix/wiki">take a look at the wiki</a></p>
+                <br>
+                <p>Releases can be downloaded <a href="https://github.com/GermanBread/Arnix/releases/latest">here</a></p>
+            </div>
         </div>
     </body>
 </html>

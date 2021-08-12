@@ -23,8 +23,25 @@ body {
 
     margin: 2vw;
     
+    #content-view {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    hr {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
     p, pre, code, a {
         text-align: left;
+    }
+
+    code {
+        background-color: #301530;
+        border-radius: 5px;
+
+        padding: .3em;
     }
 
     a {
