@@ -41,7 +41,7 @@ case $1 in
         /arnix/bin/change-branch.sh
     ;;
     update)
-        /arnix/bin/update-arnix.sh
+        /arnix/bin/update-arnix.sh "$2"
     ;;
     create)
         /arnix/bin/create-generation.sh

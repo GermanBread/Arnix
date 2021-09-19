@@ -1,8 +1,10 @@
-release candidate 1 for v2.1
+release candidate 1 for v2.1 (19.09.2021)
 
 - added verbose mode
+- cancelling an update should not fool the updater into believing that the system is up-to-date
+- arnixctl will now pass arguments to the update applet from now on
 
-The new arnix.conf has a new option!
+!!! The new arnix.conf has a new option !!!
 
 ---
 

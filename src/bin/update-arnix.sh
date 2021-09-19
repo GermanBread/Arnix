@@ -52,7 +52,7 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     fi
 fi
 
-sha1sum arnix-bootstrap.tar.gz >/arnix/arnix-bootstrap.sha1sum.txt
+sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum.txt
 gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
@@ -62,6 +62,7 @@ question 'Continue [y/N]?'
 
 rm -rf /arnix/merge
 mkdir -p /arnix/merge
+mv /tmp/arnix-update/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
