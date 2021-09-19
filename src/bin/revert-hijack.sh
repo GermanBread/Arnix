@@ -39,6 +39,7 @@ for i in ${_dirs}; do
 done
 mv /arnix/generations/${_generation}/boot/* /boot
 
+log "Removing Arnix files"
 rm -rf /arnix
 rm /usr/bin/arnixctl
 mv /etc/os-release.arnixsave /etc/os-release
