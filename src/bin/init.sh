@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 _echo() {
-    [[ "$(cat /proc/cmdline)" != '*quiet*' ]] && \
+    [[ "$(cat /proc/cmdline)" != '*quiet*' ]] || [[ "$(cat /proc/cmdline)" = '*arnix.verbose*' ]] && \
         echo $*
 }
 _emergency() {
@@ -15,12 +15,18 @@ _emergency() {
     #exit 1
 }
 
+[ $$ -ne 1 ] && \
+    echo 'Must be PID 1' && \
+        exit 1
+
 if [ ! -e /arnix/etc/arnix.conf ]; then
     _emergency "Config file /arnix/etc/arnix.conf does not exist"
 else
     source /arnix/etc/arnix.conf
-    _echo ':: Sourced config'
+    _echo ':: Loaded config'
 fi
+
+[ "${_verbose}" = "true" ] || [[ "$(cat /proc/cmdline)" = '*arnix.verbose*' ]] && set -v
 
 echo -ne '\033[35m'
 [ "${_show_splash}" = "true" ] && \
@@ -39,7 +45,7 @@ echo -ne '\033(B\033[m'
 
 if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
     if [ ! -e /arnix/bin/rollback.sh ]; then
-        _emergency "Rollback script /arnix/bin/helper.sh does not exist"
+        _emergency "Rollback script /arnix/bin/rollback.sh does not exist"
     else
         /arnix/bin/rollback.sh
     fi
@@ -94,7 +100,7 @@ _echo ":: Running post-mount hooks"
     _echo ':: Errors occured, freezing execution for 15 seconds' && \
         sleep 15s
 
-_echo ':: Handing off control to systemd'
+_echo ':: Handing off control'
 if [ ! -e /sbin/init ]; then
     _emergency '/sbin/init not found'
 else

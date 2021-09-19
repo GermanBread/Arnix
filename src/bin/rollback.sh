@@ -3,6 +3,8 @@
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf
 
+[ "${_verbose}" = "true" ] && set -v
+
 check_for_action_requirements
 
 ls /arnix/generations

@@ -3,6 +3,8 @@
 source /arnix/bin/shared.sh
 source /arnix/etc/arnix.conf
 
+[ "${_verbose}" = "true" ] && set -v
+
 echo -ne '\033[35m'
 cat << splash
 

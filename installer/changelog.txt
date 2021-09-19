@@ -1,3 +1,11 @@
+release candidate 1 for v2.1
+
+- added verbose mode
+
+The new arnix.conf has a new option!
+
+---
+
 release 2 (12.08.2021)
 
 see changes below
