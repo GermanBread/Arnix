@@ -55,7 +55,6 @@ _echo ":: Starting Arnix version ${_arnix_version}"
 _echo ":: Running pre-mount hooks"
 [ -n "$(ls /arnix/etc/init-hooks)" ] && \
     for i in /arnix/etc/init-hooks/pre-*.hook; do
-        chmod +x $i
         sh $i
         [ $? -ne 0 ] && \
             _emergency "Pre-mount hook $(basename $i) errored"
@@ -90,7 +89,6 @@ unset _ifs _dirs
 _echo ":: Running post-mount hooks"
 [ -n "$(ls /arnix/etc/init-hooks)" ] && \
     for i in /arnix/etc/init-hooks/post-*.hook; do
-        chmod +x $i
         sh $i
         [ $? -ne 0 ] && \
             _emergency "Post-mount hook $(basename $i) errored"
