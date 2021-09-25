@@ -38,14 +38,15 @@ for i in ${_dirs}; do
     mv /arnix/generations/${_generation}/$i/* /$i
 done
 mv /arnix/generations/${_generation}/boot/* /boot
-
-log "Removing Arnix files"
-rm -rf /arnix
-rm /usr/bin/arnixctl
 mv /etc/os-release.arnixsave /etc/os-release
+rm /usr/bin/arnixctl
 
 # delete package manager hooks here
+# pacman
 rm -f /etc/pacman.d/hooks/0-arnix-create-generation.hook
 rm -f /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+
+log "Removing Arnix directory"
+rm -rf /arnix
 
 log 'Arnix was successfully uninstalled. You may continue using your system'

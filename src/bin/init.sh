@@ -6,8 +6,9 @@ _echo() {
 }
 _emergency() {
     echo $*
-    echo 'You are in emergency mode. Bailing out, good luck.'
+    echo "You are in Arnix's emergency mode. Bailing out, good luck."
     echo 'Files for Arnix are stored in /arnix/bin and /arnix/etc'
+    echo 'If you exit this shell, the boot process will attempt to continue.'
     echo
     PS1="RESCUE \w # " sh
     echo
