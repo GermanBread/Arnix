@@ -19,6 +19,8 @@ _emergency() {
     echo 'Must be PID 1' && \
         exit 1
 
+[[ "$(cat /proc/cmdline)" = '*arnix.emergency*' ]] && _emergency 'Requested by kernel parameter'
+
 if [ ! -e /arnix/etc/arnix.conf ]; then
     _emergency "Config file /arnix/etc/arnix.conf does not exist"
 else
@@ -51,14 +53,14 @@ if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
     fi
 fi
 
-_echo ":: Starting Arnix version ${_arnix_version}"
-_echo ":: Running pre-mount hooks"
-[ -n "$(ls /arnix/etc/init-hooks)" ] && \
-    for i in /arnix/etc/init-hooks/pre-*.hook; do
-        sh $i
-        [ $? -ne 0 ] && \
-            _emergency "Pre-mount hook $(basename $i) errored"
-    done
+_echo ":: Starting Arnix : version ${_arnix_version}"
+[ -e /arnix/etc/init-hooks/pre-*.hook ] && \
+    _echo ":: Running pre-mount hooks" && \
+        for i in /arnix/etc/init-hooks/pre-*.hook; do
+            sh $i
+            [ $? -ne 0 ] && \
+                _emergency "Pre-mount hook $(basename $i) errored"
+        done
 _echo ":: Booting generation $(readlink /arnix/generations/current)"
 _errored=0
 
@@ -86,13 +88,13 @@ done
 IFS=$_ifs
 unset _ifs _dirs
 
-_echo ":: Running post-mount hooks"
-[ -n "$(ls /arnix/etc/init-hooks)" ] && \
-    for i in /arnix/etc/init-hooks/post-*.hook; do
-        sh $i
-        [ $? -ne 0 ] && \
-            _emergency "Post-mount hook $(basename $i) errored"
-    done
+[ -e /arnix/etc/init-hooks/post-*.hook ] && \
+    _echo ":: Running post-mount hooks" && \
+        for i in /arnix/etc/init-hooks/post-*.hook; do
+            sh $i
+            [ $? -ne 0 ] && \
+                _emergency "Post-mount hook $(basename $i) errored"
+        done
 
 [ ${_errored} -ne 0 ] && \
     _echo ':: Errors occured, freezing execution for 15 seconds' && \
