@@ -66,7 +66,7 @@ if [[ "$(cat /proc/cmdline)" = '*arnix.rollback*' ]]; then
 fi
 
 [ ! -e /arnix/generations/current ] && \
-    _emergency "Symlink to current generation is missing. Create it now or use the rollback script (/arnix/bin/rollback.sh)."
+    _emergency "Symlink to current generation is missing. Create it now or use the rollback script (/arnix/bin/rollback.sh). If you chose the wrong generation."
 
 _echo ":: Starting Arnix ${_arnix_version}"
 _echo ":: Mounting / as rw"
@@ -118,6 +118,15 @@ for i in /arnix/generations/*; do
 done
 umount -l /arnix/generations/current
 
+if [[ "$(readlink /sbin)" = '*arnix*' ]]; then
+    _echo '!! /sbin points to a directory in /arnix'
+    _echo ':: Attempting to fix this automatically'
+    cd /
+    ln -sfT usr/bin sbin || \
+        _emergency 'Recreating the symlink failed'
+    cd - &>/dev/null
+    sleep 5s
+fi
 _echo ':: Handing off control'
 if [ ! -e /sbin/init ]; then
     _emergency '/sbin/init not found'
