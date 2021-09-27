@@ -37,6 +37,9 @@ case $1 in
     changelog)
         less -~N /arnix/changelog.txt
     ;;
+    edit)
+        /arnix/bin/edit-config.sh
+    ;;
     branch)
         /arnix/bin/change-branch.sh
     ;;
@@ -59,6 +62,7 @@ case $1 in
         _option 'help     ' ' this menu'
         _option 'status   ' ' info about Arnix'
         _option 'changelog' ' view latest changelog'
+        _option 'edit     ' " edit Arnix's configuration"
         _option 'branch   ' ' select update branch'
         _option 'update   ' " update Arnix's files"
         _option 'create   ' ' create a new generation'

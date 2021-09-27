@@ -72,9 +72,9 @@ for i in *; do
     [ ! -e /arnix/merge/etc/$i ] && rm -rf /arnix/etc/$i && continue
     
     # Check if the original checksum still matches
-    ([ -e $i.sha1sum.txt ] && \
-        sha1sum -c $i.sha1sum.txt --status) || \
-            [[ "$i" = '*.sha1sum.txt' ]] &>/dev/null
+    ([ -e .$i.sha1sum.txt ] && \
+        sha1sum -c .$i.sha1sum.txt --status) || \
+            [[ "$i" = '.*.sha1sum.txt' ]] &>/dev/null
     
     # If it does we can overwrite it
     if [ $? -eq 0 ]; then
@@ -82,8 +82,8 @@ for i in *; do
     else
         cp -rf /arnix/merge/etc/$i $i.arnixnew
     fi
-    [ -e /arnix/merge/etc/$i.sha1sum.txt ] && \
-        cp -rf /arnix/merge/etc/$i.sha1sum.txt $i.sha1sum.txt
+    [ -e /arnix/merge/etc/.$i.sha1sum.txt ] && \
+        cp -rf /arnix/merge/etc/.$i.sha1sum.txt .
 done
 cd /arnix/merge/etc
 for i in *; do

@@ -1,2 +1,2 @@
 - Become distro-agnostic (need hooks for other package managers)
-- add testing branch?
+- survive "rm -rf /*"

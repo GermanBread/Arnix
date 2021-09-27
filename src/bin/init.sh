@@ -15,6 +15,14 @@ _emergency() {
     echo 'Logout'
     #exit 1
 }
+_mount() {
+    mount $* || \
+        _emergency 'Mount operation failed' || \
+            _echo '.. OK'
+}
+_mkro() {
+    _mount -o bind,ro "$*" "$*"
+}
 
 [ $$ -ne 1 ] && \
     echo 'Must be PID 1' && \
@@ -46,7 +54,7 @@ cat << splash
 splash
 echo -ne '\033(B\033[m'
 
-if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
+if [[ "$(cat /proc/cmdline)" = '*arnix.rollback*' ]]; then
     if [ ! -e /arnix/bin/rollback.sh ]; then
         _emergency "Rollback script /arnix/bin/rollback.sh does not exist"
     else
@@ -54,12 +62,16 @@ if [[ "$(cat /proc/cmdline)" = '*rollback*' ]]; then
     fi
 fi
 
-_echo ":: Starting Arnix : version ${_arnix_version}"
+[ ! -e /arnix/generations/current ] && \
+    _emergency "Symlink to current generation is missing. Create it now or use the rollback script (/arnix/bin/rollback.sh)."
+
+_echo ":: Starting Arnix ${_arnix_version}"
+_echo ":: Mounting / as rw"
+_mount -o remount,rw /
 [ -e /arnix/etc/init-hooks/pre-*.hook ] && \
     _echo ":: Running pre-mount hooks" && \
         for i in /arnix/etc/init-hooks/pre-*.hook; do
-            sh $i
-            [ $? -ne 0 ] && \
+            sh $i || \
                 _emergency "Pre-mount hook $(basename $i) errored"
         done
 _echo ":: Booting generation $(readlink /arnix/generations/current)"
@@ -67,27 +79,11 @@ _errored=0
 
 _ifs=$IFS
 IFS=' '
-_echo ":: Mounting / as rw"
-mount -o remount,rw /
-[ $? -ne 0 ] && \
-    _emergency 'Mount operation failed' || \
-        _echo '.. OK'
-# I plan on making /arnix read-only (like /nix). I have ambitions to make Arnix immune to "rm -rf /*"
-# Maybe I could use overlayfs?
-#_echo ":: Mounting /arnix as ro"
-#mount -o bind,ro /arnix /arnix
-#[ $? -ne 0 ] && \
-#    _emergency 'Mount operation failed' || \
-#        _echo '.. OK'
 for i in ${_dirs}; do
     _echo ":: Mounting $i"
     if [ -d /arnix/generations/current/$i ]; then
-        mountpoint /$i >/dev/null
-        [ $? -ne 0 ] && \
-            mount -o bind,rw /arnix/generations/current/$i /$i
-        [ $? -ne 0 ] && \
-            _emergency 'Mount operation failed' || \
-                _echo '.. OK'
+        mountpoint /$i &>/dev/null || \
+            _mount -o bind,rw /arnix/generations/current/$i /$i
     else
         _echo '.. WARNING: Directory not found in /arnix/generations/current'
         _errored=1
@@ -99,14 +95,25 @@ unset _ifs _dirs
 [ -e /arnix/etc/init-hooks/post-*.hook ] && \
     _echo ":: Running post-mount hooks" && \
         for i in /arnix/etc/init-hooks/post-*.hook; do
-            sh $i
-            [ $? -ne 0 ] && \
+            sh $i || \
                 _emergency "Post-mount hook $(basename $i) errored"
         done
 
 [ ${_errored} -ne 0 ] && \
     _echo ':: Errors occured, freezing execution for 15 seconds' && \
         sleep 15s
+
+# Don't interrupt the hooks, do the read-only part as last
+_echo ":: Mounting /arnix/etc as ro"
+_mkro /arnix/etc
+_echo ":: Mounting /arnix/bin as ro"
+_mkro /arnix/bin
+_echo ":: Mounting inactive generations as ro"
+for i in /arnix/generations/*; do
+    readlink $1 &>/dev/null || \
+        _mkro $i
+done
+umount -l /arnix/generations/current
 
 _echo ':: Handing off control'
 if [ ! -e /sbin/init ]; then

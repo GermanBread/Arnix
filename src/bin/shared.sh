@@ -28,6 +28,9 @@ check_for_action_requirements() {
         exit 1
     fi
 }
+makero() {
+    mount -o bind,ro "$*" "$*"
+}
 # recursively creates checksums
 create_checksums() {
     _prepwd=$PWD
@@ -36,7 +39,7 @@ create_checksums() {
     for i in $(ls -1); do
         [ ! -e $i ] && continue
         [ -d $i ] && create_checksums "$i" && continue
-        sha1sum $i > $i.sha1sum.txt
+        sha1sum $i > .$i.sha1sum.txt
     done
     cd ${_prepwd}
 }
