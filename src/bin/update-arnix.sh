@@ -99,12 +99,12 @@ for i in *; do
     [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
 done
 cp -rf /arnix/merge/bin/* .
+makero /arnix/bin
 
 if [ -e /tmp/arnix-update/post-update.sh ]; then
     log 'Running post-update script'
     sh /tmp/arnix-update/post-update.sh
 fi
-makero /arnix/bin
 
 rm -r /tmp/arnix-update
 rm -r /arnix/merge
