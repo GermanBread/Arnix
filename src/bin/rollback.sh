@@ -18,9 +18,11 @@ if [ ! -d /arnix/generations/${_generation} ]; then
 fi
 
 log "Activating generation ${_generation}"
-ln -srfT /arnix/generations/${_generation} /arnix/generations/current
+ln -srfnT /arnix/generations/${_generation} /arnix/generations/current
 for i in ${_dirs}; do
     umount -l /$i 2>/dev/null
+    # Should run once but whatever
+    ln -srfnT /arnix/generations/${_generation}/usr/share/grub /usr/share/grub
     mount --bind /arnix/generations/${_generation}/$i /$i
 done
 rm -rf /boot/*

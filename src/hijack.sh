@@ -76,9 +76,9 @@ cp -a ../installer/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.tx
 cp -a ../installer/changelog.txt /arnix/changelog.txt
 mkdir -p /arnix/etc/init-hooks
 
-ln -sr /arnix/bin/arnixctl.sh /usr/bin/arnixctl
+ln -srfnT /arnix/bin/arnixctl.sh /usr/bin/arnixctl
 mv -f /etc/os-release /etc/os-release.arnixsave
-ln -sr /arnix/etc/os-release /etc/os-release
+ln -srfnT /arnix/etc/os-release /etc/os-release
 
 chmod 755 -R /arnix/bin
 chmod 755 /usr/bin/arnixctl
@@ -86,8 +86,8 @@ chmod 755 /usr/bin/arnixctl
 # link package manager hooks here
 if [ -n "$(command -v pacman)" ]; then
     mkdir -p /etc/pacman.d/hooks/
-    ln -sr /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
-    ln -sr /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+    ln -srfnT /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
+    ln -srfnT /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
 fi
 
 # Workaround for Ubuntu
@@ -95,8 +95,8 @@ mkdir -p /var/db
 
 log "Creating generation 1"
 mkdir -p /arnix/generations/1
-ln -sr /arnix/generations/1 /arnix/generations/current
-ln -sr /arnix/generations/1 /arnix/generations/latest
+ln -srfnT /arnix/generations/1 /arnix/generations/current
+ln -srfnT /arnix/generations/1 /arnix/generations/latest
 _ifs=$IFS
 IFS=' ' # POSIX standard does not have arrays
 for i in ${_dirs}; do
@@ -107,12 +107,12 @@ IFS=$_ifs
 cp -a /boot /arnix/generations/1/boot
 
 log "Installing Arnix (2/2)"
-ln -sr /arnix/bin /usr/bin
+ln -srfnT /arnix/bin /usr/bin
 # Just to get systemd in initrd working
-ln -sr /arnix/etc/os-release /etc/os-release
+ln -srfnT /arnix/etc/os-release /etc/os-release
 # GRUB themes
 mkdir -p /usr/share
-ln -srfT /arnix/generations/current/usr/share/grub /usr/share/grub
+ln -srfnT /arnix/generations/current/usr/share/grub /usr/share/grub
 
 log "Activating generation 1"
 for i in ${_dirs}; do

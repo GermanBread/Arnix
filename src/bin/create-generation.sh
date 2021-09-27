@@ -26,8 +26,8 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
 fi
 
 if [[ $@ != '*nosymlink*' ]] 2>/dev/null || [ -z $@ ]; then
-    ln -srfT /arnix/generations/${_next_generation} /arnix/generations/current
-    ln -srfT /arnix/generations/${_next_generation} /arnix/generations/latest
+    ln -srfnT /arnix/generations/${_next_generation} /arnix/generations/current
+    ln -srfnT /arnix/generations/${_next_generation} /arnix/generations/latest
 
     rm /arnix/etc/init-hooks/pre-undo_new_generation.hook
 fi
@@ -35,6 +35,8 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
     log "Activating generation ${_next_generation}"
     for i in ${_dirs}; do
         /arnix/bin/busybox umount -l /$i
+        # Should run once but whatever
+        ln -srfnT /arnix/generations/${_next_generation}/usr/share/grub /usr/share/grub
         /arnix/bin/busybox mount --bind /arnix/generations/${_next_generation}/$i /$i
     done
 fi
