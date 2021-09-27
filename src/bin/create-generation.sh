@@ -17,6 +17,7 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
     log "Creating new generation ${_next_generation}"
     log "Cloning generation ${_current_generation}"
     
+    umount -l /arnix/generations/${_next_generation} &>/dev/null
     rm -rf /arnix/generations/${_next_generation}
     rm -rf /arnix/generations/${_current_generation}/boot
     
