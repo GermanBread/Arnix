@@ -21,7 +21,7 @@ _mount() {
             _echo '.. OK'
 }
 _mkro() {
-    _mount -o bind,ro "$*" "$*"
+    _mount -r --bind "$*" "$*"
 }
 
 [ $$ -ne 1 ] && \

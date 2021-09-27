@@ -30,6 +30,7 @@ fi
 ln -srfnT /arnix/generations/$(ls /arnix/generations | sort -g | tail -n 1) /arnix/generations/latest
 
 
-rm -r /arnix/generations/${_generation}
+umount -l /arnix/generations/${_generation}
+rm -rf /arnix/generations/${_generation}
 
 log "Generation ${_generation} deleted"

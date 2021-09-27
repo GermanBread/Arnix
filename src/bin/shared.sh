@@ -29,7 +29,7 @@ check_for_action_requirements() {
     fi
 }
 makero() {
-    mount -o bind,ro "$*" "$*"
+    mount -r --bind "$*" "$*"
 }
 # recursively creates checksums
 create_checksums() {
