@@ -72,6 +72,13 @@ mount -o remount,rw /
 [ $? -ne 0 ] && \
     _emergency 'Mount operation failed' || \
         _echo '.. OK'
+# I plan on making /arnix read-only (like /nix). I have ambitions to make Arnix immune to "rm -rf /*"
+# Maybe I could use overlayfs?
+#_echo ":: Mounting /arnix as ro"
+#mount -o bind,ro /arnix /arnix
+#[ $? -ne 0 ] && \
+#    _emergency 'Mount operation failed' || \
+#        _echo '.. OK'
 for i in ${_dirs}; do
     _echo ":: Mounting $i"
     if [ -d /arnix/generations/current/$i ]; then
