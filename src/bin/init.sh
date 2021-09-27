@@ -110,7 +110,7 @@ _echo ":: Mounting /arnix/bin as ro"
 _mkro /arnix/bin
 _echo ":: Mounting inactive generations as ro"
 for i in /arnix/generations/*; do
-    readlink $1 &>/dev/null || \
+    readlink $i &>/dev/null || \
         _mkro $i
 done
 umount -l /arnix/generations/current
