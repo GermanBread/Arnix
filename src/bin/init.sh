@@ -20,8 +20,11 @@ _mount() {
         _emergency 'Mount operation failed' || \
             _echo '.. OK'
 }
+# Hacky workaround explained here https://unix.stackexchange.com/a/128388
+# TL;DR busybox's libmount is really old
 _mkro() {
-    _mount -r --bind "$*" "$*"
+    _mount "$*" "$*" -o bind
+    _mount "$*" -o remount,ro,bind
 }
 
 [ $$ -ne 1 ] && \

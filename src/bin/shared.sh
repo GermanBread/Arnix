@@ -28,8 +28,11 @@ check_for_action_requirements() {
         exit 1
     fi
 }
+# Hacky workaround explained here https://unix.stackexchange.com/a/128388
+# TL;DR busybox's libmount is really old
 makero() {
-    mount -r --bind "$*" "$*"
+    mount "$*" "$*" -o bind
+    mount "$*" -o remount,ro,bind
 }
 # recursively creates checksums
 create_checksums() {
