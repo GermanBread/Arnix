@@ -34,15 +34,6 @@ if [ -n "${_update_source_checksum}" ]; then
     fi
 fi
 
-if [ -e arnix-bootstrap.sha1sum.txt ]; then
-    sha1sum -c arnix-bootstrap.sha1sum.txt --status
-    if [ $? -ne 0 ]; then
-        warning 'Checksums did not match. Something nasty might be going on'
-        log 'Press enter to continue'
-        read
-    fi
-fi
-
 if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt --status
     if [ $? -eq 0 ]; then
@@ -58,6 +49,15 @@ curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
 if [ $? -ne 0 ]; then
     error 'Unable to download update. There might be something relevant in the news though https://germanbread.github.io/Arnix/news.html'
     exit 1
+fi
+
+if [ -e arnix-bootstrap.sha1sum.txt ]; then
+    sha1sum -c arnix-bootstrap.sha1sum.txt --status
+    if [ $? -ne 0 ]; then
+        warning 'Checksums did not match. Something nasty might be going on'
+        log 'Press enter to continue'
+        read
+    fi
 fi
 
 sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum.txt
