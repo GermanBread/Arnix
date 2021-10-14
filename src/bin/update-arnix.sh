@@ -17,6 +17,12 @@ if [ -d /arnix/merge ]; then
     warning 'Did the update get interrupted?'
 fi
 
+if [[ "$0" = '/arnix*' ]]; then
+    log "Copying script to predictable location"
+    cp $0 /tmp/arnix-update.script.sh
+    exec /tmp/arnix-update.script.sh
+fi
+
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 rm -rf /tmp/arnix-update
 mkdir -m 700 -p /tmp/arnix-update
@@ -95,10 +101,9 @@ makero /arnix/etc
 
 cd /arnix/bin
 umount -l /arnix/bin
-for i in *; do
-    [ ! -e /arnix/merge/bin/$i ] && rm -f /arnix/bin/$i
-done
-cp -rf /arnix/merge/bin/* .
+mv /arnix/bin /arnix/bin~ # Too afraid to use shell globs here
+mv /arnix/merge/bin /arnix/bin
+rm -rf /arnix/bin~
 makero /arnix/bin
 
 if [ -e /tmp/arnix-update/post-update.sh ]; then

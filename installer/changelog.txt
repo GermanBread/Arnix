@@ -1,11 +1,14 @@
 v3.0 (27.09.2021)
 
+Something BIG has been unleashed
+
 - core Arnix files and inactive generations are (or at least should be) immune to "rm -rf /*"
 - init hooks should no longer cause emergency shells to be invoked
 - you can invoke a emergency shell by adding "arnix.emergency" to kernel parameters
 - "rollback" kernel parameter has been renamed to "arnix.rollback"
 - GRUB symlink should update from now on
-- 'arnixctl edit' has been added
+- 'arnixctl edit' has been added (because /arnix/etc is read-only)
+- updating is even more reliable!
 
 ---
 

@@ -21,12 +21,10 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
     
     umount -l /arnix/generations/${_next_generation} &>/dev/null
     rm -rf /arnix/generations/${_next_generation}
-    rm -rf /arnix/generations/${_current_generation}/boot
     
     cp -al /arnix/generations/${_current_generation} /arnix/generations/${_next_generation}
 
     rm -f /arnix/generations/${_next_generation}/var/lib/pacman/db.lck 2>/dev/null # current because pacman will remove the lock in next gen
-    cp -a /boot /arnix/generations/${_current_generation}/boot
 
     makero /arnix/generations/${_current_generation}
 fi

@@ -19,7 +19,7 @@ fi
 
 log "Activating generation ${_generation}"
 [ -e /arnix/generations/current ] && \
-    makero /arnix/generations/current
+    makero /arnix/generations/$(readlink /arnix/generations/current)
 ln -srfnT /arnix/generations/${_generation} /arnix/generations/current
 umount -l /arnix/generations/${_generation}
 for i in ${_dirs}; do
