@@ -26,6 +26,10 @@ if [ ! -d /arnix/generations/${_generation} ]; then
     exit 1
 fi
 
+log 'Doing some preparations'
+umount -l /arnix/generations/*
+umount -l /arnix/*
+
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
     umount -l /$i # lazy unmount because A: this works B: we restore the directories anyways
