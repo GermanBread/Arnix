@@ -1,6 +1,3 @@
 - Become distro-agnostic (need hooks for other package managers)
 - survive "rm -rf /*"
-
-rollback.sh
-- switching back to the newest gen causes /boot to be empty
-- failed to find /arnix/generations/current in /proc/mounts
+- git branch for stable and unstable instead of relying on releases (which are pretty much snapshots)

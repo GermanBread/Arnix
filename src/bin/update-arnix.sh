@@ -23,15 +23,10 @@ if [[ "$0" = '/arnix*' ]]; then
     exec /tmp/arnix-update.script.sh
 fi
 
-log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
+log "Preparing"
 rm -rf /tmp/arnix-update
 mkdir -m 700 -p /tmp/arnix-update
 cd /tmp/arnix-update
-curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
-if [ $? -ne 0 ]; then
-    error 'Unable to download update. There might be something relevant in the news though https://germanbread.github.io/Arnix/news.html'
-    exit 1
-fi
 if [ -n "${_update_source_checksum}" ]; then
     curl -sL "${_update_source_checksum}" >arnix-bootstrap.sha1sum.txt
     if [ $? -ne 0 ]; then
@@ -53,9 +48,16 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     if [ $? -eq 0 ]; then
         log 'Arnix is already up to date, no updates required'
         [ "$1" = 'force' ] && \
-            log 'Update forced by user' || \
+            warning 'Update forced by user' || \
                 exit 0
     fi
+fi
+
+log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
+curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
+if [ $? -ne 0 ]; then
+    error 'Unable to download update. There might be something relevant in the news though https://germanbread.github.io/Arnix/news.html'
+    exit 1
 fi
 
 sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum.txt
