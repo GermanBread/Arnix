@@ -35,14 +35,15 @@ if [ -n "${_update_source_checksum}" ]; then
 fi
 
 if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
-    sha1sum -c /arnix/arnix-bootstrap.sha1sum.txt --status
-    if [ $? -eq 0 ]; then
+    if cmd -s /arnix/arnix-bootstrap.sha1sum.txt arnix-bootstrap.sha1sum.txt; then
         log 'Arnix is already up to date, no updates required'
         [ "$1" = 'force' ] && \
             warning 'Update forced by user' || \
                 exit 0
     fi
 fi
+[ -e arnix-bootstrap.sha1sum.txt ] && \
+    cp arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
