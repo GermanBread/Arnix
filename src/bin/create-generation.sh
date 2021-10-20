@@ -30,7 +30,9 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
 fi
 
 if [[ $@ != '*nosymlink*' ]] 2>/dev/null || [ -z $@ ]; then
+    umount -l /arnix/generations/${_current_generation}
     cp -a /boot /arnix/generations/${_current_generation}/boot
+    makero /arnix/generations/${_current_generation}
     
     ln -srfnT /arnix/generations/${_next_generation} /arnix/generations/current
     ln -srfnT /arnix/generations/$(ls /arnix/generations | sort -g | tail -n 1) /arnix/generations/latest
