@@ -68,6 +68,9 @@ less -~N changelog.txt
 question 'Continue [y/N]?'
 ! [[ "${answer}" =~ [yY].* ]] && exit 1
 
+umount -l /arnix/etc
+umount -l /arnix/bin
+
 rm -rf /arnix/merge
 mkdir -p /arnix/merge
 mv /tmp/arnix-update/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
@@ -76,7 +79,6 @@ cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
 
 cd /arnix/etc
-umount -l /arnix/etc
 for i in *; do
     [ ! -e /arnix/merge/etc/$i ] && rm -rf /arnix/etc/$i && continue
     
@@ -99,14 +101,11 @@ for i in *; do
     [ ! -e /arnix/etc/$i ] && \
         cp -rf /arnix/merge/etc/$i /arnix/etc/$i
 done
-makero /arnix/etc
 
 cd /arnix/bin
-umount -l /arnix/bin
 mv /arnix/bin /arnix/bin~ # Too afraid to use shell globs here
 mv /arnix/merge/bin /arnix/bin
 rm -rf /arnix/bin~
-makero /arnix/bin
 
 if [ -e /tmp/arnix-update/post-update.sh ]; then
     log 'Running post-update script'
@@ -115,6 +114,9 @@ fi
 
 rm -r /tmp/arnix-update
 rm -r /arnix/merge
+
+makero /arnix/etc
+makero /arnix/bin
 
 warning 'Manual intervention might be required - files might need to be merged.'
 warning '/arnix/etc/FILE.arnixnew -> /arnix/etc/FILE'
