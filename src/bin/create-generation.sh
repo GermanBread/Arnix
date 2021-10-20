@@ -24,13 +24,13 @@ if [[ $@ != '*nocopy*' ]] 2>/dev/null || [ -z $@ ]; then
     
     cp -al /arnix/generations/${_current_generation} /arnix/generations/${_next_generation}
 
-    rm -f /arnix/generations/${_next_generation}/var/lib/pacman/db.lck 2>/dev/null # current because pacman will remove the lock in next gen
+    rm -f /arnix/generations/${_current_generation}/var/lib/pacman/db.lck 2>/dev/null # current because pacman will remove the lock in next gen
 
     makero /arnix/generations/${_current_generation}
 fi
 
 if [[ $@ != '*nosymlink*' ]] 2>/dev/null || [ -z $@ ]; then
-    #cp -a /boot /arnix/generations/${_next_generation}/boot
+    cp -a /boot /arnix/generations/${_current_generation}/boot
     
     ln -srfnT /arnix/generations/${_next_generation} /arnix/generations/current
     ln -srfnT /arnix/generations/$(ls /arnix/generations | sort -g | tail -n 1) /arnix/generations/latest
