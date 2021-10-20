@@ -27,8 +27,8 @@ if [ ! -d /arnix/generations/${_generation} ]; then
 fi
 
 log 'Doing some preparations'
-umount -l /arnix/generations/*
-umount -l /arnix/*
+umount -l /arnix/generations/* &>/dev/null
+umount -l /arnix/* &>/dev/null
 
 log "Deactivating generation ${generation}"
 for i in ${_dirs}; do
