@@ -29,22 +29,22 @@ rm -rf /tmp/arnix-update
 mkdir -m 700 -p /tmp/arnix-update
 cd /tmp/arnix-update
 if [ -n "${_update_source_checksum}" ]; then
-    curl -sL "${_update_source_checksum}" >arnix-bootstrap.sha1sum.txt
+    curl -sL "${_update_source_checksum}" >arnix-bootstrap.sha1sum
     if [ $? -ne 0 ]; then
         warning 'Checksum URL was specified in arnix.conf but it could not be downloaded!'
     fi
 fi
 
-if [ -e /arnix/var/arnix-bootstrap.sha1sum.txt ]; then
-    if cmp -s /arnix/var/arnix-bootstrap.sha1sum.txt arnix-bootstrap.sha1sum.txt; then
+if [ -e /arnix/var/arnix-bootstrap.sha1sum ]; then
+    if cmp -s /arnix/var/arnix-bootstrap.sha1sum arnix-bootstrap.sha1sum; then
         log 'Arnix is already up to date, no updates required'
         [ "$1" = 'force' ] && \
             warning 'Update forced by user' || \
                 exit 0
     fi
 fi
-[ -e arnix-bootstrap.sha1sum.txt ] && \
-    cp arnix-bootstrap.sha1sum.txt /arnix/var/arnix-bootstrap.sha1sum.txt
+[ -e arnix-bootstrap.sha1sum ] && \
+    cp arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
@@ -53,8 +53,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-if [ -e arnix-bootstrap.sha1sum.txt ]; then
-    sha1sum -c arnix-bootstrap.sha1sum.txt --status
+if [ -e arnix-bootstrap.sha1sum ]; then
+    sha1sum -c arnix-bootstrap.sha1sum --status
     if [ $? -ne 0 ]; then
         warning 'Checksums did not match. Something nasty might be going on'
         log 'Press enter to continue'
@@ -62,7 +62,7 @@ if [ -e arnix-bootstrap.sha1sum.txt ]; then
     fi
 fi
 
-sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum.txt
+sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum
 gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
@@ -76,7 +76,7 @@ question 'Continue [y/N]?'
 rm -rf /arnix/merge # sanity check
 mkdir -p /arnix/merge
 
-mv /tmp/arnix-update/arnix-bootstrap.sha1sum.txt /arnix/var/arnix-bootstrap.sha1sum.txt
+mv /tmp/arnix-update/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
 cd /arnix
 if [ -e .arnix.conf.sha1sum ] && sha1sum -cs .arnix.conf.sha1sum; then

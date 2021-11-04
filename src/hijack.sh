@@ -68,11 +68,15 @@ fi
 
 log "Installing Arnix (1/2)"
 mkdir -p /arnix
+mkdir -p /arnix/var
+mkdir -p /arnix/etc/init-hooks
+
 cp -r bin /arnix/bin
 cp -r etc /arnix/etc
-cp -a ../installer/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
+cp arnix.conf /arnix/arnix.conf
+sha1sum arnix.conf >/arnix/.arnix.conf.sha1sum
+cp -a ../installer/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 cp -a ../installer/changelog.txt /arnix/changelog.txt
-mkdir -p /arnix/etc/init-hooks
 
 ln -srfnT /arnix/bin/arnixctl.sh /usr/bin/arnixctl
 mv -f /etc/os-release /etc/os-release.arnixsave
