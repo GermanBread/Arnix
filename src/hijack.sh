@@ -43,7 +43,7 @@ source bin/shared.sh
 alias ln="$(pwd)/bin/toybox ln"
 alias sha1sum="$(pwd)/bin/toybox sha1sum"
 
-source arnix.conf
+source etc/arnix.conf
 
 echo -e '\033[31m'
 cat << END
