@@ -20,12 +20,12 @@ _mount() {
         _emergency 'Mount operation failed' || \
             _echo '.. OK'
 }
-# Hacky workaround explained here https://unix.stackexchange.com/a/128388
-# TL;DR busybox's libmount is really old
-_mkro() {
-    _mount "$*" "$*" -o bind
-    _mount "$*" -o remount,ro,bind
-}
+
+# Explained in shared.sh
+#_mkro() {
+#    _mount "$*" "$*" -o bind
+#    _mount "$*" -o remount,ro,bind
+#}
 
 [ $$ -ne 1 ] && \
     echo 'Must be PID 1' && \
@@ -36,7 +36,7 @@ _mkro() {
 if [ ! -e /arnix/etc/arnix.conf ]; then
     _emergency "Config file /arnix/etc/arnix.conf does not exist"
 else
-    source /arnix/etc/arnix.conf
+    source /arnix/arnix.conf
     _echo ':: Loaded config'
 fi
 
@@ -107,18 +107,18 @@ unset _ifs _dirs
         sleep 15s
 
 # Don't interrupt the hooks, do the read-only part as last
-_echo ":: Mounting /arnix/etc as ro"
-_mkro /arnix/etc
-_echo ":: Mounting /arnix/bin as ro"
-_mkro /arnix/bin
-_echo ":: Mounting inactive generations as ro"
-for i in /arnix/generations/*; do
-    readlink $i &>/dev/null || \
-        _mkro $i
-done
-umount -l /arnix/generations/current
+#_echo ":: Mounting /arnix/etc as ro"
+#_mkro /arnix/etc
+#_echo ":: Mounting /arnix/bin as ro"
+#_mkro /arnix/bin
+#_echo ":: Mounting inactive generations as ro"
+#for i in /arnix/generations/*; do
+#    readlink $i &>/dev/null || \
+#        _mkro $i
+#done
+#umount -l /arnix/generations/current
 
-if [[ "$(readlink /sbin)" = '*arnix*' ]]; then
+if [[ "$(readlink /sbin)" = '/arnix*' ]]; then
     _echo '!! /sbin points to a directory in /arnix'
     _echo ':: Attempting to fix this automatically'
     cd /

@@ -30,19 +30,8 @@ check_for_action_requirements() {
 }
 # Hacky workaround explained here https://unix.stackexchange.com/a/128388
 # TL;DR busybox's libmount is really old
-makero() {
-    mount "$*" "$*" -o bind
-    mount "$*" -o remount,ro,bind
-}
-# recursively creates checksums
-create_checksums() {
-    _prepwd=$PWD
-    cd $1
-    rm -f *.sha1sum.txt
-    for i in $(ls -1); do
-        [ ! -e $i ] && continue
-        [ -d $i ] && create_checksums "$i" && continue
-        sha1sum $i > .$i.sha1sum.txt
-    done
-    cd ${_prepwd}
-}
+# Note from the future: This is a cool idea, but is it really needed?
+#makero() {
+    #mount "$*" "$*" -o bind
+    #mount "$*" -o remount,ro,bind
+#}

@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
-source /arnix/etc/arnix.conf
+source /arnix/arnix.conf
 
 [ "${_verbose}" = "true" ] && set -v
 
@@ -24,6 +24,7 @@ if [[ "$0" = '/arnix*' ]]; then
 fi
 
 log "Preparing"
+mkdir -p /arnix/var
 rm -rf /tmp/arnix-update
 mkdir -m 700 -p /tmp/arnix-update
 cd /tmp/arnix-update
@@ -34,8 +35,8 @@ if [ -n "${_update_source_checksum}" ]; then
     fi
 fi
 
-if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
-    if cmd -s /arnix/arnix-bootstrap.sha1sum.txt arnix-bootstrap.sha1sum.txt; then
+if [ -e /arnix/var/arnix-bootstrap.sha1sum.txt ]; then
+    if cmp -s /arnix/var/arnix-bootstrap.sha1sum.txt arnix-bootstrap.sha1sum.txt; then
         log 'Arnix is already up to date, no updates required'
         [ "$1" = 'force' ] && \
             warning 'Update forced by user' || \
@@ -43,7 +44,7 @@ if [ -e /arnix/arnix-bootstrap.sha1sum.txt ]; then
     fi
 fi
 [ -e arnix-bootstrap.sha1sum.txt ] && \
-    cp arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
+    cp arnix-bootstrap.sha1sum.txt /arnix/var/arnix-bootstrap.sha1sum.txt
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
@@ -69,44 +70,33 @@ less -~N changelog.txt
 question 'Continue [y/N]?'
 ! [[ "${answer}" =~ [yY].* ]] && exit 1
 
-umount -l /arnix/etc
-umount -l /arnix/bin
+#umount -l /arnix/etc
+#umount -l /arnix/bin
 
-rm -rf /arnix/merge
+rm -rf /arnix/merge # sanity check
 mkdir -p /arnix/merge
-mv /tmp/arnix-update/arnix-bootstrap.sha1sum.txt /arnix/arnix-bootstrap.sha1sum.txt
+
+mv /tmp/arnix-update/arnix-bootstrap.sha1sum.txt /arnix/var/arnix-bootstrap.sha1sum.txt
+
+cd /arnix
+if [ -e .arnix.conf.sha1sum ] && sha1sum -cs .arnix.conf.sha1sum; then
+    mv -f /tmp/arnix-update/arnix.conf /arnix/arnix.conf
+else
+    mv -f /tmp/arnix-update/arnix.conf /arnix/arnix.conf.new
+fi
+mv -f /tmp/arnix-update/.arnix.conf.sha1sum /arnix/.arnix.conf.sha1sum
+
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
 
-cd /arnix/etc
-for i in *; do
-    [ ! -e /arnix/merge/etc/$i ] && rm -rf /arnix/etc/$i && continue
-    
-    # Check if the original checksum still matches
-    ([ -e .$i.sha1sum.txt ] && \
-        sha1sum -c .$i.sha1sum.txt --status) || \
-            [[ "$i" = '.*.sha1sum.txt' ]] &>/dev/null
-    
-    # If it does we can overwrite it
-    if [ $? -eq 0 ]; then
-        cp -rf /arnix/merge/etc/$i $i
-    else
-        cp -rf /arnix/merge/etc/$i $i.arnixnew
-    fi
-    [ -e /arnix/merge/etc/.$i.sha1sum.txt ] && \
-        cp -rf /arnix/merge/etc/.$i.sha1sum.txt .
-done
-cd /arnix/merge/etc
-for i in *; do
-    [ ! -e /arnix/etc/$i ] && \
-        cp -rf /arnix/merge/etc/$i /arnix/etc/$i
-done
+mv /arnix/etc /arnix/etc~ # Too afraid to use shell globs here
+mv /arnix/merge/etc /arnix/etc
+rm -r /arnix/etc~
 
-cd /arnix/bin
 mv /arnix/bin /arnix/bin~ # Too afraid to use shell globs here
 mv /arnix/merge/bin /arnix/bin
-rm -rf /arnix/bin~
+rm -r /arnix/bin~
 
 if [ -e /tmp/arnix-update/post-update.sh ]; then
     log 'Running post-update script'
@@ -116,9 +106,8 @@ fi
 rm -r /tmp/arnix-update
 rm -r /arnix/merge
 
-makero /arnix/etc
-makero /arnix/bin
+#makero /arnix/etc
+#makero /arnix/bin
 
-warning 'Manual intervention might be required - files might need to be merged.'
-warning '/arnix/etc/FILE.arnixnew -> /arnix/etc/FILE'
+log 'Update complete. Merge /etc/arnix.conf.new at your convenience.'
 exit

@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
-source /arnix/etc/arnix.conf
+source /arnix/arnix.conf
 
 [ "${_verbose}" = "true" ] && set -v
 
@@ -18,10 +18,10 @@ if [ ! -d /arnix/generations/${_generation} ]; then
 fi
 
 log "Activating generation ${_generation}"
-[ -e /arnix/generations/current ] && \
-    makero /arnix/generations/$(readlink /arnix/generations/current)
+#[ -e /arnix/generations/current ] && \
+    #makero /arnix/generations/$(readlink /arnix/generations/current)
 ln -srfnT /arnix/generations/${_generation} /arnix/generations/current
-umount -l /arnix/generations/${_generation}
+#umount -l /arnix/generations/${_generation}
 for i in ${_dirs}; do
     umount -l /$i 2>/dev/null
     # Should run once but whatever

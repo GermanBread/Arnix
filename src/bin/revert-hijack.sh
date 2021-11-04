@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
-source /arnix/etc/arnix.conf
+source /arnix/arnix.conf
 
 [ "${_verbose}" = "true" ] && set -v
 
@@ -37,7 +37,7 @@ done
 rm -rf /boot/*
 
 log "Reverting changes"
-rm -r /usr/* # revert symlinks in /usr
+rm -r /usr/* # clean it first
 for i in ${_dirs}; do
     mv /arnix/generations/${_generation}/$i/* /$i
 done

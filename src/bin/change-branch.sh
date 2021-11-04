@@ -1,7 +1,7 @@
 #!/arnix/bin/busybox sh
 
 source /arnix/bin/shared.sh
-source /arnix/etc/arnix.conf
+source /arnix/arnix.conf
 
 [ "${_verbose}" = "true" ] && set -v
 
@@ -25,19 +25,19 @@ echo
 
 case ${_mode} in 
     1)
-        umount -l /arnix/etc
+        #umount -l /arnix/etc
         sed -Ei "s,_update_source_tarball=.*,_update_source_tarball=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
         sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.sha1sum.txt," /arnix/etc/arnix.conf
         sed -Ei "s,_branch_preset=.*,_branch_preset=stable," /arnix/etc/arnix.conf
-        makero /arnix/etc
+        #makero /arnix/etc
         log "Branch changed to 'stable'"
     ;;
     2)
-        umount -l /arnix/etc
+        #umount -l /arnix/etc
         sed -Ei "s,_update_source_tarball=.*,_update_source_tarball=https://raw.githubusercontent.com/GermanBread/Arnix/master/installer/arnix-bootstrap.tar.gz," /arnix/etc/arnix.conf
         sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://raw.githubusercontent.com/GermanBread/Arnix/master/installer/arnix-bootstrap.sha1sum.txt," /arnix/etc/arnix.conf
         sed -Ei "s,_branch_preset=.*,_branch_preset=unstable," /arnix/etc/arnix.conf
-        makero /arnix/etc
+        #makero /arnix/etc
         log "Branch changed to 'unstable'"
     ;;
     3)
@@ -59,11 +59,11 @@ case ${_mode} in
                 exit 1
             fi
         fi
-        umount -l /arnix/etc
+        #umount -l /arnix/etc
         sed -Ei "s,_update_source_tarball=.*,_update_source_tarball=${tarball}," /arnix/etc/arnix.conf
         sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=${checksum}," /arnix/etc/arnix.conf
         sed -Ei "s,_branch_preset=.*,_branch_preset=custom," /arnix/etc/arnix.conf
-        makero /arnix/etc
+        #makero /arnix/etc
         log "Branch changed to 'custom'"
     ;;
 esac
