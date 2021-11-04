@@ -43,8 +43,6 @@ if [ -e /arnix/var/arnix-bootstrap.sha1sum ]; then
                 exit 0
     fi
 fi
-[ -e arnix-bootstrap.sha1sum ] && \
-    cp arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
 log "Downloading update for branch '${_branch_preset}', URL '${_update_source_tarball}'"
 curl -sL "${_update_source_tarball}" >arnix-bootstrap.tar.gz
