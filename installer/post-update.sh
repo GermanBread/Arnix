@@ -2,11 +2,15 @@ alias ln='/tmp/arnix-update/bin/toybox ln'
 
 # toybox bug: if both files are the same amount of directories deep (or the destination is one higher), the resulting symlink is broken
 
-mkdir -p /arnix/var
-[ -e /arnix/arnix-bootstrap.sha1sum.txt ] && \
-	mv -f /arnix/arnix-bootstrap.sha1sum.txt /arnix/var/arnix-bootstrap.sha1sum.txt
+# Creating some directories that will be needed
+mkdir -p /arnix/var/init-hooks
+
+# Removing garbage
+rm -rf /arnix/arnix-bootstrap.sha1sum /arnix/changelog.txt
+
+# Move our new config file out of the config directory
 [ -e /arnix/etc/arnix.conf ] && \
-	mv /arnix/etc/arnix.conf /arnix/arnix.conf.new
+	mv -f /arnix/etc/arnix.conf /arnix/arnix.conf.new
 [ ! -e /arnix/arnix.conf ] && \
 	mv /arnix/arnix.conf.new /arnix/arnix.conf
 # Arch

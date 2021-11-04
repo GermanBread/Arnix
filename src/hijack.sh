@@ -69,7 +69,7 @@ fi
 log "Installing Arnix (1/2)"
 mkdir -p /arnix
 mkdir -p /arnix/var
-mkdir -p /arnix/etc/init-hooks
+mkdir -p /arnix/var/init-hooks
 
 cp -a bin /arnix/bin
 cp -a etc /arnix/etc

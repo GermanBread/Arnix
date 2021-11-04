@@ -71,9 +71,9 @@ fi
 _echo ":: Starting Arnix ${_arnix_version}"
 _echo ":: Mounting / as rw"
 _mount -o remount,rw /
-[ -e /arnix/etc/init-hooks/pre-*.hook ] && \
+[ -e /arnix/var/init-hooks/pre-*.hook ] && \
     _echo ":: Running pre-mount hooks" && \
-        for i in /arnix/etc/init-hooks/pre-*.hook; do
+        for i in /arnix/var/init-hooks/pre-*.hook; do
             sh $i || \
                 _emergency "Pre-mount hook $(basename $i) errored"
         done
@@ -95,9 +95,9 @@ done
 IFS=$_ifs
 unset _ifs _dirs
 
-[ -e /arnix/etc/init-hooks/post-*.hook ] && \
+[ -e /arnix/var/init-hooks/post-*.hook ] && \
     _echo ":: Running post-mount hooks" && \
-        for i in /arnix/etc/init-hooks/post-*.hook; do
+        for i in /arnix/var/init-hooks/post-*.hook; do
             sh $i || \
                 _emergency "Post-mount hook $(basename $i) errored"
         done

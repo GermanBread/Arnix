@@ -35,7 +35,7 @@ case $1 in
         echo "Arnix update source (sha1sum): ${_update_source_checksum}"
     ;;
     changelog)
-        less -~N /arnix/changelog.txt
+        less -~N /arnix/var/changelog.txt
     ;;
     edit)
         /arnix/bin/edit-config.sh

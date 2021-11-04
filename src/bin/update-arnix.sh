@@ -78,7 +78,7 @@ mv /tmp/arnix-update/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
-cp -a changelog.txt /arnix/changelog.txt
+cp -a changelog.txt /arnix/var/changelog.txt
 
 # Atomic upgrade procedure
 mv /arnix/etc /arnix/etc~
