@@ -76,26 +76,18 @@ mkdir -p /arnix/merge
 
 mv /tmp/arnix-update/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
-cd /arnix
-if [ -e .arnix.conf.sha1sum ] && sha1sum -cs .arnix.conf.sha1sum; then
-    mv -f /tmp/arnix-update/arnix.conf /arnix/arnix.conf
-else
-    mv -f /tmp/arnix-update/arnix.conf /arnix/arnix.conf.new
-fi
-mv -f /tmp/arnix-update/.arnix.conf.sha1sum /arnix/.arnix.conf.sha1sum
-
-cd -
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
 cp -a changelog.txt /arnix/changelog.txt
 
-mv /arnix/etc /arnix/etc~ # Too afraid to use shell globs here
+# Atomic upgrade procedure
+mv /arnix/etc /arnix/etc~
 mv /arnix/merge/etc /arnix/etc
-rm -r /arnix/etc~
 
-mv /arnix/bin /arnix/bin~ # Too afraid to use shell globs here
+mv /arnix/bin /arnix/bin~
 mv /arnix/merge/bin /arnix/bin
-rm -r /arnix/bin~
+
+rm -rf /arnix/etc~ /arnix/bin~
 
 if [ -e /tmp/arnix-update/post-update.sh ]; then
     log 'Running post-update script'

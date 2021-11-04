@@ -71,9 +71,9 @@ mkdir -p /arnix
 mkdir -p /arnix/var
 mkdir -p /arnix/etc/init-hooks
 
-cp -r bin /arnix/bin
-cp -r etc /arnix/etc
-cp arnix.conf /arnix/arnix.conf
+cp -a bin /arnix/bin
+cp -a etc /arnix/etc
+mv /arnix/etc/arnix.conf /arnix/arnix.conf
 sha1sum arnix.conf >/arnix/.arnix.conf.sha1sum
 cp -a ../installer/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 cp -a ../installer/changelog.txt /arnix/changelog.txt
