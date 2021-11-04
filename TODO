@@ -1,3 +1,3 @@
 - Become distro-agnostic (need hooks for other package managers)
-- survive "rm -rf /*"
 - git branch for stable and unstable instead of relying on releases (which are pretty much snapshots)
+- updating from stable deletes arnix.conf
