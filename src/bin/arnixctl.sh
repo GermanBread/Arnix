@@ -33,6 +33,10 @@ case $1 in
         echo "Arnix version: ${_arnix_version}"
         echo "Arnix update source (tarball): ${_update_source_tarball}"
         echo "Arnix update source (sha1sum): ${_update_source_checksum}"
+        if [ -e /arnix/arnix.conf.new ]; then
+            echo
+            warning "arnix.conf.new should be merged"
+        fi
     ;;
     changelog)
         less -~N /arnix/var/changelog.txt

@@ -6,7 +6,7 @@ alias ln='/tmp/arnix-update/bin/toybox ln'
 mkdir -p /arnix/var/init-hooks
 
 # Removing garbage
-rm -rf /arnix/arnix-bootstrap.sha1sum /arnix/changelog.txt
+rm -f /arnix/arnix-bootstrap.sha1sum /arnix/arnix-bootstrap.sha1sum.txt /arnix/changelog.txt
 
 # Move our new config file out of the config directory
 [ -e /arnix/etc/arnix.conf ] && \

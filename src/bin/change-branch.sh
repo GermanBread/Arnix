@@ -27,7 +27,7 @@ case ${_mode} in
     1)
         #umount -l /arnix/etc
         sed -Ei "s,_update_source_tarball=.*,_update_source_tarball=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.tar.gz," /arnix/arnix.conf
-        sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.sha1sum.txt," /arnix/arnix.conf
+        sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://github.com/germanbread/arnix/releases/latest/download/arnix-bootstrap.sha1sum," /arnix/arnix.conf
         sed -Ei "s,_branch_preset=.*,_branch_preset=stable," /arnix/arnix.conf
         #makero /arnix/etc
         log "Branch changed to 'stable'"
@@ -35,7 +35,7 @@ case ${_mode} in
     2)
         #umount -l /arnix/etc
         sed -Ei "s,_update_source_tarball=.*,_update_source_tarball=https://raw.githubusercontent.com/GermanBread/Arnix/master/installer/arnix-bootstrap.tar.gz," /arnix/arnix.conf
-        sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://raw.githubusercontent.com/GermanBread/Arnix/master/installer/arnix-bootstrap.sha1sum.txt," /arnix/arnix.conf
+        sed -Ei "s,_update_source_checksum=.*,_update_source_checksum=https://raw.githubusercontent.com/GermanBread/Arnix/master/installer/arnix-bootstrap.sha1sum," /arnix/arnix.conf
         sed -Ei "s,_branch_preset=.*,_branch_preset=unstable," /arnix/arnix.conf
         #makero /arnix/etc
         log "Branch changed to 'unstable'"
