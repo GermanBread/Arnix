@@ -52,7 +52,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ -e arnix-bootstrap.sha1sum ]; then
-    sha1sum -c arnix-bootstrap.sha1sum --status
+    sha1sum -cs arnix-bootstrap.sha1sum
     if [ $? -ne 0 ]; then
         warning 'Checksums did not match. Something nasty might be going on'
         log 'Press enter to continue'

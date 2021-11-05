@@ -74,7 +74,7 @@ mkdir -p /arnix/var/init-hooks
 cp -a bin /arnix/bin
 cp -a etc /arnix/etc
 mv /arnix/etc/arnix.conf /arnix/arnix.conf
-sha1sum arnix.conf >/arnix/.arnix.conf.sha1sum
+#sha1sum arnix.conf >/arnix/.arnix.conf.sha1sum
 cp -a ../installer/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 cp -a ../installer/changelog.txt /arnix/changelog.txt
 

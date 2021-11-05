@@ -8,5 +8,5 @@ source /arnix/arnix.conf
 [ -z "$EDITOR" ] && EDITOR=vi
 
 #umount -l /arnix/etc
-$EDITOR /arnix/etc/arnix.conf
+$EDITOR /arnix/arnix.conf
 #makero /arnix/etc
