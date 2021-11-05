@@ -33,8 +33,8 @@ _mount() {
 
 [[ "$(cat /proc/cmdline)" = '*arnix.emergency*' ]] && _emergency 'Requested by kernel parameter'
 
-if [ ! -e /arnix/etc/arnix.conf ]; then
-    _emergency "Config file /arnix/etc/arnix.conf does not exist"
+if [ ! -e /arnix/arnix.conf ]; then
+    _emergency "Config file /arnix/arnix.conf does not exist"
 else
     source /arnix/arnix.conf
     _echo ':: Loaded config'
