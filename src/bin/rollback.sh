@@ -32,3 +32,8 @@ rm -rf /boot/*
 cp -a /arnix/generations/${_generation}/boot/* /boot
 
 log "Rollback to generation ${_generation} completed successfully"
+if [ -n "${ARNIX_RESCUE}" ]; then
+    log "You are in a rescue shell, syncing filesystems"
+    sync
+    log "You may reboot now."
+fi

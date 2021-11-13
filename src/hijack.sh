@@ -88,8 +88,8 @@ chmod 755 /usr/bin/arnixctl
 # link package manager hooks here
 if [ -n "$(command -v pacman)" ]; then
     mkdir -p /etc/pacman.d/hooks/
-    ln -srfnT /arnix/etc/0-arnix-create-generation.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
-    ln -srfnT /arnix/etc/100-arnix-change-symlink.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
+    ln -srfnT /arnix/etc/pacman-pre.hook /etc/pacman.d/hooks/0-arnix-create-generation.hook
+    ln -srfnT /arnix/etc/pacman-post.hook /etc/pacman.d/hooks/100-arnix-change-symlink.hook
 fi
 
 # Workaround for Ubuntu

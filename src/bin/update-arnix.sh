@@ -18,7 +18,7 @@ if [ -d /arnix/merge ]; then
 fi
 
 if [[ "$0" = '/arnix*' ]]; then
-    log "Copying script to predictable location"
+    log "Copying script to safe location"
     cp $0 /tmp/arnix-update.script.sh
     exec /tmp/arnix-update.script.sh
 fi

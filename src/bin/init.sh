@@ -7,10 +7,11 @@ _echo() {
 _emergency() {
     echo $*
     echo "You are in Arnix's emergency mode. Bailing out, good luck."
-    echo 'Files for Arnix are stored in /arnix/bin and /arnix/etc'
+    echo 'Files for Arnix are stored in /arnix'
+    echo 'If you want to perform a rollback, run "/arnix/bin/arnixctl switch", then reboot'
     echo 'If you exit this shell, the boot process will attempt to continue.'
     echo
-    PS1="RESCUE \w # " sh
+    ARNIX_RESCUE="$*" PS1="RESCUE \w # " sh
     echo
     echo 'Logout'
     #exit 1

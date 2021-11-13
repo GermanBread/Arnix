@@ -1,3 +1,3 @@
 - Become distro-agnostic (need hooks for other package managers)
 - git branch for stable and unstable instead of relying on releases (which are pretty much snapshots I can't modify easily)
-- update-arnix can't verify checksums
+- update-arnix can't verify checksums and forcing updates does not work
