@@ -28,10 +28,3 @@ check_for_action_requirements() {
         exit 1
     fi
 }
-# Hacky workaround explained here https://unix.stackexchange.com/a/128388
-# TL;DR busybox's libmount is really old
-# Note from the future: This is a cool idea, but is it really needed?
-#makero() {
-    #mount "$*" "$*" -o bind
-    #mount "$*" -o remount,ro,bind
-#}

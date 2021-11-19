@@ -8,7 +8,7 @@ _emergency() {
     echo $*
     echo "You are in Arnix's emergency mode. Bailing out, good luck."
     echo 'Files for Arnix are stored in /arnix'
-    echo 'If you want to perform a rollback, run "/arnix/bin/arnixctl switch", then reboot'
+    echo 'If you want to perform a rollback, run "/arnix/bin/arnixctl.sh switch", then reboot'
     echo 'If you exit this shell, the boot process will attempt to continue.'
     echo
     ARNIX_RESCUE="$*" PS1="RESCUE \w # " sh
@@ -21,12 +21,6 @@ _mount() {
         _emergency 'Mount operation failed' || \
             _echo '.. OK'
 }
-
-# Explained in shared.sh
-#_mkro() {
-#    _mount "$*" "$*" -o bind
-#    _mount "$*" -o remount,ro,bind
-#}
 
 [ $$ -ne 1 ] && \
     echo 'Must be PID 1' && \
@@ -106,18 +100,6 @@ unset _ifs _dirs
 [ ${_errored} -ne 0 ] && \
     _echo ':: Errors occured, freezing execution for 15 seconds' && \
         sleep 15s
-
-# Don't interrupt the hooks, do the read-only part as last
-#_echo ":: Mounting /arnix/etc as ro"
-#_mkro /arnix/etc
-#_echo ":: Mounting /arnix/bin as ro"
-#_mkro /arnix/bin
-#_echo ":: Mounting inactive generations as ro"
-#for i in /arnix/generations/*; do
-#    readlink $i &>/dev/null || \
-#        _mkro $i
-#done
-#umount -l /arnix/generations/current
 
 if [[ "$(readlink /sbin)" = '/arnix*' ]]; then
     _echo '!! /sbin points to a directory in /arnix'

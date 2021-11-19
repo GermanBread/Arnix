@@ -37,7 +37,7 @@ fi
 
 if [ -e /arnix/var/arnix-bootstrap.sha1sum ]; then
     if cmp -s /arnix/var/arnix-bootstrap.sha1sum arnix-bootstrap.sha1sum; then
-        log 'Arnix is already up to date, no updates required'
+        log 'Arnix is already up to date, no updates needed'
         [ "$1" = 'force' ] && \
             warning 'Update forced by user' || \
                 exit 0
@@ -68,9 +68,6 @@ less -~N changelog.txt
 question 'Continue [y/N]?'
 ! [[ "${answer}" =~ [yY].* ]] && exit 1
 
-#umount -l /arnix/etc
-#umount -l /arnix/bin
-
 rm -rf /arnix/merge # sanity check
 mkdir -p /arnix/merge
 
@@ -96,9 +93,6 @@ fi
 
 rm -r /tmp/arnix-update
 rm -r /arnix/merge
-
-#makero /arnix/etc
-#makero /arnix/bin
 
 log 'Update complete. Merge /etc/arnix.conf.new at your convenience.'
 exit
