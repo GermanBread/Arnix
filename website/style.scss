@@ -21,16 +21,15 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: #A4A;
 
-    margin: 2vw;
+    margin-inline: auto;
+    max-width: 100ch;
     
     #content-view {
-        margin-left: 10%;
-        margin-right: 10%;
+        margin-inline: 10%;
     }
 
     hr {
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-inline: 5%;
     }
     
     p, pre, code, a {

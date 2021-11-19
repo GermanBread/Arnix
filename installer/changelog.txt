@@ -7,6 +7,12 @@ v3.0 (27.09.2021)
 - 'arnixctl edit' has been added for simplicity sake
 - updating is even more reliable! (better late than never...)
 
+=====================================================
+# WARNING: You might have to run the updater TWICE! #
+=====================================================
+
+-> See announcement at https://germanbread.github.io/Arnix/news
+
 ---
 
 v2.1 (19.09.2021)
