@@ -16,22 +16,22 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 if [ -z "$(command -v pacman)" ]; then
-    error "Only Arch and Arch-based are supported"
-    exit 1
-    warning "Only Arch and some Arch-based distros are tested. The hijack might or might not brick your distro. You also won't have automatic generations."
+    warning "You are about to hijack a non-pacman-based distro. The hijack might or might not brick your distro. You also won't have automatic generations."
+    warning "I tested Kubuntu, Debian, a modified install of Pop!OS and Kali. Debian's GRUB theme was broken after after the hijack, otherwise it booted fine. Continue at your own risk!"
     log 'Press enter to continue'
     read
-fi
-if [ -d /etc/nixos ]; then
-    error "You're already using a distro with a generations system"
-    exit 1
 fi
 if [ -d /arnix ]; then
     error "Arnix is already installed, use 'arnixctl update' instead"
     exit 1
 fi
 if [ ! -d /var/lib/systemd ]; then
-    error "As of now only systemd is supported."
+    warning "You are about to hijack a distro which does not use systemd. The hijack might or might not brick your distro."
+    log 'Press enter to continue'
+    read
+fi
+if [ ! -e /sbin/init ]; then
+    error "/sbin/init not found, cannot hijack."
     exit 1
 fi
 if [ ! -e etc ] && [ ! -e bin ]; then
