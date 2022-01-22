@@ -11,7 +11,7 @@ Download the newest installer [from here](https://github.com/GermanBread/Arnix/r
 ### Post install
 
 - Use `arnixctl` to manage Arnix!
-- Configure the behaviour of Arnix by editing `/arnix/etc/arnix.conf`
+- Configure the behaviour of Arnix with `arnixctl edit`
 - Add `quiet` to kernel parameters for quiet boot
 - Add `arnix.rollback` to kernel parameters to revert to a generation from within init
 

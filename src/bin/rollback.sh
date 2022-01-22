@@ -23,13 +23,16 @@ for i in ${_dirs}; do
     umount -l /$i 2>/dev/null
     # Should run once but whatever
     ln -srfnT /arnix/generations/${_generation}/usr/share/grub /usr/share/grub
-    mount --bind /arnix/generations/${_generation}/$i /$i
+    if [ -z "${ARNIX_RESCUE}" ]; then
+        mount --bind /arnix/generations/${_generation}/$i /$i
+    fi
 done
 rm -rf /boot/*
 cp -a /arnix/generations/${_generation}/boot/* /boot
 
 log "Rollback to generation ${_generation} completed successfully"
 if [ -n "${ARNIX_RESCUE}" ]; then
+    log "The following paths ${_dirs} have not been bind-mounted since you are in a emergency shell. They will be taken care of by Arnix's boot process."
     log "You are in a rescue shell, syncing filesystems"
     sync
     log "You may reboot now."

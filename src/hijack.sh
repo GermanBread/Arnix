@@ -25,14 +25,18 @@ if [ -d /arnix ]; then
     error "Arnix is already installed, use 'arnixctl update' instead"
     exit 1
 fi
-if [ ! -d /var/lib/systemd ]; then
-    warning "You are about to hijack a distro which does not use systemd. The hijack might or might not brick your distro."
-    log 'Press enter to continue'
-    read
+if [ -d /bedrock ]; then
+    error "Bedrock Linux found. Cannot safely continue."
+    exit 1
 fi
 if [ ! -e /sbin/init ]; then
     error "/sbin/init not found, cannot hijack."
     exit 1
+fi
+if [ ! -d /var/lib/systemd ]; then
+    warning "You are about to hijack a distro which does not use systemd. The hijack might or might not brick your distro."
+    log 'Press enter to continue'
+    read
 fi
 if [ ! -e etc ] && [ ! -e bin ]; then
     error "Setup files were not found ... (did you not cd into the script's directory?)"
