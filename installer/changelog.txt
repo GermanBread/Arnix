@@ -1,3 +1,7 @@
+v3.1 (03.03.2022)
+
+- reverting the hijack (arnixctl uninstall) should no longer result in GRUB-EFI systems becoming unbootable
+
 v3.0 (27.09.2021)
 
 - init hooks should no longer cause emergency shells to be invoked
