@@ -111,6 +111,8 @@ for i in ${_dirs}; do
 done
 IFS=$_ifs
 cp -a /boot /arnix/generations/1/boot
+[ -e /boot/efi ] && \
+    cp -afT /boot/efi /arnix/generations/1/boot/efi
 
 log "Installing Arnix (2/2)"
 ln -srfnT /arnix/bin /usr/bin

@@ -37,7 +37,10 @@ rm -r /usr/* # clean it first
 for i in ${_dirs}; do
     mv /arnix/generations/${_generation}/$i/* /$i
 done
-mv /arnix/generations/${_generation}/boot/* /boot
+cp -a /arnix/generations/${_generation}/boot/* /boot
+# If the system uses GRUB with /boot/efi as esp
+[ -e /boot/efi ] && \
+    cp -a /arnix/generations/${_generation}/boot/efi/* /boot/efi
 mv /etc/os-release.arnixsave /etc/os-release
 rm /usr/bin/arnixctl
 
