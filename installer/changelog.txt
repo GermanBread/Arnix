@@ -1,5 +1,7 @@
-v3.1 (03.03.2022)
+v3.1 (08.04.2022)
 
+- "stable" is now a git branch = faster stable updates
+- "unstable" has been renamed to "dev"
 - reverting the hijack (arnixctl uninstall) should no longer result in GRUB-EFI systems becoming unbootable (I hope)
 
 v3.0 (27.09.2021)
