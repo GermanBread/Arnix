@@ -1,6 +1,6 @@
 v3.1 (03.03.2022)
 
-- reverting the hijack (arnixctl uninstall) should no longer result in GRUB-EFI systems becoming unbootable
+- reverting the hijack (arnixctl uninstall) should no longer result in GRUB-EFI systems becoming unbootable (I hope)
 
 v3.0 (27.09.2021)
 

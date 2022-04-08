@@ -8,7 +8,10 @@ source /arnix/arnix.conf
 check_for_action_requirements
 
 echo -e '\033[97m'
-printf 'Are you sure? Type "uninstall Arnix" (all uppercase) to continue: '
+printf 'While I (the dev) have managed to uninstall Arnix successfully, some distros became unbootable for reasons I have not figured out'
+printf 'The main issue seems to be /boot.'
+printf 'Uninstall at your own risk!'
+printf 'Type "uninstall Arnix" (all uppercase):'
 echo -ne '\033(B\033[m'
 read REPLY
 if [ "${REPLY}" != "UNINSTALL ARNIX" ]; then
