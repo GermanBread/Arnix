@@ -7,7 +7,7 @@ if [ -z "$(command -v curl)" ]; then
     exit 1
 fi
 
-tarball=$(curl -s https://api.github.com/repos/GermanBread/Arnix/releases/latest | grep tarball | egrep -o 'https://.+\"' | head -c -2)
+tarball="https://raw.githubusercontent.com/GermanBread/Arnix/stable/installer/arnix-bootstrap.tar.gz"
 temp=$(mktemp -d)
 cd $temp
 curl -SL ${tarball} > latest.tar.gz
