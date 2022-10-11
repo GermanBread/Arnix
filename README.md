@@ -8,6 +8,8 @@ Linux with generations - and a nice tool to mange those
 
 Download the newest installer [from here](https://github.com/GermanBread/Arnix/releases/latest) and execute it as root
 
+Installer is broken again, will fix sometime. In the meantime, clone the repo, cd into `src` and run the hijack script
+
 ### Post install
 
 - Use `arnixctl` to manage Arnix!
