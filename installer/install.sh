@@ -16,5 +16,5 @@ curl -SL $TARBALL >latest.tar.gz
 [ $? -ne 0 ] && exit 1
 tar xf latest.tar.gz
 rm latest.tar.gz
-cd */src
-./hijack.sh
+cd Arnix-*/src/installer
+../image/bin/busybox sh ./hijack.sh
