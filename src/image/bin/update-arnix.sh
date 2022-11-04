@@ -84,11 +84,13 @@ mv /arnix/merge/etc /arnix/etc
 mv /arnix/bin /arnix/bin~
 mv /arnix/merge/bin /arnix/bin
 
+mv /tmp/arnix-update/update/changelog.txt /arnix/var/changelog.txt
+
 rm -rf /arnix/etc~ /arnix/bin~
 
-if [ -e /tmp/arnix-update/post-update.sh ]; then
+if [ -e /tmp/arnix-update/update/post-update.sh ]; then
     log 'Running post-update script'
-    sh /tmp/arnix-update/post-update.sh
+    sh /tmp/arnix-update/update/post-update.sh
 fi
 
 rm -r /tmp/arnix-update

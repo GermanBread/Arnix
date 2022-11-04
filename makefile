@@ -1,3 +1,11 @@
-all: bootstrap
+all: builddir bootstrap
+
+builddir:
+	rm -r build
+	mkdir -p build
+
+installer: bootstrap
+	cd src/installer && $(MAKE)
+
 bootstrap:
-	bash ./compile.sh
+	cd src/image && $(MAKE)

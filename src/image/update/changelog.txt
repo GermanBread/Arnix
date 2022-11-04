@@ -1,3 +1,13 @@
+v3.1.1 (04.11.2022) - <<<EXPERIMENTAL BUILD; NOTHING IS TESTED>>>
+
+- primary build system is now powered by Nix
+- repo restructured
+- expect more soon
+
+========================================
+# WARNING: run 'arnixctl update force' #
+========================================
+
 v3.1 (08.04.2022)
 
 - "stable" is now a git branch = faster stable updates
