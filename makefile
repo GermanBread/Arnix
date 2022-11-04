@@ -1,7 +1,7 @@
-all: builddir bootstrap
+all: builddir bootstrap installer
 
 builddir:
-	rm -r build
+	rm -rf build
 	mkdir -p build
 
 installer: bootstrap
@@ -9,3 +9,7 @@ installer: bootstrap
 
 bootstrap:
 	cd src/image && $(MAKE)
+
+mkinst: all
+	rm -rf installer
+	mv build installer

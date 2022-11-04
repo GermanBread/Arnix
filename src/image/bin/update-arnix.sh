@@ -64,7 +64,7 @@ sha1sum arnix-bootstrap.tar.gz >/tmp/arnix-update/arnix-bootstrap.sha1sum
 gunzip arnix-bootstrap.tar.gz
 tar xf arnix-bootstrap.tar
 
-less -~N changelog.txt
+less -~N update/changelog.txt
 question 'Continue [y/N]?'
 ! [[ "${answer}" =~ [yY].* ]] && exit 1
 
@@ -75,7 +75,7 @@ mv /tmp/arnix-update/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
 
 cp -a bin /arnix/merge/bin
 cp -a etc /arnix/merge/etc
-cp -a changelog.txt /arnix/var/changelog.txt
+cp -a update/changelog.txt /arnix/var/changelog.txt
 
 # Atomic upgrade procedure
 mv /arnix/etc /arnix/etc~
@@ -83,8 +83,6 @@ mv /arnix/merge/etc /arnix/etc
 
 mv /arnix/bin /arnix/bin~
 mv /arnix/merge/bin /arnix/bin
-
-mv /tmp/arnix-update/update/changelog.txt /arnix/var/changelog.txt
 
 rm -rf /arnix/etc~ /arnix/bin~
 
