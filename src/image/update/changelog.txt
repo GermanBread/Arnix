@@ -1,4 +1,4 @@
-v3.1.1 (04.11.2022) - <<<EXPERIMENTAL BUILD; NOTHING IS TESTED>>>
+v3.1.1 (04.11.2022)
 
 - primary build system is now powered by Nix
 - repo restructured
