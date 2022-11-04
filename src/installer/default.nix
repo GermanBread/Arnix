@@ -1,7 +1,7 @@
 { lib, stdenv }: 
 
 stdenv.mkDerivation {
-  name = "arnix-tarball";
+  name = "arnix-installer";
 
   src = ./.;
 

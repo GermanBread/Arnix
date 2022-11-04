@@ -1,4 +1,4 @@
-#!bin/busybox sh
+#!/usr/bin/env false
 
 # will get overwritten by the definitions in shared.sh
 log() {
@@ -38,16 +38,16 @@ if [ ! -d /var/lib/systemd ]; then
     log 'Press enter to continue'
     read
 fi
-if [ ! -e image/etc ] && [ ! -e image/bin ]; then
+if [ ! -e ../image/etc ] && [ ! -e ../image/bin ]; then
     error "Setup files were not found ... (did you not cd into the script's directory?)"
     exit 1
 fi
 
-source image/bin/shared.sh
-alias ln="$(pwd)/image/bin/toybox ln"
-alias sha1sum="$(pwd)/image/bin/toybox sha1sum"
+source ../image/bin/shared.sh
+alias ln="$(pwd)/../image/bin/toybox ln"
+alias sha1sum="$(pwd)/../image/bin/toybox sha1sum"
 
-source image/etc/arnix.conf
+source ../image/etc/arnix.conf
 
 echo -e '\033[31m'
 cat << END
@@ -75,8 +75,8 @@ mkdir -p /arnix
 mkdir -p /arnix/var
 mkdir -p /arnix/var/init-hooks
 
-cp -a image/bin /arnix/bin
-cp -a image/etc /arnix/etc
+cp -a ../image/bin /arnix/bin
+cp -a ../image/etc /arnix/etc
 mv /arnix/etc/arnix.conf /arnix/arnix.conf
 #sha1sum arnix.conf >/arnix/.arnix.conf.sha1sum
 cp -a ../installer/arnix-bootstrap.sha1sum /arnix/var/arnix-bootstrap.sha1sum
