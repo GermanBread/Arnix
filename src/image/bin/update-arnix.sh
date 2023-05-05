@@ -94,5 +94,5 @@ fi
 rm -r /tmp/arnix-update
 rm -r /arnix/merge
 
-log 'Update complete. Merge /etc/arnix.conf.new at your convenience.'
+log 'Update complete. Merge /arnix/arnix.conf.new at your convenience.'
 exit

@@ -29,90 +29,150 @@ check_for_action_requirements() {
     fi
 }
 progress() {
-    awk -v"total=${1:-0}" -v"label=$2" '
-        BEGIN {
-            spinner[0] = "⠁"
-            spinner[1] = "⠉"
-            spinner[2] = "⠙"
-            spinner[3] = "⠛"
-            spinner[4] = "⠟"
-            spinner[5] = "⠿"
-            spinner[6] = "⠟"
-            spinner[7] = "⠛"
-            spinner[8] = "⠙"
-            spinner[9] = "⠉"
-		}
-		{
-			printf "\r\033[35m[%s %3d%%]\033(B\033[m %s", spinner[(NR + i) % 10], (NR / total) * 100, label
-		}
-		END {
-			printf "\r\033[35m[⠕ 100%%]\n"
-		}
-    ' -;
+    [[ $(tty) = '*tty*' ]] && \
+        awk -v"total=${1:-0}" -v"label=$2" '
+            BEGIN {
+                spinner[0] = "|"
+                spinner[1] = "/"
+                spinner[2] = "-"
+                spinner[3] = "\\"
+            }
+            {
+                printf "\r\033[35m[%s %3d%%]\033(B\033[m %s", spinner[NR % 4], (NR / total) * 100, label
+            }
+            END {
+                printf "\r\033[35m[⠕ 100%%]\n"
+            }
+        ' - || \
+            awk -v"total=${1:-0}" -v"label=$2" '
+                BEGIN {
+                    spinner[0] = "⠁"
+                    spinner[1] = "⠉"
+                    spinner[2] = "⠙"
+                    spinner[3] = "⠛"
+                    spinner[4] = "⠟"
+                    spinner[5] = "⠿"
+                    spinner[6] = "⠟"
+                    spinner[7] = "⠛"
+                    spinner[8] = "⠙"
+                    spinner[9] = "⠉"
+                }
+                {
+                    printf "\r\033[35m[%s %3d%%]\033(B\033[m %s", spinner[NR % 10], (NR / total) * 100, label
+                }
+                END {
+                    printf "\r\033[35m[⠕ 100%%]\n"
+                }
+            ' -;
 }
 progress_lc() {
-    awk -v"total=${1:-0}" -v"label=$2" '
-        BEGIN {
-            spinner[0] = "⠁"
-            spinner[1] = "⠉"
-            spinner[2] = "⠙"
-            spinner[3] = "⠛"
-            spinner[4] = "⠟"
-            spinner[5] = "⠿"
-            spinner[6] = "⠟"
-            spinner[7] = "⠛"
-            spinner[8] = "⠙"
-            spinner[9] = "⠉"
-		}
-		{
-			printf "\r\033[35m[%s %d|%d]\033(B\033[m %s", spinner[(NR + i) % 10], NR, total, label
-		}
-		END {
-			printf "\r\033[35m[⠕ 100%%]\n"
-		}
-    ' -;
+    [[ $(tty) = '*tty*' ]] && \
+        awk -v"total=${1:-0}" -v"label=$2" '
+            BEGIN {
+                spinner[0] = "|"
+                spinner[1] = "/"
+                spinner[2] = "-"
+                spinner[3] = "\\"
+            }
+            {
+                printf "\r\033[35m[%s %d|%d]\033(B\033[m %s", spinner[NR % 4], NR, total, label
+            }
+            END {
+                printf "\r\033[35m[⠕ 100%%]\033(B\033[m %s\033[0K\n", label
+            }
+        ' - || \
+            awk -v"total=${1:-0}" -v"label=$2" '
+                BEGIN {
+                    spinner[0] = "⠁"
+                    spinner[1] = "⠉"
+                    spinner[2] = "⠙"
+                    spinner[3] = "⠛"
+                    spinner[4] = "⠟"
+                    spinner[5] = "⠿"
+                    spinner[6] = "⠟"
+                    spinner[7] = "⠛"
+                    spinner[8] = "⠙"
+                    spinner[9] = "⠉"
+                }
+                {
+                    printf "\r\033[35m[%s %d|%d]\033(B\033[m %s", spinner[NR % 10], NR, total, label
+                }
+                END {
+                    printf "\r\033[35m[⠕ 100%%]\033(B\033[m %s\033[0K\n", label
+                }
+            ' -;
 }
 progress_unknown() {
-    awk -v"label=$1" '
-        BEGIN {
-            spinner[0] = "⠁"
-            spinner[1] = "⠉"
-            spinner[2] = "⠙"
-            spinner[3] = "⠛"
-            spinner[4] = "⠟"
-            spinner[5] = "⠿"
-            spinner[6] = "⠟"
-            spinner[7] = "⠛"
-            spinner[8] = "⠙"
-            spinner[9] = "⠉"
-		}
-		{
-			printf "\r\033[35m[%s  ??%%]\033(B\033[m %s", spinner[(NR + i) % 10], label
-		}
-		END {
-			printf "\r\033[35m[⠕ 100%%]\n"
-		}
-    ' -;
+    [[ $(tty) = '*tty*' ]] && \
+        awk -v"label=$1" '
+            BEGIN {
+                spinner[0] = "|"
+                spinner[1] = "/"
+                spinner[2] = "-"
+                spinner[3] = "\\"
+            }
+            {
+                printf "\r\033[35m[%s  ??%%]\033(B\033[m %s", spinner[NR % 4], label
+            }
+            END {
+                printf "\r\033[35m[⠕ 100%%]\n"
+            }
+        ' - || \
+            awk -v"label=$1" '
+                BEGIN {
+                    spinner[0] = "⠁"
+                    spinner[1] = "⠉"
+                    spinner[2] = "⠙"
+                    spinner[3] = "⠛"
+                    spinner[4] = "⠟"
+                    spinner[5] = "⠿"
+                    spinner[6] = "⠟"
+                    spinner[7] = "⠛"
+                    spinner[8] = "⠙"
+                    spinner[9] = "⠉"
+                }
+                {
+                    printf "\r\033[35m[%s  ??%%]\033(B\033[m %s", spinner[NR % 10], label
+                }
+                END {
+                    printf "\r\033[35m[⠕ 100%%]\n"
+                }
+            ' -;
 }
 progress_unknown_lc() {
-    awk -v"label=$1" '
-        BEGIN {
-            spinner[0] = "⠁"
-            spinner[1] = "⠉"
-            spinner[2] = "⠙"
-            spinner[3] = "⠛"
-            spinner[4] = "⠟"
-            spinner[5] = "⠿"
-            spinner[6] = "⠟"
-            spinner[7] = "⠛"
-            spinner[8] = "⠙"
-            spinner[9] = "⠉"
-		}
-		{
-			printf "\r\033[35m[%s %d]\033(B\033[m %s", spinner[(NR + i) % 10], NR, label
-		}
-		END {
-			printf "\r\033[35m[⠕]\033(B\033[m %s\033[0K\n", label
-		}
-    ' -;
+    [[ $(tty) = '*tty*' ]] && \
+        awk -v"label=$1" '
+            BEGIN {
+                spinner[0] = "|"
+                spinner[1] = "/"
+                spinner[2] = "-"
+                spinner[3] = "\\"
+            }
+            {
+                printf "\r\033[35m[%s %d]\033(B\033[m %s", spinner[NR % 4], NR, label
+            }
+            END {
+                printf "\r\033[35m[⠕]\033(B\033[m %s\033[0K\n", label
+            }
+        ' - || \
+            awk -v"label=$1" '
+                BEGIN {
+                    spinner[0] = "⠁"
+                    spinner[1] = "⠉"
+                    spinner[2] = "⠙"
+                    spinner[3] = "⠛"
+                    spinner[4] = "⠟"
+                    spinner[5] = "⠿"
+                    spinner[6] = "⠟"
+                    spinner[7] = "⠛"
+                    spinner[8] = "⠙"
+                    spinner[9] = "⠉"
+                }
+                {
+                    printf "\r\033[35m[%s %d]\033(B\033[m %s", spinner[NR % 10], NR, label
+                }
+                END {
+                    printf "\r\033[35m[⠕]\033(B\033[m %s\033[0K\n", label
+                }
+            ' -;
 }

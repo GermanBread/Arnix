@@ -43,16 +43,8 @@ EOF
         if [ -e /arnix/generations/${_next_generation} ]; then
             rm -rfv /arnix/generations/${_next_generation} | progress_unknown "Making some free space"
         fi
-        
-        _tmpfile=$(mktemp)
-        find /arnix/generations/${_current_generation} -type f 2>/dev/null | while read r; do
-            echo -n x >>$_tmpfile
-            echo x
-        done | progress_unknown_lc "Counting files needed for transaction"
-        _file_count=$(wc -m $_tmpfile | awk '{print$1}')
-        rm $_tmpfile
 
-        cp -val /arnix/generations/${_current_generation} /arnix/generations/${_next_generation} | progress_lc $_file_count "Creating generation"
+        cp -val /arnix/generations/${_current_generation} /arnix/generations/${_next_generation} | progress_unknown "Creating new generation"
     else
         rm -rf /arnix/generations/${_next_generation}
         cp -al /arnix/generations/${_current_generation} /arnix/generations/${_next_generation}
