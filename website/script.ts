@@ -1,10 +1,11 @@
-var logoScroll : number = 60
+let logoScroll: number = 60
+let logoElement: HTMLElement;
 
 function init() {
+    logoElement = document.getElementById("logo") ?? document.body // Stop annoying me VSCode. This is to shut you up
     window.addEventListener("scroll", handlescroll)
 }
 
 function handlescroll() {
-    var element = document.getElementById("logo") ?? document.body // Stop annoying me VSCode. This is to shut you up
-    element.style.opacity = ((logoScroll - window.scrollY) / logoScroll).toString()
+    logoElement.style.opacity = ((logoScroll - window.scrollY) / logoScroll).toString()
 }

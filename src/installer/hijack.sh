@@ -125,5 +125,5 @@ for i in ${_dirs}; do
     mount --bind /arnix/generations/1/$i /$i
 done
 
-log 'Arnix was successfully installed. You may continue using your system'
+log 'Arnix was installed successfully. You may continue using your system'
 log "Arnix can now be managed with 'arnixctl'!"
