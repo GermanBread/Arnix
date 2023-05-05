@@ -7,4 +7,4 @@ Type = Package
 Target = *
 [Action]
 When = PostTransaction
-Exec = /arnix/bin/create-generation.sh nocopy
+Exec = /arnix/bin/create-generation.sh nocopy --hook

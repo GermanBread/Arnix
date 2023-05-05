@@ -7,4 +7,4 @@ Type = Package
 Target = *
 [Action]
 When = PreTransaction
-Exec = /arnix/bin/create-generation.sh nosymlink
+Exec = /arnix/bin/create-generation.sh nosymlink --hook
