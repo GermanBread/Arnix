@@ -34,23 +34,31 @@ if [ -z $BASE_URL ]; then
     fi
 fi
 if [ -z $TARBALL ]; then
-    TARBALL="$BASE_URL/bootstrap.tar.gz";
+    TARBALL="$BASE_URL/arnix-bootstrap.tar.gz";
 fi
 if [ -z $HIJACK_SCRIPT ]; then
     HIJACK_SCRIPT="$BASE_URL/hijack-script";
 fi
 
+# prep
 temp=$(mktemp -d)
-cd $temp
-curl -SL $TARBALL >latest.tar.gz
+mkdir -p $temp/image $temp/installer
+
+# dl
+curl -SL $TARBALL >$temp/image/latest.tar.gz
 [ $? -ne 0 ] && exit 1
-curl -SL $HIJACK_SCRIPT >hijack-script
+curl -SL $HIJACK_SCRIPT >$temp/installer/hijack-script
 [ $? -ne 0 ] && exit 1
+
+# extract
+cd $temp/image
 tar xf latest.tar.gz
 rm latest.tar.gz
-cd Arnix-*/src/installer
+
+# install
+cd $temp/installer
 if $unattended_install; then
-    ../image/bin/busybox sh hijack-script --src-root=$(pwd) --unattended
+    ../image/bin/busybox sh hijack-script --unattended
 else
-    ../image/bin/busybox sh hijack-script --src-root=$(pwd)
+    ../image/bin/busybox sh hijack-script
 fi
