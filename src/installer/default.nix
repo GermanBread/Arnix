@@ -6,8 +6,10 @@ stdenv.mkDerivation {
   src = ./.;
 
   dontBuild = true;
+  dontPatchShebangs = true;
   installPhase = ''
-    mkdir -p $out/bin
-    install -m 777 install.sh $out/bin/install-arnix
+    mkdir -p $out
+    install -m 777 hijack.sh $out/hijack-script
+    install -m 777 install.sh $out/install-arnix
   '';
 }

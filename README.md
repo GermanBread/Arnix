@@ -6,7 +6,7 @@ Linux with generations - and a nice tool to mange those
 
 ## Installing
 
-Download the newest installer [from here](https://github.com/GermanBread/Arnix/raw/stable/installer/install.sh) and execute it as root
+Download the newest installer [from here](installer/install-arnix) and execute it as root
 
 ### Post install
 
